@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Telegram Z</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="title_activity_confirm_code">Confirmation</string>
+    <string name="enter_phone_title">Your Phone</string>
+    <string name="confirm_in">confrim_tick</string>
+    <string name="title_activity_chats_calls_profile">Chats</string>
+    <string name="title_chats">Chats</string>
+    <string name="title_calls">Calls</string>
+    <string name="title_profile">Profile</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
