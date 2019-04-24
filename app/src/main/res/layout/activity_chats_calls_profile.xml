@@ -21,4 +21,17 @@
         app:itemTextColor="@drawable/bottom_navigation_colors"
         app:menu="@menu/botttom_navigation" />
 
+    <FrameLayout
+        android:id="@+id/ccpFragmentFrame"
+        android:layout_width="395dp"
+        android:layout_height="659dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
+
 </android.support.constraint.ConstraintLayout>

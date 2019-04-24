@@ -1,18 +1,15 @@
 package com.maze.telegramz;
 
-import android.content.Context;
 import android.os.Environment;
-
-import java.util.NavigableSet;
-import java.util.TreeSet;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 import org.drinkless.td.libcore.telegram.Client;
 import org.drinkless.td.libcore.telegram.TdApi;
+
+import java.util.TreeSet;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Authentication {
     private static final TreeSet<OrderedChat> chatList = new TreeSet<>();
@@ -123,7 +120,7 @@ public class Authentication {
     }
 
 
-    private static void getChatList(final int limit) {
+    static void getChatList(final int limit) {
         synchronized (chatList) {
             if (!haveFullChatList && limit > chatList.size()) {
                 // have enough chats in the chat list or chat list is too small

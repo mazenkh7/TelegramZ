@@ -2,18 +2,12 @@ package com.maze.telegramz;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import java.util.Objects;
 
 public class ConfirmCodeActivity extends AppCompatActivity {
 
@@ -39,9 +33,10 @@ public class ConfirmCodeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem mi){
         switch (mi.getItemId()){
             case R.id.confirm_in_tick:
-                Toast.makeText(getApplicationContext(),"code is " + verfCodeField.getText().toString() ,Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(),"code is " + verfCodeField.getText().toString() ,Toast.LENGTH_LONG).show();
                 Authentication.sendVerfCode(verfCodeField.getText().toString());
-
+                final Intent intent = new Intent(this, ChatsCallsProfileActivity.class);
+                startActivity(intent);
         }
         return true;
     }

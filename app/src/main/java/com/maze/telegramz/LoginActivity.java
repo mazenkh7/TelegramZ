@@ -1,8 +1,8 @@
 package com.maze.telegramz;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
                     String countryCode = ccp.getSelectedCountryCodeWithPlus();
                     String phoneNum = phoneNumField.getText().toString();
                     Toast.makeText(getApplicationContext(),countryCode+phoneNum,Toast.LENGTH_SHORT).show();
-//                    Authentication.sendPhoneNum(countryCode+phoneNum);
+                    Authentication.sendPhoneNum(countryCode + phoneNum);
                     final Intent intent = new Intent(this, ConfirmCodeActivity.class);
                     intent.putExtra("phoneToVerify",countryCode+phoneNum);
                     startActivity(intent);
