@@ -6,17 +6,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import static com.maze.telegramz.Authentication.startClient;
+
 public class MainActivity extends AppCompatActivity {
-    private Button startBu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main);
         super.onCreate(savedInstanceState);
-        startBu = findViewById(R.id.startBu);
+        Button startBu = findViewById(R.id.startBu);
         final Intent intent = new Intent(this, LoginActivity.class);
         startBu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startClient();
                 startActivity(intent);
             }
         });

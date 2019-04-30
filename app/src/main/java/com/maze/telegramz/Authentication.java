@@ -1,6 +1,7 @@
 package com.maze.telegramz;
 
 import android.os.Environment;
+import android.util.Log;
 
 import org.drinkless.td.libcore.telegram.Client;
 import org.drinkless.td.libcore.telegram.TdApi;
@@ -111,7 +112,6 @@ public class Authentication {
 
     static void sendPhoneNum(String phoneNum) {
         setPhoneNum(phoneNum);
-        client = Client.create(new AuthUpdatesHandler(), null, null);
     }
 
     static void sendVerfCode(String verfCode) {
@@ -119,6 +119,9 @@ public class Authentication {
 //        client = Client.create(new AuthUpdatesHandler(), null, null);
     }
 
+    static void startClient(){
+        client = Client.create(new AuthUpdatesHandler(), null, null);
+    }
 
     static void getChatList(final int limit) {
         synchronized (chatList) {
@@ -146,16 +149,24 @@ public class Authentication {
                                     }
                                 }
                                 // chats had already been received through updates, let's retry request
-                                getChatList(limit);
+//                                getChatList(limit);
                                 break;
                             default:
-//                                System.err.println("Receive wrong response from TDLib:" + newLine + object);
+                                System.err.println("Receive wrong response from TDLib:" + object);
                         }
                     }
                 });
                 return;
             }
-
+            java.util.Iterator<OrderedChat> iter = chatList.iterator();
+            Log.d("STATE","First " + limit + " chat(s) out of " + chatList.size() + " known chat(s):");
+            for (int i = 0; i < limit; i++) {
+                long chatId = iter.next().chatId;
+                TdApi.Chat chat = chats.get(chatId);
+                synchronized (chat) {
+                    Log.d("STATE",chatId + ": " + chat.title);
+                }
+            }
         }
     }
 

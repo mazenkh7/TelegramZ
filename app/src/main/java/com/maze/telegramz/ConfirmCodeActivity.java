@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class ConfirmCodeActivity extends AppCompatActivity {
 
@@ -20,8 +19,6 @@ public class ConfirmCodeActivity extends AppCompatActivity {
         verfCodeField = findViewById(R.id.verfCodeField);
         Bundle extra = getIntent().getExtras();
         String ph = extra.getString("phoneToVerify");
-        if(ph!=null)
-            Toast.makeText(getApplicationContext(),ph,Toast.LENGTH_LONG).show();
         setTitle(ph);
     }
     public boolean onCreateOptionsMenu(Menu menu){
@@ -34,7 +31,7 @@ public class ConfirmCodeActivity extends AppCompatActivity {
         switch (mi.getItemId()){
             case R.id.confirm_in_tick:
 //                Toast.makeText(getApplicationContext(),"code is " + verfCodeField.getText().toString() ,Toast.LENGTH_LONG).show();
-                Authentication.sendVerfCode(verfCodeField.getText().toString());
+//                Authentication.sendVerfCode(verfCodeField.getText().toString());
                 final Intent intent = new Intent(this, ChatsCallsProfileActivity.class);
                 startActivity(intent);
         }

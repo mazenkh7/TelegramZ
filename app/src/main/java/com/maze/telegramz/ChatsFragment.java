@@ -4,12 +4,15 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import static com.maze.telegramz.Authentication.getChatList;
+import java.util.ArrayList;
+
 
 
 /**
@@ -29,7 +32,9 @@ public class ChatsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private RecyclerView chatRV;
+    private RecyclerView.Adapter chatRVAdapter;
+    private RecyclerView.LayoutManager chatRVLM;
     private OnFragmentInteractionListener mListener;
     private Button gcbu;
 
@@ -68,15 +73,34 @@ public class ChatsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_chats, container, false);
-        gcbu = view.findViewById(R.id.gcbu);
-        gcbu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getChatList(20);
-            }
-        });
+
+        ArrayList<ChatRecyclerItem> list = new ArrayList<>();
+        list.add(new ChatRecyclerItem(0,"Mazen","hi"));
+        list.add(new ChatRecyclerItem(0,"Nezam","bye"));
+        list.add(new ChatRecyclerItem(0,"Mazen","hi"));
+        list.add(new ChatRecyclerItem(0,"Nezam","bye"));
+        list.add(new ChatRecyclerItem(0,"Mazen","hi"));
+        list.add(new ChatRecyclerItem(0,"Nezam","bye"));
+        list.add(new ChatRecyclerItem(0,"Mazen","hi"));
+        list.add(new ChatRecyclerItem(0,"Nezam","bye"));
+        list.add(new ChatRecyclerItem(0,"Mazen","hi"));
+        list.add(new ChatRecyclerItem(0,"Nezam","bye"));
+        list.add(new ChatRecyclerItem(0,"Mazen","hi"));
+        list.add(new ChatRecyclerItem(0,"Nezam","bye"));
+        list.add(new ChatRecyclerItem(0,"Mazen","hi"));
+        list.add(new ChatRecyclerItem(0,"Nezam","bye"));
+        list.add(new ChatRecyclerItem(0,"Mazen","hi"));
+        list.add(new ChatRecyclerItem(0,"Nezam","bye"));
+        list.add(new ChatRecyclerItem(0,"Mazen","hi"));
+        list.add(new ChatRecyclerItem(0,"Nezam","bye"));
+
+        chatRV = view.findViewById(R.id.chatsRecycler);
+        chatRV.setHasFixedSize(true);
+        chatRVLM = new LinearLayoutManager(container.getContext());
+        chatRVAdapter = new ChatListAdapter(list);
+        chatRV.setLayoutManager(chatRVLM);
+        chatRV.setAdapter(chatRVAdapter);
         return view;
     }
 

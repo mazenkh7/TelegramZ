@@ -12,6 +12,8 @@ import android.widget.Button;
 
 import com.maze.telegramz.ChatsFragment.OnFragmentInteractionListener;
 
+import static com.maze.telegramz.Authentication.getChatList;
+
 
 public class ChatsCallsProfileActivity extends AppCompatActivity implements OnFragmentInteractionListener {
     FragmentManager fragmentManager;
@@ -44,13 +46,14 @@ public class ChatsCallsProfileActivity extends AppCompatActivity implements OnFr
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getChatList(20);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chats_calls_profile);
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.ccpFragmentFrame, new ChatsFragment(), "HELLO");
+        fragmentTransaction.replace(R.id.ccpFragmentFrame, new ChatsFragment(), "Chats Fragment");
         fragmentTransaction.commit();
     }
 
