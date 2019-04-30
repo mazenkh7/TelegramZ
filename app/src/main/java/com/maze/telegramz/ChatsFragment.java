@@ -11,8 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import org.drinkless.td.libcore.telegram.TdApi;
+
 import java.util.ArrayList;
 
+import static com.maze.telegramz.Telegram.chatList;
+import static com.maze.telegramz.Telegram.chats;
 
 
 /**
@@ -76,25 +80,15 @@ public class ChatsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_chats, container, false);
 
         ArrayList<ChatRecyclerItem> list = new ArrayList<>();
-        list.add(new ChatRecyclerItem(0,"Mazen","hi"));
-        list.add(new ChatRecyclerItem(0,"Nezam","bye"));
-        list.add(new ChatRecyclerItem(0,"Mazen","hi"));
-        list.add(new ChatRecyclerItem(0,"Nezam","bye"));
-        list.add(new ChatRecyclerItem(0,"Mazen","hi"));
-        list.add(new ChatRecyclerItem(0,"Nezam","bye"));
-        list.add(new ChatRecyclerItem(0,"Mazen","hi"));
-        list.add(new ChatRecyclerItem(0,"Nezam","bye"));
-        list.add(new ChatRecyclerItem(0,"Mazen","hi"));
-        list.add(new ChatRecyclerItem(0,"Nezam","bye"));
-        list.add(new ChatRecyclerItem(0,"Mazen","hi"));
-        list.add(new ChatRecyclerItem(0,"Nezam","bye"));
-        list.add(new ChatRecyclerItem(0,"Mazen","hi"));
-        list.add(new ChatRecyclerItem(0,"Nezam","bye"));
-        list.add(new ChatRecyclerItem(0,"Mazen","hi"));
-        list.add(new ChatRecyclerItem(0,"Nezam","bye"));
-        list.add(new ChatRecyclerItem(0,"Mazen","hi"));
-        list.add(new ChatRecyclerItem(0,"Nezam","bye"));
-
+        java.util.Iterator<Telegram.OrderedChat> iter = chatList.iterator();
+        for (int i = 0; i < chatList.size(); i++) {
+            long chatId = iter.next().chatId;
+            TdApi.Chat chat = chats.get(chatId);
+            synchronized (chat) {
+                TdApi.MessageText m = (TdApi.MessageText) chat.lastMessage.content;
+                list.add(new ChatRecyclerItem(0,chat.title,m.text.text));
+            }
+        }
         chatRV = view.findViewById(R.id.chatsRecycler);
         chatRV.setHasFixedSize(true);
         chatRVLM = new LinearLayoutManager(container.getContext());

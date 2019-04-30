@@ -20,8 +20,8 @@ public class Telegram {
     private static final ConcurrentMap<Integer, TdApi.Supergroup> supergroups = new ConcurrentHashMap<Integer, TdApi.Supergroup>();
     private static final ConcurrentMap<Integer, TdApi.SecretChat> secretChats = new ConcurrentHashMap<Integer, TdApi.SecretChat>();
 
-    private static final ConcurrentMap<Long, TdApi.Chat> chats = new ConcurrentHashMap<Long, TdApi.Chat>();
-    private static final NavigableSet<OrderedChat> chatList = new TreeSet<OrderedChat>();
+    static final ConcurrentMap<Long, TdApi.Chat> chats = new ConcurrentHashMap<Long, TdApi.Chat>();
+    static final NavigableSet<OrderedChat> chatList = new TreeSet<OrderedChat>();
     private static boolean haveFullChatList = false;
 
     private static final ConcurrentMap<Integer, TdApi.UserFullInfo> usersFullInfo = new ConcurrentHashMap<Integer, TdApi.UserFullInfo>();
@@ -341,7 +341,6 @@ public class Telegram {
                 client.send(new TdApi.GetChats(offsetOrder, offsetChatId, limit), new Client.ResultHandler() {
                     @Override
                     public void onResult(TdApi.Object object) {
-                        Log.e("tag","onresult");
 
                         switch (object.getConstructor()) {
                             case TdApi.Error.CONSTRUCTOR:
@@ -372,13 +371,15 @@ public class Telegram {
                 long chatId = iter.next().chatId;
                 TdApi.Chat chat = chats.get(chatId);
                 synchronized (chat) {
-                    Log.e("tag",chatId + ": " + chat.title);
+                    TdApi.MessageText m = (TdApi.MessageText) chat.lastMessage.content;
+//                    TdApi.FormattedText = m.text
+//                    Log.e("tag",chatId + ": " + chat.title + " : " + m.text.text);
                 }
             }
         }
     }
 
-    private static class OrderedChat implements Comparable<OrderedChat> {
+    static class OrderedChat implements Comparable<OrderedChat> {
         final long order;
         final long chatId;
 
