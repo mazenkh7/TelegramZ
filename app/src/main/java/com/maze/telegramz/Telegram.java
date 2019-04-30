@@ -1,5 +1,7 @@
 package com.maze.telegramz;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Environment;
 import android.util.Log;
 

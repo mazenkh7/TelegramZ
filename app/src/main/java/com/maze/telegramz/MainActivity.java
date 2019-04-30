@@ -1,6 +1,8 @@
 package com.maze.telegramz;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -13,18 +15,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         startClient();
-        if(Telegram.haveAuthorization)
-
-        setContentView(R.layout.activity_main);
         super.onCreate(savedInstanceState);
-        Button startBu = findViewById(R.id.startBu);
-        final Intent intent = new Intent(this, LoginActivity.class);
-        startBu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(intent);
-            }
-        });
+        SharedPreferences sp = getSharedPreferences("TZSP", Context.MODE_PRIVATE);
+        if (sp.getBoolean("Loggedin", true)) {
+            final Intent intent = new Intent(this, ChatsCallsProfileActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            setContentView(R.layout.activity_main);
+            Button startBu = findViewById(R.id.startBu);
+            final Intent intent = new Intent(this, LoginActivity.class);
+            startBu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(intent);
+                }
+            });
 //        SharedPreferences sp = getSharedPreferences("TZFS", Context.MODE_PRIVATE);
 //        if (!sp.getBoolean("first", false)) {
 //            SharedPreferences.Editor editor = sp.edit();
@@ -38,6 +44,6 @@ public class MainActivity extends AppCompatActivity {
 //            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1024);
             //take storage permission from user
 //        }
+        }
     }
-
 }

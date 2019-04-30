@@ -1,5 +1,7 @@
 package com.maze.telegramz;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -46,6 +48,10 @@ public class ChatsCallsProfileActivity extends AppCompatActivity implements OnFr
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences sp = getSharedPreferences("TZFS", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putBoolean("Loggedin", true);
+        editor.apply();
         getChatList(100);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chats_calls_profile);
