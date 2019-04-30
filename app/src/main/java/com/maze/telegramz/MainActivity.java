@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import static com.maze.telegramz.Authentication.startClient;
+import static com.maze.telegramz.Telegram.startClient;
 
 public class MainActivity extends AppCompatActivity {
     @Override

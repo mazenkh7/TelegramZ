@@ -12,7 +12,7 @@ import android.widget.Button;
 
 import com.maze.telegramz.ChatsFragment.OnFragmentInteractionListener;
 
-import static com.maze.telegramz.Authentication.getChatList;
+import static com.maze.telegramz.Telegram.getChatList;
 
 
 public class ChatsCallsProfileActivity extends AppCompatActivity implements OnFragmentInteractionListener {
@@ -46,7 +46,7 @@ public class ChatsCallsProfileActivity extends AppCompatActivity implements OnFr
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getChatList(20);
+        getChatList(100);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chats_calls_profile);
         BottomNavigationView navigation = findViewById(R.id.navigation);
