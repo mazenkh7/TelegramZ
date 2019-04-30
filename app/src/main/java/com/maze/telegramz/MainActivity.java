@@ -3,6 +3,7 @@ package com.maze.telegramz;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -11,6 +12,9 @@ import static com.maze.telegramz.Telegram.startClient;
 public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        startClient();
+        if(Telegram.haveAuthorization)
+
         setContentView(R.layout.activity_main);
         super.onCreate(savedInstanceState);
         Button startBu = findViewById(R.id.startBu);
@@ -18,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
         startBu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startClient();
                 startActivity(intent);
             }
         });

@@ -13,30 +13,33 @@
 
         <ImageView
             android:id="@+id/user_photo"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="61dp"
+            android:layout_height="match_parent"
             android:padding="2dp" />
 
         <TextView
             android:id="@+id/TextLine1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:layout_alignParentTop="true"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="4dp"
             android:layout_toEndOf="@+id/user_photo"
             android:text="Line 1"
             android:textColor="@android:color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/TextLine2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:layout_below="@+id/TextLine1"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="6dp"
             android:layout_toEndOf="@+id/user_photo"
             android:text="Line 2"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/tertiary_text_light"
             android:textSize="15sp" />
 
         <View

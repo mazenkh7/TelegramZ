@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 import static com.maze.telegramz.Telegram.chatList;
 import static com.maze.telegramz.Telegram.chats;
+import static com.maze.telegramz.Telegram.getChatList;
 
 
 /**
@@ -78,7 +79,7 @@ public class ChatsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chats, container, false);
-
+        getChatList(20);
         ArrayList<ChatRecyclerItem> list = new ArrayList<>();
         java.util.Iterator<Telegram.OrderedChat> iter = chatList.iterator();
         for (int i = 0; i < chatList.size(); i++) {

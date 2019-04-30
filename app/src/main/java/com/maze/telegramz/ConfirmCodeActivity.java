@@ -31,7 +31,7 @@ public class ConfirmCodeActivity extends AppCompatActivity {
         switch (mi.getItemId()){
             case R.id.confirm_in_tick:
 //                Toast.makeText(getApplicationContext(),"code is " + verfCodeField.getText().toString() ,Toast.LENGTH_LONG).show();
-//                Telegram.setVerfCode(verfCodeField.getText().toString());
+                Telegram.setVerfCode(verfCodeField.getText().toString());
                 final Intent intent = new Intent(this, ChatsCallsProfileActivity.class);
                 startActivity(intent);
         }

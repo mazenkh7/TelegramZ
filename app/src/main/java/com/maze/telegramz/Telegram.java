@@ -31,13 +31,14 @@ public class Telegram {
     private static Client client;
     private static final Lock authorizationLock = new ReentrantLock();
     private static final Condition gotAuthorization = authorizationLock.newCondition();
-    private static TdApi.AuthorizationState authorizationState;
+     static TdApi.AuthorizationState authorizationState;
     private static String phoneNum, verfCode, password;
-    private static boolean haveAuthorization;
+    static boolean haveAuthorization;
 
     private static int onAuthorizationStateUpdated(TdApi.AuthorizationState authorizationState) {
         if (authorizationState != null) {
             Telegram.authorizationState = authorizationState;
+            Log.e("hibitch", ""+authorizationState.toString());
         }
         switch (Telegram.authorizationState.getConstructor()) {
             case TdApi.AuthorizationStateWaitTdlibParameters.CONSTRUCTOR:
@@ -367,15 +368,19 @@ public class Telegram {
             }
             java.util.Iterator<OrderedChat> iter = chatList.iterator();
             Log.e("tag","First " + limit + " chat(s) out of " + chatList.size() + " known chat(s):");
-            for (int i = 0; i < limit; i++) {
-                long chatId = iter.next().chatId;
-                TdApi.Chat chat = chats.get(chatId);
-                synchronized (chat) {
-                    TdApi.MessageText m = (TdApi.MessageText) chat.lastMessage.content;
-//                    TdApi.FormattedText = m.text
+
+//            for (int i = 0; i < chatList.size(); i++) {
+//                long chatId = iter.next().chatId;
+//                TdApi.Chat chat = chats.get(chatId);
+//                synchronized (chat) {
+//                    TdApi.MessageText m = new TdApi.MessageText();
+//                    m.text = new TdApi.FormattedText();
+//                    m.text.text = "Message";
+//                    if(chat.lastMessage.content.getConstructor() == TdApi.MessageText.CONSTRUCTOR)
+//                        m = (TdApi.MessageText) chat.lastMessage.content;
 //                    Log.e("tag",chatId + ": " + chat.title + " : " + m.text.text);
-                }
-            }
+//                }
+//            }
         }
     }
 
