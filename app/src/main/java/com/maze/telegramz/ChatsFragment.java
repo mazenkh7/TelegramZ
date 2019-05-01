@@ -1,19 +1,29 @@
 package com.maze.telegramz;
 
 import android.content.Context;
+import android.icu.util.Calendar;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.support.v7.widget.DividerItemDecoration;
 
 import org.drinkless.td.libcore.telegram.TdApi;
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 import static com.maze.telegramz.Telegram.chatList;
 import static com.maze.telegramz.Telegram.chats;
@@ -87,7 +97,18 @@ public class ChatsFragment extends Fragment {
             TdApi.Chat chat = chats.get(chatId);
             synchronized (chat) {
                 TdApi.MessageText m = (TdApi.MessageText) chat.lastMessage.content;
-                list.add(new ChatRecyclerItem(0,chat.title,m.text.text));
+                long timeStamp = chat.lastMessage.date;
+                Date lastMsgDate = new java.util.Date(timeStamp*1000L);
+                Date now = new Date();
+                boolean ddiff = showDateNotTime(now,lastMsgDate);
+                String dateString;
+                if(ddiff)
+                    dateString = new SimpleDateFormat("dd MMM",Locale.getDefault()).format(lastMsgDate);
+                else
+                    dateString = new SimpleDateFormat("h:mm a",Locale.getDefault()).format(lastMsgDate);
+//                Log.e("timeeee",""+TimeZone.getDefault().getDisplayName(false,TimeZone.SHORT));
+                Log.e("DATEE",""+chat.title+"   "+dateString);
+                list.add(new ChatRecyclerItem(0,chat.title,m.text.text, dateString));
             }
         }
         chatRV = view.findViewById(R.id.chatsRecycler);
@@ -96,6 +117,9 @@ public class ChatsFragment extends Fragment {
         chatRVAdapter = new ChatListAdapter(list);
         chatRV.setLayoutManager(chatRVLM);
         chatRV.setAdapter(chatRVAdapter);
+        chatRV.addItemDecoration(new DividerItemDecoration(container.getContext(), LinearLayoutManager.VERTICAL));
+        chatRV.setAdapter(chatRVAdapter);
+
         return view;
     }
 
@@ -136,5 +160,10 @@ public class ChatsFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public static boolean showDateNotTime(Date a, Date b){
+        long diff = a.getTime() - b.getTime();
+        return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) > 1;
     }
 }

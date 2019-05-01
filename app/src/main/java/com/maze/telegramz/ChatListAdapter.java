@@ -31,6 +31,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatLi
         ChatRecyclerItem currentItem = cri.get(position);
         holder.getName().setText(currentItem.getNameLine());
         holder.getLastMsg().setText(currentItem.getLastMsgLine());
+        holder.getLastMsgTime().setText(currentItem.getDate());
     }
 
     @Override
@@ -43,6 +44,15 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatLi
         public ImageView displayPic;
         public TextView name;
         public TextView lastMsg;
+        public TextView lastMsgTime;
+
+        public TextView getLastMsgTime() {
+            return lastMsgTime;
+        }
+
+        public void setLastMsgTime(TextView lastMsgTime) {
+            this.lastMsgTime = lastMsgTime;
+        }
 
         public ImageView getDisplayPic() {
             return displayPic;
@@ -71,8 +81,9 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ChatLi
         public ChatListViewHolder(@NonNull View itemView) {
             super(itemView);
             displayPic = itemView.findViewById(R.id.user_photo);
-            name= itemView.findViewById(R.id.TextLine1);;
-            lastMsg= itemView.findViewById(R.id.TextLine2);;
+            name= itemView.findViewById(R.id.UserName);
+            lastMsg= itemView.findViewById(R.id.LastMessage);
+            lastMsgTime = itemView.findViewById(R.id.LastMessageTime);
         }
     }
 }

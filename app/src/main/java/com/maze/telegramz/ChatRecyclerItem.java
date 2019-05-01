@@ -1,14 +1,27 @@
 package com.maze.telegramz;
 
+import java.util.Date;
+
 public class ChatRecyclerItem {
     private int mImageResource;
     private String nameLine;
     private String lastMsgLine;
+    private String date;
 
-    public ChatRecyclerItem(int img, String L1, String L2){
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+
+    public ChatRecyclerItem(int img, String name, String lm, String d){
         mImageResource = img;
-        nameLine = L1;
-        lastMsgLine = L2;
+        nameLine = name;
+        lastMsgLine = lm;
+        date = d;
     }
 
     public int getmImageResource() {
@@ -22,4 +35,5 @@ public class ChatRecyclerItem {
     public String getLastMsgLine() {
         return lastMsgLine;
     }
+
 }
