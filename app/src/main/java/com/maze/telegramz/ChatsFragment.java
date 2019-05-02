@@ -1,28 +1,24 @@
 package com.maze.telegramz;
 
 import android.content.Context;
-import android.icu.util.Calendar;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.text.format.DateFormat;
-import android.util.Log;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.support.v7.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.DividerItemDecoration;
 
 import org.drinkless.td.libcore.telegram.TdApi;
 
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
-import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import static com.maze.telegramz.Telegram.chatList;
@@ -96,17 +92,23 @@ public class ChatsFragment extends Fragment {
             long chatId = iter.next().chatId;
             TdApi.Chat chat = chats.get(chatId);
             synchronized (chat) {
-                TdApi.MessageText m = (TdApi.MessageText) chat.lastMessage.content;
-                long timeStamp = chat.lastMessage.date;
-                Date lastMsgDate = new java.util.Date(timeStamp*1000L);
-                Date now = new Date();
-                boolean ddiff = showDateNotTime(now,lastMsgDate);
-                String dateString;
-                if(ddiff)
-                    dateString = new SimpleDateFormat("dd MMM",Locale.getDefault()).format(lastMsgDate);
-                else
-                    dateString = new SimpleDateFormat("h:mm a",Locale.getDefault()).format(lastMsgDate);
-                list.add(new ChatRecyclerItem(0,chat.title,m.text.text, dateString));
+                String lastMsg = "Message";
+                TdApi.MessageText m;
+                if(chat.lastMessage.content.getConstructor() == TdApi.MessageText.CONSTRUCTOR) {
+                    m = (TdApi.MessageText) chat.lastMessage.content;
+                    lastMsg = m.text.text;
+                }
+                    long timeStamp = chat.lastMessage.date;
+                    Date lastMsgDate = new java.util.Date(timeStamp * 1000L);
+                    Date now = new Date();
+                    boolean ddiff = showDateNotTime(now, lastMsgDate);
+                    String dateString;
+                    if (ddiff)
+                        dateString = new SimpleDateFormat("dd MMM", Locale.getDefault()).format(lastMsgDate);
+                    else
+                        dateString = new SimpleDateFormat("h:mm a", Locale.getDefault()).format(lastMsgDate);
+                    list.add(new ChatRecyclerItem(0, chat.title, lastMsg, dateString));
+
             }
         }
         chatRV = view.findViewById(R.id.chatsRecycler);

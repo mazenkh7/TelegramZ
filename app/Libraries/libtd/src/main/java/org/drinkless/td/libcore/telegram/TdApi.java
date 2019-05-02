@@ -1,7 +1,7 @@
 package org.drinkless.td.libcore.telegram;
 
-import android.support.annotation.Nullable;
-import android.support.annotation.IntDef;
+import androidx.annotation.Nullable;
+import androidx.annotation.IntDef;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
