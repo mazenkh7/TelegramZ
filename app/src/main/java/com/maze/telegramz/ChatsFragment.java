@@ -106,8 +106,6 @@ public class ChatsFragment extends Fragment {
                     dateString = new SimpleDateFormat("dd MMM",Locale.getDefault()).format(lastMsgDate);
                 else
                     dateString = new SimpleDateFormat("h:mm a",Locale.getDefault()).format(lastMsgDate);
-//                Log.e("timeeee",""+TimeZone.getDefault().getDisplayName(false,TimeZone.SHORT));
-                Log.e("DATEE",""+chat.title+"   "+dateString);
                 list.add(new ChatRecyclerItem(0,chat.title,m.text.text, dateString));
             }
         }
@@ -164,6 +162,6 @@ public class ChatsFragment extends Fragment {
 
     public static boolean showDateNotTime(Date a, Date b){
         long diff = a.getTime() - b.getTime();
-        return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) > 1;
+        return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) > 0;
     }
 }
