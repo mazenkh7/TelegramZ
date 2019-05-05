@@ -13,16 +13,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import androidx.recyclerview.widget.DividerItemDecoration;
 
-import org.drinkless.td.libcore.telegram.TdApi;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
-import static com.maze.telegramz.Telegram.chatList;
-import static com.maze.telegramz.Telegram.chats;
+import static com.maze.telegramz.ChatsAdapter.createChatsArrayList;
 import static com.maze.telegramz.Telegram.getChatList;
 
 
@@ -43,24 +36,16 @@ public class ChatsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private RecyclerView chatRV;
-    private RecyclerView.Adapter chatRVAdapter;
-    private RecyclerView.LayoutManager chatRVLM;
+    private RecyclerView chatsRecyclerView;
+    public static RecyclerView.Adapter chatsAdapter;
+    private RecyclerView.LayoutManager chatsLayoutManager;
     private OnFragmentInteractionListener mListener;
-    private Button gcbu;
+    public static ArrayList<ChatsItem> chatArrayList;
 
     public ChatsFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ChatsFragment.
-     */
     // TODO: Rename and change types and number of parameters
     public static ChatsFragment newInstance(String param1, String param2) {
         ChatsFragment fragment = new ChatsFragment();
@@ -86,39 +71,15 @@ public class ChatsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chats, container, false);
         getChatList(20);
-        ArrayList<ChatRecyclerItem> list = new ArrayList<>();
-        java.util.Iterator<Telegram.OrderedChat> iter = chatList.iterator();
-        for (int i = 0; i < chatList.size(); i++) {
-            long chatId = iter.next().chatId;
-            TdApi.Chat chat = chats.get(chatId);
-            synchronized (chat) {
-                String lastMsg = "Message";
-                TdApi.MessageText m;
-                if(chat.lastMessage.content.getConstructor() == TdApi.MessageText.CONSTRUCTOR) {
-                    m = (TdApi.MessageText) chat.lastMessage.content;
-                    lastMsg = m.text.text;
-                }
-                    long timeStamp = chat.lastMessage.date;
-                    Date lastMsgDate = new java.util.Date(timeStamp * 1000L);
-                    Date now = new Date();
-                    boolean ddiff = showDateNotTime(now, lastMsgDate);
-                    String dateString;
-                    if (ddiff)
-                        dateString = new SimpleDateFormat("dd MMM", Locale.getDefault()).format(lastMsgDate);
-                    else
-                        dateString = new SimpleDateFormat("h:mm a", Locale.getDefault()).format(lastMsgDate);
-                    list.add(new ChatRecyclerItem(0, chat.title, lastMsg, dateString));
-
-            }
-        }
-        chatRV = view.findViewById(R.id.chatsRecycler);
-        chatRV.setHasFixedSize(true);
-        chatRVLM = new LinearLayoutManager(container.getContext());
-        chatRVAdapter = new ChatListAdapter(list);
-        chatRV.setLayoutManager(chatRVLM);
-        chatRV.setAdapter(chatRVAdapter);
-        chatRV.addItemDecoration(new DividerItemDecoration(container.getContext(), LinearLayoutManager.VERTICAL));
-        chatRV.setAdapter(chatRVAdapter);
+        chatArrayList = createChatsArrayList();
+        chatsRecyclerView = view.findViewById(R.id.chatsRecycler);
+        chatsRecyclerView.setHasFixedSize(true);
+        chatsLayoutManager = new LinearLayoutManager(container.getContext());
+        chatsAdapter = new ChatsAdapter(chatArrayList);
+        chatsRecyclerView.setLayoutManager(chatsLayoutManager);
+        chatsRecyclerView.setAdapter(chatsAdapter);
+        chatsRecyclerView.addItemDecoration(new DividerItemDecoration(container.getContext(), LinearLayoutManager.VERTICAL));
+        chatsRecyclerView.setAdapter(chatsAdapter);
 
         return view;
     }
@@ -162,8 +123,4 @@ public class ChatsFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    public static boolean showDateNotTime(Date a, Date b){
-        long diff = a.getTime() - b.getTime();
-        return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) > 0;
-    }
 }

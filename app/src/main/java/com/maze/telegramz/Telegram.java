@@ -16,6 +16,12 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import static com.maze.telegramz.ChatsAdapter.createChatsArrayList;
+import static com.maze.telegramz.ChatsAdapter.makeDateString;
+import static com.maze.telegramz.ChatsAdapter.makeLastMsgLine;
+import static com.maze.telegramz.ChatsFragment.chatArrayList;
+import static com.maze.telegramz.ChatsFragment.chatsAdapter;
+
 public class Telegram {
     private static final ConcurrentMap<Integer, TdApi.User> users = new ConcurrentHashMap<Integer, TdApi.User>();
     private static final ConcurrentMap<Integer, TdApi.BasicGroup> basicGroups = new ConcurrentHashMap<Integer, TdApi.BasicGroup>();
@@ -176,6 +182,9 @@ public class Telegram {
                     synchronized (chat) {
                         chat.lastMessage = updateChat.lastMessage;
                         setChatOrder(chat, updateChat.order);
+                        chatArrayList = createChatsArrayList();
+                        chatsAdapter = new ChatsAdapter(chatArrayList);
+
                     }
                     break;
                 }
@@ -328,8 +337,6 @@ public class Telegram {
     }
 
     static void getChatList(final int limit) {
-        Log.e("maze","start");
-
         synchronized (chatList) {
             Log.e("tag",""+chatList.size());
             if (!haveFullChatList && limit > chatList.size()) {
