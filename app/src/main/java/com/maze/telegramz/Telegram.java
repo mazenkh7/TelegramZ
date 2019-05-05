@@ -36,7 +36,7 @@ public class Telegram {
     private static final ConcurrentMap<Integer, TdApi.BasicGroupFullInfo> basicGroupsFullInfo = new ConcurrentHashMap<Integer, TdApi.BasicGroupFullInfo>();
     private static final ConcurrentMap<Integer, TdApi.SupergroupFullInfo> supergroupsFullInfo = new ConcurrentHashMap<Integer, TdApi.SupergroupFullInfo>();
 
-    private static Client client;
+    public static Client client;
     private static final Lock authorizationLock = new ReentrantLock();
     private static final Condition gotAuthorization = authorizationLock.newCondition();
      static TdApi.AuthorizationState authorizationState;
@@ -46,7 +46,6 @@ public class Telegram {
     private static int onAuthorizationStateUpdated(TdApi.AuthorizationState authorizationState) {
         if (authorizationState != null) {
             Telegram.authorizationState = authorizationState;
-            Log.e("hibitch", ""+authorizationState.toString());
         }
         switch (Telegram.authorizationState.getConstructor()) {
             case TdApi.AuthorizationStateWaitTdlibParameters.CONSTRUCTOR:
@@ -334,6 +333,11 @@ public class Telegram {
 
     static void startClient(){
         client = Client.create(new UpdatesHandler(), null, null);
+//        experimenting registering device with FCM
+//        NotificationService.updateToken();
+//        Log.e("TOKEN","uuu "+NotificationService.getToken());
+//        client.send(new TdApi.RegisterDevice(new TdApi.DeviceTokenGoogleCloudMessaging(NotificationService.getToken()),null), null);
+//        end experimenting
     }
 
     static void getChatList(final int limit) {

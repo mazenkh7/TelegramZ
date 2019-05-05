@@ -13,6 +13,9 @@ import android.view.MenuItem;
 
 import com.maze.telegramz.ChatsFragment.OnFragmentInteractionListener;
 
+import org.drinkless.td.libcore.telegram.TdApi;
+
+import static com.maze.telegramz.Telegram.client;
 import static com.maze.telegramz.Telegram.getChatList;
 
 
@@ -46,6 +49,7 @@ public class HomeActivity extends AppCompatActivity implements OnFragmentInterac
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        client.send(new TdApi.RegisterDevice(new TdApi.DeviceTokenGoogleCloudMessaging(),null), null);
         SharedPreferences sp = getSharedPreferences("TZSP", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putBoolean("Loggedin", true);

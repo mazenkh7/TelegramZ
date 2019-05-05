@@ -80,7 +80,6 @@ public class ChatsFragment extends Fragment {
         chatsRecyclerView.setAdapter(chatsAdapter);
         chatsRecyclerView.addItemDecoration(new DividerItemDecoration(container.getContext(), LinearLayoutManager.VERTICAL));
         chatsRecyclerView.setAdapter(chatsAdapter);
-
         return view;
     }
 

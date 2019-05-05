@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "334173626029",
+    "firebase_url": "https://telegramz-969ad.firebaseio.com",
+    "project_id": "telegramz-969ad",
+    "storage_bucket": "telegramz-969ad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:334173626029:android:5e0e86b13af7211a",
+        "android_client_info": {
+          "package_name": "com.maze.telegramz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "334173626029-te74fomc5i7nga3ovl7v6tbgp7je0iu2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6cTdpT5jCFfmgaYUeR-m8DzVlA15O0l4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "334173626029-te74fomc5i7nga3ovl7v6tbgp7je0iu2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
