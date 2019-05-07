@@ -49,7 +49,6 @@ public class HomeActivity extends AppCompatActivity implements OnFragmentInterac
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        client.send(new TdApi.RegisterDevice(new TdApi.DeviceTokenGoogleCloudMessaging(),null), null);
         SharedPreferences sp = getSharedPreferences("TZSP", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putBoolean("Loggedin", true);
