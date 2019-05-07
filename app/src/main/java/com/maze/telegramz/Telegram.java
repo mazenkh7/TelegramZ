@@ -334,15 +334,13 @@ public class Telegram {
     static void startClient(){
         client = Client.create(new UpdatesHandler(), null, null);
 //        experimenting registering device with FCM
-//        NotificationService.updateToken();
-//        Log.e("TOKEN","uuu "+NotificationService.getToken());
+        NotificationService.updateToken();
 //        client.send(new TdApi.RegisterDevice(new TdApi.DeviceTokenGoogleCloudMessaging(NotificationService.getToken()),null), null);
 //        end experimenting
     }
 
     static void getChatList(final int limit) {
         synchronized (chatList) {
-            Log.e("tag",""+chatList.size());
             if (!haveFullChatList && limit > chatList.size()) {
                 // have enough chats in the chat list or chat list is too small
                 long offsetOrder = Long.MAX_VALUE;
@@ -362,7 +360,6 @@ public class Telegram {
                                 break;
                             case TdApi.Chats.CONSTRUCTOR:
                                 long[] chatIds = ((TdApi.Chats) object).chatIds;
-                                Log.e("tag",""+chatIds.length);
                                 if (chatIds.length == 0) {
                                     synchronized (chatList) {
                                         haveFullChatList = true;
@@ -380,20 +377,6 @@ public class Telegram {
                 return;
             }
             java.util.Iterator<OrderedChat> iter = chatList.iterator();
-            Log.e("tag","First " + limit + " chat(s) out of " + chatList.size() + " known chat(s):");
-
-//            for (int i = 0; i < chatList.size(); i++) {
-//                long chatId = iter.next().chatId;
-//                TdApi.Chat chat = chats.get(chatId);
-//                synchronized (chat) {
-//                    TdApi.MessageText m = new TdApi.MessageText();
-//                    m.text = new TdApi.FormattedText();
-//                    m.text.text = "Message";
-//                    if(chat.lastMessage.content.getConstructor() == TdApi.MessageText.CONSTRUCTOR)
-//                        m = (TdApi.MessageText) chat.lastMessage.content;
-//                    Log.e("tag",chatId + ": " + chat.title + " : " + m.text.text);
-//                }
-//            }
         }
     }
 

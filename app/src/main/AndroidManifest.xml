@@ -26,7 +26,7 @@
             android:name=".LoginActivity"
             android:label="@string/enter_phone_title" />
         <activity
-            android:name=".MainActivity"
+            android:name=".IntroActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -109,7 +109,6 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListView
             synchronized (chat) {
                 String lastMsg = makeLastMsgLine(chat);
                 File f = null;
-                    Log.e("a7a",chat.photo.toString());
                 long timeStamp = chat.lastMessage.date;
                 String dateString = makeDateString(timeStamp);
                 list.add(new ChatsItem(chat.id,f, chat.title, lastMsg, dateString));
