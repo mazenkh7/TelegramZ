@@ -22,7 +22,6 @@ public class NotificationService extends FirebaseMessagingService {
 
     @Override
     public void onNewToken(String token) {
-        Log.e("111", "GOT TOKEN YAY:\n" + token);
         NotificationService.token = token;
         if (getToken() != null && !getToken().isEmpty())
             client.send(new TdApi.RegisterDevice(new TdApi.DeviceTokenGoogleCloudMessaging(getToken()), null), null);
@@ -34,12 +33,10 @@ public class NotificationService extends FirebaseMessagingService {
                     @Override
                     public void onComplete(@NonNull Task<InstanceIdResult> task) {
                         if (!task.isSuccessful()) {
-                            Log.e("111", "getInstanceId failed", task.getException());
                             return;
                         }
                         // Get new Instance ID token
                         token = task.getResult().getToken();
-                        Log.e("111", "GOT TOKEN YAY:\n" + token);
                         if (getToken() != null && !getToken().isEmpty())
                             client.send(new TdApi.RegisterDevice(new TdApi.DeviceTokenGoogleCloudMessaging(getToken()), null), null);
                     }
@@ -52,7 +49,6 @@ public class NotificationService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        // ...
 
         // TODO(developer): Handle FCM messages here.
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ

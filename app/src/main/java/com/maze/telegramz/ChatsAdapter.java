@@ -15,6 +15,8 @@ import org.drinkless.td.libcore.telegram.TdApi;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -111,8 +113,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListView
                 File f = null;
                 long timeStamp = chat.lastMessage.date;
                 String dateString = makeDateString(timeStamp);
-                list.add(new ChatsItem(chat.id,f, chat.title, lastMsg, dateString));
-
+                list.add(new ChatsItem(chat.id,f, chat.title, lastMsg, dateString,chat.order));
             }
         }
         return list;

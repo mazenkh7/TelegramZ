@@ -5,7 +5,7 @@ import android.graphics.BitmapFactory;
 
 import java.io.File;
 
-public class ChatsItem {
+public class ChatsItem implements Comparable<ChatsItem>{
     private long id;
 
     public void setNameLine(String nameLine) {
@@ -20,6 +20,7 @@ public class ChatsItem {
     private String nameLine;
     private String lastMsgLine;
     private String date;
+    private long order;
 
     public String getDate() {
         return date;
@@ -30,15 +31,16 @@ public class ChatsItem {
     }
 
 
-    public ChatsItem(long id, File img, String name, String lm, String d){
-        Bitmap m = null;
-        if(img!=null)
-            m = BitmapFactory.decodeFile(img.getAbsolutePath());
-        displayPic = m;
-        nameLine = name;
-        lastMsgLine = lm;
-        date = d;
+    public ChatsItem(long id, File displayPic, String name, String lastMessage, String date, long order){
+        Bitmap bm = null;
+        if(displayPic!=null)
+            bm = BitmapFactory.decodeFile(displayPic.getAbsolutePath());
+        this.displayPic = bm;
+        this.nameLine = name;
+        this.lastMsgLine = lastMessage;
+        this.date = date;
         this.id = id;
+        this.order = order;
     }
 
     public Bitmap getDisplayPic() {
@@ -55,5 +57,30 @@ public class ChatsItem {
 
     public long getId() {
         return id;
+    }
+
+    public long getOrder() {
+        return order;
+    }
+
+    public void setOrder(long order) {
+        this.order = order;
+    }
+
+    @Override
+    public int compareTo(ChatsItem o) {
+        if (this.order != o.order) {
+            return o.order < this.order ? -1 : 1;
+        }
+        if (this.id != o.id) {
+            return o.id < this.id ? -1 : 1;
+        }
+        return 0;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        ChatsItem o = (ChatsItem) obj;
+        return this.order == o.order && this.id == o.id;
     }
 }

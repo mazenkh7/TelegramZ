@@ -7,10 +7,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+
 import androidx.recyclerview.widget.DividerItemDecoration;
 
 import java.util.ArrayList;
@@ -40,7 +41,8 @@ public class ChatsFragment extends Fragment {
     public static RecyclerView.Adapter chatsAdapter;
     private RecyclerView.LayoutManager chatsLayoutManager;
     private OnFragmentInteractionListener mListener;
-    public static ArrayList<ChatsItem> chatArrayList;
+    public static ArrayList<ChatsItem> chatsArrayList;
+    public static ViewGroup chatsViewGroup;
 
     public ChatsFragment() {
         // Required empty public constructor
@@ -70,16 +72,18 @@ public class ChatsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chats, container, false);
-        getChatList(20);
-        chatArrayList = createChatsArrayList();
+        getChatList(200);
+        chatsArrayList = createChatsArrayList();
         chatsRecyclerView = view.findViewById(R.id.chatsRecycler);
         chatsRecyclerView.setHasFixedSize(true);
         chatsLayoutManager = new LinearLayoutManager(container.getContext());
-        chatsAdapter = new ChatsAdapter(chatArrayList);
+        chatsAdapter = new ChatsAdapter(chatsArrayList);
         chatsRecyclerView.setLayoutManager(chatsLayoutManager);
         chatsRecyclerView.setAdapter(chatsAdapter);
         chatsRecyclerView.addItemDecoration(new DividerItemDecoration(container.getContext(), LinearLayoutManager.VERTICAL));
         chatsRecyclerView.setAdapter(chatsAdapter);
+        chatsViewGroup = container;
+        Log.e("create" , "frag");
         return view;
     }
 
