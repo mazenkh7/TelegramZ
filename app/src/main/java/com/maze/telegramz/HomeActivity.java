@@ -17,10 +17,7 @@ import android.view.MenuItem;
 
 import com.maze.telegramz.ChatsFragment.OnFragmentInteractionListener;
 
-import org.drinkless.td.libcore.telegram.TdApi;
-
 import static com.maze.telegramz.ChatsFragment.chatsAdapter;
-import static com.maze.telegramz.Telegram.client;
 import static com.maze.telegramz.Telegram.getChatList;
 
 
@@ -51,6 +48,13 @@ public class HomeActivity extends AppCompatActivity implements OnFragmentInterac
             return false;
         }
     };
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        getChatList(100);
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

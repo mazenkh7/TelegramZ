@@ -5,20 +5,31 @@ import android.graphics.BitmapFactory;
 
 import java.io.File;
 
-public class ChatsItem implements Comparable<ChatsItem>{
+public class ChatsItem implements Comparable<ChatsItem> {
     private long id;
 
-    public void setNameLine(String nameLine) {
-        this.nameLine = nameLine;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setLastMsgLine(String lastMsgLine) {
-        this.lastMsgLine = lastMsgLine;
+    public void setLastMsg(String lastMsg) {
+        this.lastMsg = lastMsg.replaceAll("\n", " ");
+    }
+
+    private long displayPicID;
+
+    public void setDisplayPic(Bitmap displayPic) {
+        this.displayPic = displayPic;
+    }
+
+    public void setDisplayPic(File displayPic) {
+        if (displayPic != null)
+            this.displayPic = BitmapFactory.decodeFile(displayPic.getAbsolutePath());
     }
 
     private Bitmap displayPic;
-    private String nameLine;
-    private String lastMsgLine;
+    private String title;
+    private String lastMsg;
     private String date;
     private long order;
 
@@ -31,13 +42,11 @@ public class ChatsItem implements Comparable<ChatsItem>{
     }
 
 
-    public ChatsItem(long id, File displayPic, String name, String lastMessage, String date, long order){
-        Bitmap bm = null;
-        if(displayPic!=null)
-            bm = BitmapFactory.decodeFile(displayPic.getAbsolutePath());
-        this.displayPic = bm;
-        this.nameLine = name;
-        this.lastMsgLine = lastMessage;
+    public ChatsItem(long id, File displayPic, String name, String lastMessage, String date, long order) {
+        if (displayPic != null)
+            this.displayPic = BitmapFactory.decodeFile(displayPic.getAbsolutePath());
+        this.title = name;
+        this.lastMsg = lastMessage.replaceAll("\n", " ");
         this.date = date;
         this.id = id;
         this.order = order;
@@ -47,12 +56,12 @@ public class ChatsItem implements Comparable<ChatsItem>{
         return displayPic;
     }
 
-    public String getNameLine() {
-        return nameLine;
+    public String getTitle() {
+        return title;
     }
 
-    public String getLastMsgLine() {
-        return lastMsgLine;
+    public String getLastMsg() {
+        return lastMsg;
     }
 
     public long getId() {
@@ -82,5 +91,13 @@ public class ChatsItem implements Comparable<ChatsItem>{
     public boolean equals(Object obj) {
         ChatsItem o = (ChatsItem) obj;
         return this.order == o.order && this.id == o.id;
+    }
+
+    public long getDisplayPicID() {
+        return displayPicID;
+    }
+
+    public void setDisplayPicID(long displayPicID) {
+        this.displayPicID = displayPicID;
     }
 }

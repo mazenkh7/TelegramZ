@@ -1,6 +1,5 @@
 package com.maze.telegramz;
 
-import android.app.Activity;
 import android.os.Environment;
 import android.util.Log;
 
@@ -8,7 +7,6 @@ import org.drinkless.td.libcore.telegram.Client;
 import org.drinkless.td.libcore.telegram.TdApi;
 
 import java.io.File;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.NavigableSet;
 import java.util.TreeSet;
@@ -18,12 +16,9 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import static com.maze.telegramz.ChatsAdapter.createChatsArrayList;
 import static com.maze.telegramz.ChatsAdapter.makeDateString;
-import static com.maze.telegramz.ChatsAdapter.makeLastMsgLine;
+import static com.maze.telegramz.ChatsAdapter.makeLastMsgStr;
 import static com.maze.telegramz.ChatsFragment.chatsArrayList;
-import static com.maze.telegramz.ChatsFragment.chatsAdapter;
-import static com.maze.telegramz.ChatsFragment.chatsViewGroup;
 import static com.maze.telegramz.HomeActivity.ic;
 
 public class Telegram {
@@ -43,7 +38,7 @@ public class Telegram {
     public static Client client;
     private static final Lock authorizationLock = new ReentrantLock();
     private static final Condition gotAuthorization = authorizationLock.newCondition();
-     static TdApi.AuthorizationState authorizationState;
+    static TdApi.AuthorizationState authorizationState;
     private static String phoneNum, verfCode, password;
     static boolean haveAuthorization;
 
@@ -131,7 +126,7 @@ public class Telegram {
                     TdApi.UpdateUser updateUser = (TdApi.UpdateUser) object;
                     users.put(updateUser.user.id, updateUser.user);
                     break;
-                case TdApi.UpdateUserStatus.CONSTRUCTOR:  {
+                case TdApi.UpdateUserStatus.CONSTRUCTOR: {
                     TdApi.UpdateUserStatus updateUserStatus = (TdApi.UpdateUserStatus) object;
                     TdApi.User user = users.get(updateUserStatus.userId);
                     synchronized (user) {
@@ -170,6 +165,7 @@ public class Telegram {
                     synchronized (chat) {
                         chat.title = updateChat.title;
                     }
+                    getRecyclerChatsItem(chat.id).setTitle(chat.title);
                     break;
                 }
                 case TdApi.UpdateChatPhoto.CONSTRUCTOR: {
@@ -178,6 +174,7 @@ public class Telegram {
                     synchronized (chat) {
                         chat.photo = updateChat.photo;
                     }
+                    client.send(new TdApi.DownloadFile(chat.photo.small.id, 1), null);
                     break;
                 }
                 case TdApi.UpdateChatLastMessage.CONSTRUCTOR: {
@@ -187,7 +184,10 @@ public class Telegram {
                         chat.lastMessage = updateChat.lastMessage;
                         setChatOrder(chat, updateChat.order);
                     }
-                    updateChatsItem(chat);
+                    ChatsItem i = getRecyclerChatsItem(chat.id);
+                    i.setLastMsg(makeLastMsgStr(chat));
+                    i.setDate(makeDateString(chat.lastMessage.date));
+                    updateChatOrder(chat);
                     break;
                 }
                 case TdApi.UpdateChatOrder.CONSTRUCTOR: {
@@ -196,7 +196,7 @@ public class Telegram {
                     synchronized (chat) {
                         setChatOrder(chat, updateChat.order);
                     }
-                    updateChatsItem(chat);
+                    updateChatOrder(chat);
                     break;
                 }
                 case TdApi.UpdateChatIsPinned.CONSTRUCTOR: {
@@ -206,7 +206,7 @@ public class Telegram {
                         chat.isPinned = updateChat.isPinned;
                         setChatOrder(chat, updateChat.order);
                     }
-                    updateChatsItem(chat);
+                    updateChatOrder(chat);
                     break;
                 }
                 case TdApi.UpdateChatReadInbox.CONSTRUCTOR: {
@@ -216,7 +216,7 @@ public class Telegram {
                         chat.lastReadInboxMessageId = updateChat.lastReadInboxMessageId;
                         chat.unreadCount = updateChat.unreadCount;
                     }
-                    updateChatsItem(chat);
+                    updateChatOrder(chat);
                     break;
                 }
                 case TdApi.UpdateChatReadOutbox.CONSTRUCTOR: {
@@ -225,7 +225,7 @@ public class Telegram {
                     synchronized (chat) {
                         chat.lastReadOutboxMessageId = updateChat.lastReadOutboxMessageId;
                     }
-                    updateChatsItem(chat);
+                    updateChatOrder(chat);
                     break;
                 }
                 case TdApi.UpdateChatUnreadMentionCount.CONSTRUCTOR: {
@@ -234,7 +234,7 @@ public class Telegram {
                     synchronized (chat) {
                         chat.unreadMentionCount = updateChat.unreadMentionCount;
                     }
-                    updateChatsItem(chat);
+                    updateChatOrder(chat);
                     break;
                 }
                 case TdApi.UpdateMessageMentionRead.CONSTRUCTOR: {
@@ -243,7 +243,7 @@ public class Telegram {
                     synchronized (chat) {
                         chat.unreadMentionCount = updateChat.unreadMentionCount;
                     }
-                    updateChatsItem(chat);
+                    updateChatOrder(chat);
                     break;
                 }
                 case TdApi.UpdateChatReplyMarkup.CONSTRUCTOR: {
@@ -252,7 +252,7 @@ public class Telegram {
                     synchronized (chat) {
                         chat.replyMarkupMessageId = updateChat.replyMarkupMessageId;
                     }
-                    updateChatsItem(chat);
+                    updateChatOrder(chat);
                     break;
                 }
                 case TdApi.UpdateChatDraftMessage.CONSTRUCTOR: {
@@ -262,7 +262,7 @@ public class Telegram {
                         chat.draftMessage = updateChat.draftMessage;
                         setChatOrder(chat, updateChat.order);
                     }
-                    updateChatsItem(chat);
+                    updateChatOrder(chat);
                     break;
                 }
                 case TdApi.UpdateChatNotificationSettings.CONSTRUCTOR: {
@@ -296,7 +296,7 @@ public class Telegram {
                         chat.isSponsored = updateChat.isSponsored;
                         setChatOrder(chat, updateChat.order);
                     }
-                    updateChatsItem(chat);
+                    updateChatOrder(chat);
                     break;
                 }
                 case TdApi.UpdateUserFullInfo.CONSTRUCTOR:
@@ -307,6 +307,16 @@ public class Telegram {
                     TdApi.UpdateBasicGroupFullInfo updateBasicGroupFullInfo = (TdApi.UpdateBasicGroupFullInfo) object;
                     basicGroupsFullInfo.put(updateBasicGroupFullInfo.basicGroupId, updateBasicGroupFullInfo.basicGroupFullInfo);
                     break;
+                case TdApi.UpdateFile.CONSTRUCTOR:
+                    TdApi.UpdateFile updateFile = (TdApi.UpdateFile) object;
+                    if (updateFile.file.local.isDownloadingCompleted) {
+                        for (ChatsItem i : chatsArrayList) {
+                            if (i.getDisplayPicID() == updateFile.file.id)
+                                i.setDisplayPic(new File(updateFile.file.local.path));
+                        }
+                        ic.refreshChatsRecycler();
+                    }
+
                 case TdApi.UpdateSupergroupFullInfo.CONSTRUCTOR:
                     TdApi.UpdateSupergroupFullInfo updateSupergroupFullInfo = (TdApi.UpdateSupergroupFullInfo) object;
                     supergroupsFullInfo.put(updateSupergroupFullInfo.supergroupId, updateSupergroupFullInfo.supergroupFullInfo);
@@ -342,7 +352,7 @@ public class Telegram {
     }
 
 
-    static void startClient(){
+    static void startClient() {
         client = Client.create(new UpdatesHandler(), null, null);
 //        experimenting registering device with FCM
         NotificationService.updateToken();
@@ -366,7 +376,7 @@ public class Telegram {
 
                         switch (object.getConstructor()) {
                             case TdApi.Error.CONSTRUCTOR:
-                                Log.e("tag","Receive an error for GetChats:\n" + object);
+                                Log.e("tag", "Receive an error for GetChats:\n" + object);
                                 break;
                             case TdApi.Chats.CONSTRUCTOR:
                                 long[] chatIds = ((TdApi.Chats) object).chatIds;
@@ -379,30 +389,40 @@ public class Telegram {
                                 getChatList(limit);
                                 break;
                             default:
-                                Log.e("tag","Receive wrong response from TDLib:" + object);
+                                Log.e("tag", "Receive wrong response from TDLib:" + object);
 
                         }
                     }
                 });
                 return;
             }
-//            java.util.Iterator<OrderedChat> iter = chatList.iterator();
         }
     }
 
-    public static void updateChatsItem(TdApi.Chat chat){
-        for (ChatsItem i: chatsArrayList) {
-            if(chat.id == i.getId()){
-                chatsArrayList.remove(i);
-                String lastMsg = makeLastMsgLine(chat);
-                File f = null;
-                long timeStamp = chat.lastMessage.date;
-                String dateString = makeDateString(timeStamp);
-                chatsArrayList.add(new ChatsItem(chat.id,f, chat.title, lastMsg, dateString,chat.order));
-                Collections.sort(chatsArrayList);
-                ic.refreshChatsRecycler();
-            }
+    public static void updateChatOrder(TdApi.Chat chat) {
+        ChatsItem i = getRecyclerChatsItem(chat.id);
+//        for (ChatsItem i : chatsArrayList) {
+//            if (chat.id == i.getId()) {
+//                chatsArrayList.remove(i);
+//                String lastMsg = makeLastMsgStr(chat);
+//                File f = null;
+//                long timeStamp = chat.lastMessage.date;
+//                String dateString = makeDateString(timeStamp);
+//                Log.e("phz", chat.photo.small.remote.toString());
+//                chatsArrayList.add(new ChatsItem(chat.id,f, chat.title, lastMsg, dateString,chat.order));
+        i.setOrder(chat.order);
+        Collections.sort(chatsArrayList);
+        ic.refreshChatsRecycler();
+//            }
+//        }
+    }
+
+    public static ChatsItem getRecyclerChatsItem(long id) {
+        for (ChatsItem i : chatsArrayList) {
+            if (id == i.getId())
+                return i;
         }
+        return null;
     }
 
     static class OrderedChat implements Comparable<OrderedChat> {

@@ -83,7 +83,6 @@ public class ChatsFragment extends Fragment {
         chatsRecyclerView.addItemDecoration(new DividerItemDecoration(container.getContext(), LinearLayoutManager.VERTICAL));
         chatsRecyclerView.setAdapter(chatsAdapter);
         chatsViewGroup = container;
-        Log.e("create" , "frag");
         return view;
     }
 

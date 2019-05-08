@@ -15,15 +15,12 @@ import org.drinkless.td.libcore.telegram.TdApi;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import static com.maze.telegramz.Telegram.chatList;
 import static com.maze.telegramz.Telegram.chats;
-import static com.maze.telegramz.Telegram.getChatList;
 
 
 public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListViewHolder> {
@@ -44,8 +41,8 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListView
     @Override
     public void onBindViewHolder(@NonNull ChatListViewHolder holder, int position) {
         ChatsItem currentItem = cri.get(position);
-        holder.getName().setText(currentItem.getNameLine());
-        holder.getLastMsg().setText(currentItem.getLastMsgLine());
+        holder.getName().setText(currentItem.getTitle());
+        holder.getLastMsg().setText(currentItem.getLastMsg());
         holder.getLastMsgTime().setText(currentItem.getDate());
         holder.getDisplayPic().setImageBitmap(currentItem.getDisplayPic());
     }
@@ -109,10 +106,11 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListView
             long chatId = iter.next().chatId;
             TdApi.Chat chat = chats.get(chatId);
             synchronized (chat) {
-                String lastMsg = makeLastMsgLine(chat);
-                File f = null;
+                String lastMsg = makeLastMsgStr(chat);
+                File f = new File(chat.photo.small.local.path);
                 long timeStamp = chat.lastMessage.date;
                 String dateString = makeDateString(timeStamp);
+                //ToDo: check if this is saved messages and change title and photo.
                 list.add(new ChatsItem(chat.id,f, chat.title, lastMsg, dateString,chat.order));
             }
         }
@@ -145,13 +143,99 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListView
         return dateString;
     }
 
-    public static String makeLastMsgLine(TdApi.Chat chat){
+    public static String makeLastMsgStr(TdApi.Chat chat){
         String lastMsg = "Message";
-        TdApi.MessageText m;
-        if (chat.lastMessage != null && chat.lastMessage.content.getConstructor() == TdApi.MessageText.CONSTRUCTOR) {
-            m = (TdApi.MessageText) chat.lastMessage.content;
-            lastMsg = m.text.text;
-        }
+//        TdApi.MessageText m;
+//        if (chat.lastMessage != null && chat.lastMessage.content.getConstructor() == TdApi.MessageText.CONSTRUCTOR) {
+//            m = (TdApi.MessageText) chat.lastMessage.content;
+//            lastMsg = m.text.text;
+//        }
+        if (chat.lastMessage != null)
+            switch (chat.lastMessage.content.getConstructor()) {
+                case TdApi.MessageText.CONSTRUCTOR:
+                    TdApi.MessageText mt = (TdApi.MessageText) chat.lastMessage.content;
+                    lastMsg = mt.text.text;
+                    break;
+//                case MessageAnimation.CONSTRUCTOR:
+//                    break;
+//                case MessageAudio.CONSTRUCTOR:
+//                    break;
+//                case MessageBasicGroupChatCreate.CONSTRUCTOR:
+//                    break;
+//                case MessageCall.CONSTRUCTOR:
+//                    break;
+//                case MessageChatAddMembers.CONSTRUCTOR:
+//                    break;
+//                case MessageChatChangePhoto.CONSTRUCTOR:
+//                    break;
+//                case MessageChatChangeTitle.CONSTRUCTOR:
+//                    break;
+//                case MessageChatDeleteMember.CONSTRUCTOR:
+//                    break;
+//                case MessageChatDeletePhoto.CONSTRUCTOR:
+//                    break;
+//                case MessageChatJoinByLink.CONSTRUCTOR:
+//                    break;
+//                case MessageChatSetTtl.CONSTRUCTOR:
+//                    break;
+//                case MessageChatUpgradeFrom.CONSTRUCTOR:
+//                    break;
+//                case MessageChatUpgradeTo.CONSTRUCTOR:
+//                    break;
+//                case MessageContact.CONSTRUCTOR:
+//                    break;
+//                case MessageContactRegistered.CONSTRUCTOR:
+//                    break;
+//                case MessageCustomServiceAction.CONSTRUCTOR:
+//                    break;
+//                case MessageDocument.CONSTRUCTOR:
+//                    break;
+//                case MessageExpiredPhoto.CONSTRUCTOR:
+//                    break;
+//                case MessageExpiredVideo.CONSTRUCTOR:
+//                    break;
+//                case MessageGame.CONSTRUCTOR:
+//                    break;
+//                case MessageGameScore.CONSTRUCTOR:
+//                    break;
+//                case MessageInvoice.CONSTRUCTOR:
+//                    break;
+//                case MessageLocation.CONSTRUCTOR:
+//                    break;
+//                case MessagePassportDataReceived.CONSTRUCTOR:
+//                    break;
+//                case MessagePassportDataSent.CONSTRUCTOR:
+//                    break;
+//                case MessagePaymentSuccessful.CONSTRUCTOR:
+//                    break;
+//                case MessagePaymentSuccessfulBot.CONSTRUCTOR:
+//                    break;
+//                case MessagePhoto.CONSTRUCTOR:
+//                    break;
+//                case MessagePinMessage.CONSTRUCTOR:
+//                    break;
+//                case MessageScreenshotTaken.CONSTRUCTOR:
+//                    break;
+                case TdApi.MessageSticker.CONSTRUCTOR:
+                    TdApi.MessageSticker ms = (TdApi.MessageSticker) chat.lastMessage.content;
+                    lastMsg = ms.sticker.emoji+" Sticker";
+                    break;
+//                case MessageSupergroupChatCreate.CONSTRUCTOR:
+//                    break;
+//                case MessageUnsupported.CONSTRUCTOR:
+//                    break;
+//                case MessageVenue.CONSTRUCTOR:
+//                    break;
+//                case MessageVideo.CONSTRUCTOR:
+//                    break;
+//                case MessageVideoNote.CONSTRUCTOR:
+//                    break;
+//                case MessageVoiceNote.CONSTRUCTOR:
+//                    break;
+//                case MessageWebsiteConnected.CONSTRUCTOR:
+//                    break;
+            }
+//            Log.e("msg type class name", chat.lastMessage.content.getClass().getName());
         return lastMsg;
     }
 }
