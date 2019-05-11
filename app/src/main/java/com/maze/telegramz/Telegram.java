@@ -16,6 +16,8 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import androidx.core.app.NotificationCompat;
+
 import static com.maze.telegramz.ChatsAdapter.makeDateString;
 import static com.maze.telegramz.ChatsAdapter.makeLastMsgStr;
 import static com.maze.telegramz.ChatsFragment.chatsArrayList;
@@ -55,8 +57,8 @@ public class Telegram {
                 parameters.apiId = 619181;
                 parameters.apiHash = "2d6c9c0d28c2118da3ab0b2091bc5a6d";
                 parameters.systemLanguageCode = "en";
-                parameters.deviceModel = "Android";
-                parameters.systemVersion = "Unknown";
+                parameters.deviceModel = "HUAWEI P9 LITE";
+                parameters.systemVersion = "7.0";
                 parameters.applicationVersion = "1.0";
                 parameters.enableStorageOptimizer = true;
                 client.send(new TdApi.SetTdlibParameters(parameters), new Telegram.AuthorizationRequestHandler());
@@ -77,6 +79,9 @@ public class Telegram {
             case TdApi.AuthorizationStateReady.CONSTRUCTOR:
                 haveAuthorization = true;
                 getChatList(100);
+                client.send(new TdApi.SetOption("notification_group_count_max",new TdApi.OptionValueInteger(5)),null,null);
+                client.send(new TdApi.SetOption("notification_group_size_max",new TdApi.OptionValueInteger(5)),null,null);
+                client.send(new TdApi.SetOption("",new TdApi.OptionValueInteger(5)),null,null);
                 authorizationLock.lock();
                 try {
                     gotAuthorization.signal();
@@ -120,6 +125,27 @@ public class Telegram {
             switch (object.getConstructor()) {
                 case TdApi.UpdateAuthorizationState.CONSTRUCTOR:
                     onAuthorizationStateUpdated(((TdApi.UpdateAuthorizationState) object).authorizationState);
+                    break;
+                case TdApi.UpdateNewMessage.CONSTRUCTOR:
+                    TdApi.UpdateNewMessage newMessage = (TdApi.UpdateNewMessage) object;
+                    Log.e("zebbi",newMessage.message.content.toString());
+                    break;
+                case TdApi.UpdateNotificationGroup.CONSTRUCTOR:
+                    TdApi.UpdateNotificationGroup notificationGroup = (TdApi.UpdateNotificationGroup) object;
+                    Log.e("mezo",notificationGroup.toString());
+                    break;
+                case TdApi.UpdateNotification.CONSTRUCTOR:
+                    TdApi.UpdateNotification updateNotification = (TdApi.UpdateNotification) object;
+                    Log.e("mezo",updateNotification.toString());
+                    break;
+                case TdApi.UpdateActiveNotifications.CONSTRUCTOR:
+                    TdApi.UpdateActiveNotifications updateActiveNotifications = (TdApi.UpdateActiveNotifications) object;
+                    Log.e("mezo",updateActiveNotifications.toString());
+                    break;
+                case TdApi.UpdateHavePendingNotifications.CONSTRUCTOR:
+                    TdApi.UpdateHavePendingNotifications updateHavePendingNotifications =
+                            (TdApi.UpdateHavePendingNotifications) object;
+                    Log.e("mezo",updateHavePendingNotifications.toString());
                     break;
                 case TdApi.UpdateUser.CONSTRUCTOR:
                     TdApi.UpdateUser updateUser = (TdApi.UpdateUser) object;

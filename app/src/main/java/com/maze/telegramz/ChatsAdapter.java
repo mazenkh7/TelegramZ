@@ -27,14 +27,14 @@ import static com.maze.telegramz.Telegram.client;
 public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListViewHolder> {
     private ArrayList<ChatsItem> cri;
 
-    public ChatsAdapter(ArrayList<ChatsItem> i){
+    public ChatsAdapter(ArrayList<ChatsItem> i) {
         cri = i;
     }
 
     @NonNull
     @Override
     public ChatListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_recycler_item,parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_recycler_item, parent, false);
         ChatListViewHolder clvh = new ChatListViewHolder(v);
         return clvh;
     }
@@ -54,7 +54,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListView
     }
 
 
-    public static class ChatListViewHolder extends RecyclerView.ViewHolder{
+    public static class ChatListViewHolder extends RecyclerView.ViewHolder {
         public ImageView displayPic;
         public TextView name;
         public TextView lastMsg;
@@ -95,12 +95,13 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListView
         public ChatListViewHolder(@NonNull View itemView) {
             super(itemView);
             displayPic = itemView.findViewById(R.id.user_photo);
-            name= itemView.findViewById(R.id.UserName);
-            lastMsg= itemView.findViewById(R.id.LastMessage);
+            name = itemView.findViewById(R.id.UserName);
+            lastMsg = itemView.findViewById(R.id.LastMessage);
             lastMsgTime = itemView.findViewById(R.id.LastMessageTime);
         }
     }
-    public static ArrayList<ChatsItem> createChatsArrayList(){
+
+    public static ArrayList<ChatsItem> createChatsArrayList() {
         ArrayList<ChatsItem> list = new ArrayList<>();
         java.util.Iterator<Telegram.OrderedChat> iter = chatList.iterator();
         for (int i = 0; i < chatList.size(); i++) {
@@ -108,22 +109,26 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListView
             TdApi.Chat chat = chats.get(chatId);
             synchronized (chat) {
                 String lastMsg = makeLastMsgStr(chat);
-                File f = new File(chat.photo.small.local.path);
-                if(!f.exists())
-                    client.send(new TdApi.DownloadFile(chat.photo.small.id, 1, 0, 0, false), new Telegram.displayPicDownloadHandler());
+                File f = null;
+                if (chat.photo != null) {
+                    f = new File(chat.photo.small.local.path);
+                    if (!f.exists())
+                        client.send(new TdApi.DownloadFile(chat.photo.small.id, 1, 0, 0, false), new Telegram.displayPicDownloadHandler());
+                }
                 long timeStamp = chat.lastMessage.date;
                 String dateString = makeDateString(timeStamp);
                 //ToDo: check if this is saved messages and change title and photo.
-                list.add(new ChatsItem(chat.id,f, chat.title, lastMsg, dateString,chat.order));
+                list.add(new ChatsItem(chat.id, f, chat.title, lastMsg, dateString, chat.order));
             }
         }
         return list;
     }
-    private static char showDateNotTime(Date a, Date b){
+
+    private static char showDateNotTime(Date a, Date b) {
         long diff = a.getTime() - b.getTime();
         long diffHrs = TimeUnit.HOURS.convert(diff, TimeUnit.MILLISECONDS);
         long diffDays = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-        if(diffHrs >= 12 && diffDays < 7)
+        if (diffHrs >= 12 && diffDays < 7)
             return 'w';
         else if (diffDays >= 7)
             return 'd';
@@ -131,7 +136,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListView
             return 'h';
     }
 
-    public static String makeDateString(long timeStamp){
+    public static String makeDateString(long timeStamp) {
         String dateString;
         Date lastMsgDate = new java.util.Date(timeStamp * 1000L);
         Date now = new Date();
@@ -146,7 +151,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListView
         return dateString;
     }
 
-    public static String makeLastMsgStr(TdApi.Chat chat){
+    public static String makeLastMsgStr(TdApi.Chat chat) {
         String lastMsg = "Message";
 //        TdApi.MessageText m;
 //        if (chat.lastMessage != null && chat.lastMessage.content.getConstructor() == TdApi.MessageText.CONSTRUCTOR) {
@@ -221,7 +226,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListView
 //                    break;
                 case TdApi.MessageSticker.CONSTRUCTOR:
                     TdApi.MessageSticker ms = (TdApi.MessageSticker) chat.lastMessage.content;
-                    lastMsg = ms.sticker.emoji+" Sticker";
+                    lastMsg = ms.sticker.emoji + " Sticker";
                     break;
 //                case MessageSupergroupChatCreate.CONSTRUCTOR:
 //                    break;

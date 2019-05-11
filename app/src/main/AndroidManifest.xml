@@ -16,9 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".ChatActivity"></activity>
         <activity
             android:name=".HomeActivity"
-            android:label="@string/title_activity_chats_calls_profile"></activity>
+            android:label="@string/title_activity_chats_calls_profile" />
         <activity
             android:name=".ConfirmCodeActivity"
             android:label="@string/title_activity_confirm_code" />
@@ -34,6 +35,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service
             android:name=".NotificationService"
             android:exported="false">
@@ -41,15 +43,17 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_stat_ic_notification" />
-        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
-             notification message. See README(https://goo.gl/6BKBk7) for more. -->
+        <!--
+ Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more.
+        -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
-
     </application>
 
 </manifest>

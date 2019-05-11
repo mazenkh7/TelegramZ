@@ -33,6 +33,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:17.6.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0-alpha05'
+    implementation 'com.github.stfalcon:chatkit:0.3.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-alpha05'
     implementation project(path: 'Libraries:libtd')
     implementation 'androidx.viewpager:viewpager:1.0.0'

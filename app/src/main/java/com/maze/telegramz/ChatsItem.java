@@ -45,6 +45,7 @@ public class ChatsItem implements Comparable<ChatsItem> {
     public ChatsItem(long id, File displayPic, String name, String lastMessage, String date, long order) {
         if (displayPic != null)
             this.displayPic = BitmapFactory.decodeFile(displayPic.getAbsolutePath());
+        else
         this.title = name;
         this.lastMsg = lastMessage.replaceAll("\n", " ");
         this.date = date;

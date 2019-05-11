@@ -12,6 +12,7 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import org.drinkless.td.libcore.telegram.Client;
 import org.drinkless.td.libcore.telegram.TdApi;
+import org.json.JSONObject;
 
 import androidx.annotation.NonNull;
 
@@ -60,15 +61,15 @@ public class NotificationService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-
-//        super.onMessageReceived(remoteMessage);
+        super.onMessageReceived(remoteMessage);
         // TODO(developer): Handle FCM messages here.
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
-        Log.d("notifizo", "From: " + remoteMessage.getFrom());
+        Log.e("notifizo", "From: " + remoteMessage.getFrom());
 
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
-            Log.d("notifizo", "Message data payload: " + remoteMessage.getData());
+            Log.e("notifizo", "Message data payload: " + new JSONObject(remoteMessage.getData()).toString());
+            client.send(new TdApi.ProcessPushNotification(new JSONObject(remoteMessage.getData()).toString()), null, null);
 
 //            if (/* Check if data needs to be processed by long running job */ true) {
 //                // For long-running tasks (10 seconds or more) use WorkManager.
@@ -82,7 +83,7 @@ public class NotificationService extends FirebaseMessagingService {
 
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
-            Log.d("notifizo", "Message Notification Body: " + remoteMessage.getNotification().getBody());
+            Log.e("notifizo", "Message Notification Body: " + remoteMessage.getNotification().getBody());
         }
 
         // Also if you intend on generating your own notifications as a result of a received FCM
