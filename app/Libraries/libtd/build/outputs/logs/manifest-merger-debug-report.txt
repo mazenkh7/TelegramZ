@@ -1,51 +1,51 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml:21:1-31:12
-INJECTED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml:21:1-31:12
-INJECTED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml:21:1-31:12
-INJECTED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml:21:1-31:12
-INJECTED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml:21:1-31:12
-INJECTED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml:21:1-31:12
-INJECTED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml:21:1-31:12
+ADDED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml:21:1-32:12
+INJECTED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml:21:1-32:12
+INJECTED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml:21:1-32:12
+INJECTED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml:21:1-32:12
+INJECTED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml:21:1-32:12
+INJECTED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml:21:1-32:12
+INJECTED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml:21:1-32:12
 	package
-		ADDED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml:22:5-39
-		INJECTED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml
-		INJECTED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml
+		ADDED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml:22:5-39
+		INJECTED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml
 	android:versionName
-		INJECTED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml
-		ADDED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml:21:1-31:12
-		INJECTED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml
+		INJECTED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml
+		ADDED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml:21:1-32:12
+		INJECTED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml
 	android:versionCode
-		INJECTED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml
-		ADDED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml:21:1-31:12
-		INJECTED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml
+		INJECTED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml
+		ADDED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml:21:1-32:12
+		INJECTED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml:21:11-69
+		ADDED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml:21:11-69
 uses-permission#android.permission.INTERNET
-ADDED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml:24:5-66
+ADDED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml:24:5-66
 	android:name
-		ADDED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml:24:22-64
+		ADDED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml:24:22-64
 uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
-ADDED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml:25:5-80
+ADDED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml:25:5-80
 	android:name
-		ADDED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml:25:22-78
+		ADDED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml:25:22-78
 application
-ADDED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml:26:5-29:19
+ADDED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml:26:5-30:19
 	android:label
-		ADDED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml:27:9-41
+		ADDED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml:27:9-41
 	android:allowBackup
-		ADDED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml:26:18-44
+		ADDED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml:26:18-44
 uses-sdk
-INJECTED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml
-INJECTED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml
-INJECTED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml
-INJECTED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml
+INJECTED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml
+INJECTED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml
+INJECTED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml
+INJECTED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml
-		ADDED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml
-		INJECTED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml
+		INJECTED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml
+		ADDED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml
-		ADDED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml
-		INJECTED from /Users/VM2/AndroidStudioProjects/TelegramZ/app/Libraries/libtd/src/main/AndroidManifest.xml
+		INJECTED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml
+		ADDED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\AUC\AndroidStudioProjects\TelegramZ\app\Libraries\libtd\src\main\AndroidManifest.xml

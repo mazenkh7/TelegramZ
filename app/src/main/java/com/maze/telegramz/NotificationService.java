@@ -10,6 +10,7 @@ import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import org.drinkless.td.libcore.telegram.Client;
 import org.drinkless.td.libcore.telegram.TdApi;
 
 import androidx.annotation.NonNull;
@@ -24,7 +25,12 @@ public class NotificationService extends FirebaseMessagingService {
     public void onNewToken(String token) {
         NotificationService.token = token;
         if (getToken() != null && !getToken().isEmpty())
-            client.send(new TdApi.RegisterDevice(new TdApi.DeviceTokenGoogleCloudMessaging(getToken()), null), null);
+            client.send(new TdApi.RegisterDevice(new TdApi.DeviceTokenFirebaseCloudMessaging(getToken(), true), null), new Client.ResultHandler() {
+                @Override
+                public void onResult(TdApi.Object object) {
+                    Log.e("token",object.toString());
+                }
+            });
     }
 
     public static void updateToken() {
@@ -38,7 +44,12 @@ public class NotificationService extends FirebaseMessagingService {
                         // Get new Instance ID token
                         token = task.getResult().getToken();
                         if (getToken() != null && !getToken().isEmpty())
-                            client.send(new TdApi.RegisterDevice(new TdApi.DeviceTokenGoogleCloudMessaging(getToken()), null), null);
+                            client.send(new TdApi.RegisterDevice(new TdApi.DeviceTokenFirebaseCloudMessaging(getToken(), true), null), new Client.ResultHandler() {
+                                @Override
+                                public void onResult(TdApi.Object object) {
+                                    Log.e("token",object.toString());
+                                }
+                            });
                     }
                 });
     }
@@ -50,7 +61,7 @@ public class NotificationService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
-        super.onMessageReceived(remoteMessage);
+//        super.onMessageReceived(remoteMessage);
         // TODO(developer): Handle FCM messages here.
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
         Log.d("notifizo", "From: " + remoteMessage.getFrom());

@@ -121,7 +121,6 @@ public class Telegram {
                 case TdApi.UpdateAuthorizationState.CONSTRUCTOR:
                     onAuthorizationStateUpdated(((TdApi.UpdateAuthorizationState) object).authorizationState);
                     break;
-
                 case TdApi.UpdateUser.CONSTRUCTOR:
                     TdApi.UpdateUser updateUser = (TdApi.UpdateUser) object;
                     users.put(updateUser.user.id, updateUser.user);
@@ -174,7 +173,7 @@ public class Telegram {
                     synchronized (chat) {
                         chat.photo = updateChat.photo;
                     }
-                    client.send(new TdApi.DownloadFile(chat.photo.small.id, 1), null);
+                    client.send(new TdApi.DownloadFile(chat.photo.small.id, 1, 0, 0, false), new displayPicDownloadHandler());
                     break;
                 }
                 case TdApi.UpdateChatLastMessage.CONSTRUCTOR: {
@@ -449,6 +448,13 @@ public class Telegram {
         public boolean equals(Object obj) {
             OrderedChat o = (OrderedChat) obj;
             return this.order == o.order && this.chatId == o.chatId;
+        }
+    }
+
+    public static class displayPicDownloadHandler implements Client.ResultHandler{
+        @Override
+        public void onResult(TdApi.Object object) {
+            Log.e("dprh",object.toString());
         }
     }
 

@@ -19,6 +19,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:itemIconTint="@drawable/bottom_navigation_colors"
         app:itemTextColor="@drawable/bottom_navigation_colors"
+        app:labelVisibilityMode="unlabeled"
         app:menu="@menu/botttom_navigation" />
 
     <FrameLayout

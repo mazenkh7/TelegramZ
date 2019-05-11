@@ -21,6 +21,7 @@ import java.util.concurrent.TimeUnit;
 
 import static com.maze.telegramz.Telegram.chatList;
 import static com.maze.telegramz.Telegram.chats;
+import static com.maze.telegramz.Telegram.client;
 
 
 public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListViewHolder> {
@@ -108,6 +109,8 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListView
             synchronized (chat) {
                 String lastMsg = makeLastMsgStr(chat);
                 File f = new File(chat.photo.small.local.path);
+                if(!f.exists())
+                    client.send(new TdApi.DownloadFile(chat.photo.small.id, 1, 0, 0, false), new Telegram.displayPicDownloadHandler());
                 long timeStamp = chat.lastMessage.date;
                 String dateString = makeDateString(timeStamp);
                 //ToDo: check if this is saved messages and change title and photo.
