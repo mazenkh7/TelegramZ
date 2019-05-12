@@ -28,6 +28,7 @@ public class Telegram {
     private static final ConcurrentMap<Integer, TdApi.BasicGroup> basicGroups = new ConcurrentHashMap<Integer, TdApi.BasicGroup>();
     private static final ConcurrentMap<Integer, TdApi.Supergroup> supergroups = new ConcurrentHashMap<Integer, TdApi.Supergroup>();
     private static final ConcurrentMap<Integer, TdApi.SecretChat> secretChats = new ConcurrentHashMap<Integer, TdApi.SecretChat>();
+    private static TdApi.User me;
 
     static final ConcurrentMap<Long, TdApi.Chat> chats = new ConcurrentHashMap<Long, TdApi.Chat>();
     static final NavigableSet<OrderedChat> chatList = new TreeSet<OrderedChat>();
@@ -79,9 +80,9 @@ public class Telegram {
             case TdApi.AuthorizationStateReady.CONSTRUCTOR:
                 haveAuthorization = true;
                 getChatList(100);
-                client.send(new TdApi.SetOption("notification_group_count_max",new TdApi.OptionValueInteger(5)),null,null);
-                client.send(new TdApi.SetOption("notification_group_size_max",new TdApi.OptionValueInteger(5)),null,null);
-                client.send(new TdApi.SetOption("",new TdApi.OptionValueInteger(5)),null,null);
+                ic.refreshChatsRecycler();
+                client.send(new TdApi.SetOption("notification_group_count_max", new TdApi.OptionValueInteger(5)), null, null);
+                client.send(new TdApi.SetOption("notification_group_size_max", new TdApi.OptionValueInteger(5)), null, null);
                 authorizationLock.lock();
                 try {
                     gotAuthorization.signal();
@@ -106,6 +107,14 @@ public class Telegram {
         return Telegram.authorizationState.getConstructor();
     }
 
+    public static TdApi.User getMe() {
+        return me;
+    }
+
+    public static void setMe(TdApi.User me) {
+        Telegram.me = me;
+    }
+
 
     private static class AuthorizationRequestHandler implements Client.ResultHandler {
         @Override
@@ -128,24 +137,23 @@ public class Telegram {
                     break;
                 case TdApi.UpdateNewMessage.CONSTRUCTOR:
                     TdApi.UpdateNewMessage newMessage = (TdApi.UpdateNewMessage) object;
-                    Log.e("zebbi",newMessage.message.content.toString());
                     break;
                 case TdApi.UpdateNotificationGroup.CONSTRUCTOR:
                     TdApi.UpdateNotificationGroup notificationGroup = (TdApi.UpdateNotificationGroup) object;
-                    Log.e("mezo",notificationGroup.toString());
+                    Log.e("notGroup", notificationGroup.toString());
                     break;
                 case TdApi.UpdateNotification.CONSTRUCTOR:
                     TdApi.UpdateNotification updateNotification = (TdApi.UpdateNotification) object;
-                    Log.e("mezo",updateNotification.toString());
+                    Log.e("notup", updateNotification.toString());
                     break;
                 case TdApi.UpdateActiveNotifications.CONSTRUCTOR:
                     TdApi.UpdateActiveNotifications updateActiveNotifications = (TdApi.UpdateActiveNotifications) object;
-                    Log.e("mezo",updateActiveNotifications.toString());
+                    Log.e("upactv", updateActiveNotifications.toString());
                     break;
                 case TdApi.UpdateHavePendingNotifications.CONSTRUCTOR:
                     TdApi.UpdateHavePendingNotifications updateHavePendingNotifications =
                             (TdApi.UpdateHavePendingNotifications) object;
-                    Log.e("mezo",updateHavePendingNotifications.toString());
+                    Log.e("uppend", updateHavePendingNotifications.toString());
                     break;
                 case TdApi.UpdateUser.CONSTRUCTOR:
                     TdApi.UpdateUser updateUser = (TdApi.UpdateUser) object;
@@ -199,7 +207,7 @@ public class Telegram {
                     synchronized (chat) {
                         chat.photo = updateChat.photo;
                     }
-                    client.send(new TdApi.DownloadFile(chat.photo.small.id, 1, 0, 0, false), new displayPicDownloadHandler());
+                    client.send(new TdApi.DownloadFile(chat.photo.small.id, 1, 0, 0, true), new displayPicDownloadHandler());
                     break;
                 }
                 case TdApi.UpdateChatLastMessage.CONSTRUCTOR: {
@@ -336,8 +344,10 @@ public class Telegram {
                     TdApi.UpdateFile updateFile = (TdApi.UpdateFile) object;
                     if (updateFile.file.local.isDownloadingCompleted) {
                         for (ChatsItem i : chatsArrayList) {
-                            if (i.getDisplayPicID() == updateFile.file.id)
+                            if (i.getDisplayPicID() == updateFile.file.id) {
+                                Log.e("DPDP", "dcu");
                                 i.setDisplayPic(new File(updateFile.file.local.path));
+                            }
                         }
                         ic.refreshChatsRecycler();
                     }
@@ -355,15 +365,13 @@ public class Telegram {
     private static void setChatOrder(TdApi.Chat chat, long order) {
         synchronized (chatList) {
             if (chat.order != 0) {
-                boolean isRemoved = chatList.remove(new OrderedChat(chat.order, chat.id));
-                assert isRemoved;
+                chatList.remove(new OrderedChat(chat.order, chat.id));
             }
 
             chat.order = order;
 
             if (chat.order != 0) {
-                boolean isAdded = chatList.add(new OrderedChat(chat.order, chat.id));
-                assert isAdded;
+                chatList.add(new OrderedChat(chat.order, chat.id));
             }
         }
     }
@@ -426,20 +434,9 @@ public class Telegram {
 
     public static void updateChatOrder(TdApi.Chat chat) {
         ChatsItem i = getRecyclerChatsItem(chat.id);
-//        for (ChatsItem i : chatsArrayList) {
-//            if (chat.id == i.getId()) {
-//                chatsArrayList.remove(i);
-//                String lastMsg = makeLastMsgStr(chat);
-//                File f = null;
-//                long timeStamp = chat.lastMessage.date;
-//                String dateString = makeDateString(timeStamp);
-//                Log.e("phz", chat.photo.small.remote.toString());
-//                chatsArrayList.add(new ChatsItem(chat.id,f, chat.title, lastMsg, dateString,chat.order));
         i.setOrder(chat.order);
         Collections.sort(chatsArrayList);
         ic.refreshChatsRecycler();
-//            }
-//        }
     }
 
     public static ChatsItem getRecyclerChatsItem(long id) {
@@ -477,10 +474,24 @@ public class Telegram {
         }
     }
 
-    public static class displayPicDownloadHandler implements Client.ResultHandler{
+    public static class displayPicDownloadHandler implements Client.ResultHandler {
         @Override
         public void onResult(TdApi.Object object) {
-            Log.e("dprh",object.toString());
+            Log.e("DPDP", "1");
+            if (object.getConstructor() == TdApi.File.CONSTRUCTOR) {
+                Log.e("DPDP", "2");
+                TdApi.File f = (TdApi.File) object;
+                if (f.local.isDownloadingCompleted) {
+                    Log.e("DPDP","3");
+                    for (ChatsItem i : chatsArrayList) {
+                        if (i.getDisplayPicID() == f.id) {
+                            Log.e("DPDP", "DPDP");
+                            i.setDisplayPic(new File(f.local.path));
+                            ic.refreshChatsRecycler();
+                        }
+                    }
+                }
+            }
         }
     }
 

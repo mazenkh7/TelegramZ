@@ -8,14 +8,15 @@
     android:clickable="true"
     android:focusable="true">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-    android:id="@+id/user_photo"
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/user_photo"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:padding="2dp"
+        app:civ_border="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

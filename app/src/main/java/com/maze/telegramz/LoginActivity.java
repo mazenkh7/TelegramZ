@@ -48,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
                     final Intent intent = new Intent(this, ConfirmCodeActivity.class);
                     intent.putExtra("phoneToVerify",countryCode+phoneNum);
                     startActivity(intent);
+                    finish();
             }
         return true;
     }

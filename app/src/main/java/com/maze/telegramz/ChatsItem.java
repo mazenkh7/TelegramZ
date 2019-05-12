@@ -1,9 +1,15 @@
 package com.maze.telegramz;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+
+import com.amulyakhare.textdrawable.TextDrawable;
 
 import java.io.File;
+
+import static com.maze.telegramz.HomeActivity.ic;
 
 public class ChatsItem implements Comparable<ChatsItem> {
     private long id;
@@ -18,13 +24,15 @@ public class ChatsItem implements Comparable<ChatsItem> {
 
     private long displayPicID;
 
-    public void setDisplayPic(Bitmap displayPic) {
+    public void setDisplayPic(Bitmap displayPic){
         this.displayPic = displayPic;
     }
 
     public void setDisplayPic(File displayPic) {
         if (displayPic != null)
             this.displayPic = BitmapFactory.decodeFile(displayPic.getAbsolutePath());
+//        else
+//            this.displayPic = BitmapFactory.decodeResource(ic.getContext().getResources(),R.mipmap.ic_default_dp);
     }
 
     private Bitmap displayPic;
@@ -42,15 +50,18 @@ public class ChatsItem implements Comparable<ChatsItem> {
     }
 
 
-    public ChatsItem(long id, File displayPic, String name, String lastMessage, String date, long order) {
-        if (displayPic != null)
-            this.displayPic = BitmapFactory.decodeFile(displayPic.getAbsolutePath());
-        else
+    public ChatsItem(long id, File f, String name, String lastMessage, String date, long order) {
+//        if (displayPic != null)
+//            this.displayPic = BitmapFactory.decodeFile(displayPic.getAbsolutePath());
+//        else {
+//            this.displayPic = BitmapFactory.decodeResource(AppContext.getAppContext().getResources(),R.drawable.default_profile);
+//        }
         this.title = name;
         this.lastMsg = lastMessage.replaceAll("\n", " ");
         this.date = date;
         this.id = id;
         this.order = order;
+        setDisplayPic(f);
     }
 
     public Bitmap getDisplayPic() {

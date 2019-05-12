@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ChatActivity"></activity>
+        <activity android:name=".ChatActivity" />
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_chats_calls_profile" />

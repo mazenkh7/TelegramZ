@@ -34,6 +34,7 @@ public class ConfirmCodeActivity extends AppCompatActivity {
                 Telegram.setVerfCode(verfCodeField.getText().toString());
                 final Intent intent = new Intent(this, HomeActivity.class);
                 startActivity(intent);
+                finish();
         }
         return true;
     }

@@ -3,12 +3,16 @@ package com.maze.telegramz;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.amulyakhare.textdrawable.TextDrawable;
 
 import org.drinkless.td.libcore.telegram.TdApi;
 
@@ -19,9 +23,11 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+import static com.maze.telegramz.HomeActivity.ic;
 import static com.maze.telegramz.Telegram.chatList;
 import static com.maze.telegramz.Telegram.chats;
 import static com.maze.telegramz.Telegram.client;
+import static com.maze.telegramz.Telegram.getMe;
 
 
 public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListViewHolder> {
@@ -45,7 +51,16 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListView
         holder.getName().setText(currentItem.getTitle());
         holder.getLastMsg().setText(currentItem.getLastMsg());
         holder.getLastMsgTime().setText(currentItem.getDate());
+        if(currentItem.getDisplayPic()!=null)
         holder.getDisplayPic().setImageBitmap(currentItem.getDisplayPic());
+        else {
+            String s="";
+            String m[] = currentItem.getTitle().split(" ");
+            for (String n: m) {
+                s = s.concat(""+n.charAt(0));
+            }
+            holder.getDisplayPic().setImageDrawable(TextDrawable.builder().buildRound(s, Color.LTGRAY));
+        }
     }
 
     @Override
@@ -107,19 +122,26 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListView
         for (int i = 0; i < chatList.size(); i++) {
             long chatId = iter.next().chatId;
             TdApi.Chat chat = chats.get(chatId);
-            synchronized (chat) {
-                String lastMsg = makeLastMsgStr(chat);
-                File f = null;
-                if (chat.photo != null) {
-                    f = new File(chat.photo.small.local.path);
-                    if (!f.exists())
-                        client.send(new TdApi.DownloadFile(chat.photo.small.id, 1, 0, 0, false), new Telegram.displayPicDownloadHandler());
-                }
-                long timeStamp = chat.lastMessage.date;
-                String dateString = makeDateString(timeStamp);
-                //ToDo: check if this is saved messages and change title and photo.
-                list.add(new ChatsItem(chat.id, f, chat.title, lastMsg, dateString, chat.order));
+            long timeStamp = chat.lastMessage.date;
+            String dateString = makeDateString(timeStamp);
+            String lastMsg = makeLastMsgStr(chat);
+            File f=null;
+            ChatsItem ch = new ChatsItem(chat.id, f,chat.title, lastMsg, dateString, chat.order);
+            if (chat.photo != null) {
+                f = new File(chat.photo.small.local.path);
+                ch.setDisplayPicID(chat.photo.small.id);
+                if (!f.exists())
+                    client.send(new TdApi.DownloadFile(chat.photo.small.id, 1, 0, 0, false), new Telegram.displayPicDownloadHandler());
+                else
+                    ch.setDisplayPic(f);
             }
+
+            //ToDo: check if this is saved messages and change title and photo.
+            if(chat.id == getMe().id) {
+                ch.setTitle("Saved Messages");
+//                ch.setDisplayPic(BitmapFactory.decodeResource(ic.getContext().getResources(),R.mipmap.ic_saved_messages));
+            }
+            list.add(ch);
         }
         return list;
     }

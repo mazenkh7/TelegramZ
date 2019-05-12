@@ -13,12 +13,18 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.maze.telegramz.ChatsFragment.OnFragmentInteractionListener;
 
+import org.drinkless.td.libcore.telegram.Client;
+import org.drinkless.td.libcore.telegram.TdApi;
+
 import static com.maze.telegramz.ChatsFragment.chatsAdapter;
+import static com.maze.telegramz.Telegram.client;
 import static com.maze.telegramz.Telegram.getChatList;
+import static com.maze.telegramz.Telegram.setMe;
 
 
 public class HomeActivity extends AppCompatActivity implements OnFragmentInteractionListener {
@@ -63,6 +69,13 @@ public class HomeActivity extends AppCompatActivity implements OnFragmentInterac
         editor.putBoolean("Loggedin", true);
         editor.apply();
         getChatList(100);
+        client.send(new TdApi.GetMe(), new Client.ResultHandler() {
+            @Override
+            public void onResult(TdApi.Object object) {
+                if(object.getConstructor() == TdApi.User.CONSTRUCTOR)
+                    setMe((TdApi.User)object);
+            }
+        }, null);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         BottomNavigationView navigation = findViewById(R.id.navigation);
@@ -88,5 +101,9 @@ public class HomeActivity extends AppCompatActivity implements OnFragmentInterac
                 }
             });
         }
+        public Context getContext(){
+            return HomeActivity.this.getApplicationContext();
+        }
     }
+
 }
