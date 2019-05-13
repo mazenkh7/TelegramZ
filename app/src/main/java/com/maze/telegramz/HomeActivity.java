@@ -58,17 +58,17 @@ public class HomeActivity extends AppCompatActivity implements OnFragmentInterac
     @Override
     public void onResume(){
         super.onResume();
-        getChatList(100);
+//        getChatList(100);
 
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         SharedPreferences sp = getSharedPreferences("TZSP", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putBoolean("Loggedin", true);
         editor.apply();
-        getChatList(100);
         client.send(new TdApi.GetMe(), new Client.ResultHandler() {
             @Override
             public void onResult(TdApi.Object object) {
@@ -76,7 +76,6 @@ public class HomeActivity extends AppCompatActivity implements OnFragmentInterac
                     setMe((TdApi.User)object);
             }
         }, null);
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);

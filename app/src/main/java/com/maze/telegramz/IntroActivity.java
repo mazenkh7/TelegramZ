@@ -14,11 +14,6 @@ import android.widget.Button;
 import static com.maze.telegramz.Telegram.startClient;
 
 public class IntroActivity extends AppCompatActivity {
-    private static final int NUM_PAGES = 5;
-    private ViewPager mPager;
-    private PagerAdapter pagerAdapter;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         startClient();
@@ -38,6 +33,7 @@ public class IntroActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+            finish();
 //        SharedPreferences sp = getSharedPreferences("TZFS", Context.MODE_PRIVATE);
 //        if (!sp.getBoolean("first", false)) {
 //            SharedPreferences.Editor editor = sp.edit();

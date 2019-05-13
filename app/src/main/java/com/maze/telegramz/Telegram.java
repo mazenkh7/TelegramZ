@@ -17,6 +17,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import static com.maze.telegramz.ChatsAdapter.makeDateString;
 import static com.maze.telegramz.ChatsAdapter.makeLastMsgStr;
@@ -140,7 +141,7 @@ public class Telegram {
                     break;
                 case TdApi.UpdateNotificationGroup.CONSTRUCTOR:
                     TdApi.UpdateNotificationGroup notificationGroup = (TdApi.UpdateNotificationGroup) object;
-                    Log.e("notGroup", notificationGroup.toString());
+                    TZNotificationManager.notify(1,notificationGroup);
                     break;
                 case TdApi.UpdateNotification.CONSTRUCTOR:
                     TdApi.UpdateNotification updateNotification = (TdApi.UpdateNotification) object;

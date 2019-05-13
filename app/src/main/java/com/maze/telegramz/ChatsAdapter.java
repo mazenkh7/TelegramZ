@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 
 import org.drinkless.td.libcore.telegram.TdApi;
 
@@ -51,15 +53,25 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListView
         holder.getName().setText(currentItem.getTitle());
         holder.getLastMsg().setText(currentItem.getLastMsg());
         holder.getLastMsgTime().setText(currentItem.getDate());
-        if(currentItem.getDisplayPic()!=null)
-        holder.getDisplayPic().setImageBitmap(currentItem.getDisplayPic());
+        if (currentItem.getDisplayPic() != null)
+            holder.getDisplayPic().setImageBitmap(currentItem.getDisplayPic());
         else {
-            String s="";
+            String s = "";
             String m[] = currentItem.getTitle().split(" ");
-            for (String n: m) {
-                s = s.concat(""+n.charAt(0));
+            for (String n : m) {
+                s = s.concat("" + n.charAt(0));
             }
-            holder.getDisplayPic().setImageDrawable(TextDrawable.builder().buildRound(s, Color.LTGRAY));
+            ColorGenerator cg = ColorGenerator.MATERIAL;
+            TextDrawable.IBuilder builder = TextDrawable.builder()
+                    .beginConfig()
+                    .height(60)
+                    .width(60)
+                    .endConfig()
+                    .round();
+            TextDrawable TD = builder.build(s.toUpperCase(),cg.getRandomColor());
+
+            Log.e("hhhh",""+TD.getIntrinsicWidth()+TD.getIntrinsicHeight());
+            holder.getDisplayPic().setImageDrawable(TD);
         }
     }
 
@@ -125,8 +137,8 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListView
             long timeStamp = chat.lastMessage.date;
             String dateString = makeDateString(timeStamp);
             String lastMsg = makeLastMsgStr(chat);
-            File f=null;
-            ChatsItem ch = new ChatsItem(chat.id, f,chat.title, lastMsg, dateString, chat.order);
+            File f = null;
+            ChatsItem ch = new ChatsItem(chat.id, f, chat.title, lastMsg, dateString, chat.order);
             if (chat.photo != null) {
                 f = new File(chat.photo.small.local.path);
                 ch.setDisplayPicID(chat.photo.small.id);
@@ -137,7 +149,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListView
             }
 
             //ToDo: check if this is saved messages and change title and photo.
-            if(chat.id == getMe().id) {
+            if (chat.id == getMe().id) {
                 ch.setTitle("Saved Messages");
 //                ch.setDisplayPic(BitmapFactory.decodeResource(ic.getContext().getResources(),R.mipmap.ic_saved_messages));
             }

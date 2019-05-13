@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import java.util.ArrayList;
 
 import static com.maze.telegramz.ChatsAdapter.createChatsArrayList;
+import static com.maze.telegramz.HomeActivity.ic;
 import static com.maze.telegramz.Telegram.getChatList;
 
 
@@ -82,6 +83,7 @@ public class ChatsFragment extends Fragment {
         chatsRecyclerView.setAdapter(chatsAdapter);
         chatsRecyclerView.addItemDecoration(new DividerItemDecoration(container.getContext(), LinearLayoutManager.VERTICAL));
         chatsRecyclerView.setAdapter(chatsAdapter);
+        ic.refreshChatsRecycler();
         chatsViewGroup = container;
         return view;
     }

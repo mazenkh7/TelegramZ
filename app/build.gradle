@@ -27,11 +27,9 @@ dependencies {
     implementation 'com.google.android.material:material:1.1.0-alpha06'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha05'
-    implementation 'com.aurelhubert:ahbottomnavigation:2.3.4'
-    implementation 'com.google.firebase:firebase-core:16.0.8'
+    implementation 'com.google.firebase:firebase-core:16.0.9'
     implementation 'de.hdodenhof:circleimageview:3.0.0'
-    implementation 'com.mikhaellopez:circularimageview:3.2.0'
-    implementation 'com.google.firebase:firebase-messaging:17.6.0'
+    implementation 'com.google.firebase:firebase-messaging:18.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0-beta01'
     implementation 'com.github.stfalcon:chatkit:0.3.3'
@@ -39,5 +37,6 @@ dependencies {
     implementation project(path: 'Libraries:libtd')
     implementation 'androidx.viewpager:viewpager:1.0.0'
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+
 }
 apply plugin: 'com.google.gms.google-services'
