@@ -141,7 +141,7 @@ public class Telegram {
                     break;
                 case TdApi.UpdateNotificationGroup.CONSTRUCTOR:
                     TdApi.UpdateNotificationGroup notificationGroup = (TdApi.UpdateNotificationGroup) object;
-                    TZNotificationManager.notify(1,notificationGroup);
+                    NotificationService.notify(notificationGroup);
                     break;
                 case TdApi.UpdateNotification.CONSTRUCTOR:
                     TdApi.UpdateNotification updateNotification = (TdApi.UpdateNotification) object;
@@ -396,7 +396,6 @@ public class Telegram {
     static void getChatList(final int limit) {
         synchronized (chatList) {
             if (!haveFullChatList && limit > chatList.size()) {
-                // have enough chats in the chat list or chat list is too small
                 long offsetOrder = Long.MAX_VALUE;
                 long offsetChatId = 0;
                 if (!chatList.isEmpty()) {
@@ -407,10 +406,8 @@ public class Telegram {
                 client.send(new TdApi.GetChats(offsetOrder, offsetChatId, limit), new Client.ResultHandler() {
                     @Override
                     public void onResult(TdApi.Object object) {
-
                         switch (object.getConstructor()) {
                             case TdApi.Error.CONSTRUCTOR:
-                                Log.e("tag", "Receive an error for GetChats:\n" + object);
                                 break;
                             case TdApi.Chats.CONSTRUCTOR:
                                 long[] chatIds = ((TdApi.Chats) object).chatIds;
@@ -419,19 +416,16 @@ public class Telegram {
                                         haveFullChatList = true;
                                     }
                                 }
-                                // chats had already been received through updates, let's retry request
                                 getChatList(limit);
                                 break;
                             default:
-                                Log.e("tag", "Receive wrong response from TDLib:" + object);
-
                         }
                     }
                 });
-                return;
             }
         }
     }
+
 
     public static void updateChatOrder(TdApi.Chat chat) {
         ChatsItem i = getRecyclerChatsItem(chat.id);

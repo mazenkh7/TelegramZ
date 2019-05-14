@@ -42,8 +42,6 @@ public class LoginActivity extends AppCompatActivity {
                 case R.id.sign_in_tick:
                     String countryCode = ccp.getSelectedCountryCodeWithPlus();
                     String phoneNum = phoneNumField.getText().toString();
-//                    Toast.makeText(getApplicationContext(),countryCode+phoneNum,Toast.LENGTH_SHORT).show();
-
                     Telegram.setPhoneNum(countryCode + phoneNum);
                     final Intent intent = new Intent(this, ConfirmCodeActivity.class);
                     intent.putExtra("phoneToVerify",countryCode+phoneNum);

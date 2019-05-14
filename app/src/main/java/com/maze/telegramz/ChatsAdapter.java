@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -66,11 +67,11 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListView
                     .beginConfig()
                     .height(60)
                     .width(60)
+                    .bold()
+                    .fontSize(22)
                     .endConfig()
                     .round();
             TextDrawable TD = builder.build(s.toUpperCase(),cg.getRandomColor());
-
-            Log.e("hhhh",""+TD.getIntrinsicWidth()+TD.getIntrinsicHeight());
             holder.getDisplayPic().setImageDrawable(TD);
         }
     }
@@ -151,7 +152,9 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListView
             //ToDo: check if this is saved messages and change title and photo.
             if (chat.id == getMe().id) {
                 ch.setTitle("Saved Messages");
-//                ch.setDisplayPic(BitmapFactory.decodeResource(ic.getContext().getResources(),R.mipmap.ic_saved_messages));
+                BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+                bmOptions.inScaled = false;
+                ch.setDisplayPic(BitmapFactory.decodeResource(ic.getContext().getResources(),R.drawable.saved_messages,bmOptions));
             }
             list.add(ch);
         }
@@ -187,11 +190,6 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListView
 
     public static String makeLastMsgStr(TdApi.Chat chat) {
         String lastMsg = "Message";
-//        TdApi.MessageText m;
-//        if (chat.lastMessage != null && chat.lastMessage.content.getConstructor() == TdApi.MessageText.CONSTRUCTOR) {
-//            m = (TdApi.MessageText) chat.lastMessage.content;
-//            lastMsg = m.text.text;
-//        }
         if (chat.lastMessage != null)
             switch (chat.lastMessage.content.getConstructor()) {
                 case TdApi.MessageText.CONSTRUCTOR:

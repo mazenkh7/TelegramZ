@@ -21,6 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:onClick="startBuAction"
         android:id="@+id/startBu"
         android:layout_width="178dp"
         android:layout_height="41dp"

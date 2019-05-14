@@ -65,6 +65,11 @@ public class HomeActivity extends AppCompatActivity implements OnFragmentInterac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home);
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.homeFragmentFrame, new ChatsFragment(), "Chats Fragment");
+        fragmentTransaction.commit();
         SharedPreferences sp = getSharedPreferences("TZSP", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putBoolean("Loggedin", true);
@@ -76,13 +81,8 @@ public class HomeActivity extends AppCompatActivity implements OnFragmentInterac
                     setMe((TdApi.User)object);
             }
         }, null);
-        setContentView(R.layout.activity_home);
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.homeFragmentFrame, new ChatsFragment(), "Chats Fragment");
-        fragmentTransaction.commit();
         ic = new HomeActivityIC();
     }
 
