@@ -46,7 +46,7 @@ public class Telegram {
     private static String phoneNum, verfCode, password;
     static boolean haveAuthorization;
 
-    private static int onAuthorizationStateUpdated(TdApi.AuthorizationState authorizationState) {
+    private static void onAuthorizationStateUpdated(TdApi.AuthorizationState authorizationState) {
         if (authorizationState != null) {
             Telegram.authorizationState = authorizationState;
         }
@@ -69,7 +69,6 @@ public class Telegram {
             case TdApi.AuthorizationStateWaitEncryptionKey.CONSTRUCTOR:
                 client.send(new TdApi.CheckDatabaseEncryptionKey(), new Telegram.AuthorizationRequestHandler());
                 break;
-
             case TdApi.AuthorizationStateWaitPhoneNumber.CONSTRUCTOR:
                 client.send(new TdApi.SetAuthenticationPhoneNumber(phoneNum, false, false), new Telegram.AuthorizationRequestHandler());
                 break;
@@ -79,17 +78,23 @@ public class Telegram {
                 break;
 
             case TdApi.AuthorizationStateReady.CONSTRUCTOR:
-                haveAuthorization = true;
-                getChatList(100);
-                ic.refreshChatsRecycler();
+                client.send(new TdApi.GetMe(), new Client.ResultHandler() {
+                    @Override
+                    public void onResult(TdApi.Object object) {
+                        if (object.getConstructor() == TdApi.User.CONSTRUCTOR) {
+                            setMe((TdApi.User) object);
+                        }
+                    }
+                }, null);
                 client.send(new TdApi.SetOption("notification_group_count_max", new TdApi.OptionValueInteger(5)), null, null);
                 client.send(new TdApi.SetOption("notification_group_size_max", new TdApi.OptionValueInteger(5)), null, null);
-                authorizationLock.lock();
-                try {
-                    gotAuthorization.signal();
-                } finally {
-                    authorizationLock.unlock();
-                }
+//                authorizationLock.lock();
+//                try {
+//                    gotAuthorization.signal();
+//                } finally {
+//                    authorizationLock.unlock();
+//                }
+                getChatList(100);
                 break;
 
             case TdApi.AuthorizationStateClosed.CONSTRUCTOR:
@@ -105,7 +110,7 @@ public class Telegram {
                 break;
 
         }
-        return Telegram.authorizationState.getConstructor();
+        Log.e("authshit",Telegram.authorizationState.toString());
     }
 
     public static TdApi.User getMe() {
@@ -145,16 +150,13 @@ public class Telegram {
                     break;
                 case TdApi.UpdateNotification.CONSTRUCTOR:
                     TdApi.UpdateNotification updateNotification = (TdApi.UpdateNotification) object;
-                    Log.e("notup", updateNotification.toString());
                     break;
                 case TdApi.UpdateActiveNotifications.CONSTRUCTOR:
                     TdApi.UpdateActiveNotifications updateActiveNotifications = (TdApi.UpdateActiveNotifications) object;
-                    Log.e("upactv", updateActiveNotifications.toString());
                     break;
                 case TdApi.UpdateHavePendingNotifications.CONSTRUCTOR:
                     TdApi.UpdateHavePendingNotifications updateHavePendingNotifications =
                             (TdApi.UpdateHavePendingNotifications) object;
-                    Log.e("uppend", updateHavePendingNotifications.toString());
                     break;
                 case TdApi.UpdateUser.CONSTRUCTOR:
                     TdApi.UpdateUser updateUser = (TdApi.UpdateUser) object;
@@ -346,7 +348,6 @@ public class Telegram {
                     if (updateFile.file.local.isDownloadingCompleted) {
                         for (ChatsItem i : chatsArrayList) {
                             if (i.getDisplayPicID() == updateFile.file.id) {
-                                Log.e("DPDP", "dcu");
                                 i.setDisplayPic(new File(updateFile.file.local.path));
                             }
                         }
@@ -472,15 +473,11 @@ public class Telegram {
     public static class displayPicDownloadHandler implements Client.ResultHandler {
         @Override
         public void onResult(TdApi.Object object) {
-            Log.e("DPDP", "1");
             if (object.getConstructor() == TdApi.File.CONSTRUCTOR) {
-                Log.e("DPDP", "2");
                 TdApi.File f = (TdApi.File) object;
                 if (f.local.isDownloadingCompleted) {
-                    Log.e("DPDP","3");
                     for (ChatsItem i : chatsArrayList) {
                         if (i.getDisplayPicID() == f.id) {
-                            Log.e("DPDP", "DPDP");
                             i.setDisplayPic(new File(f.local.path));
                             ic.refreshChatsRecycler();
                         }

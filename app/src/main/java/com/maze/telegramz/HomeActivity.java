@@ -60,12 +60,10 @@ public class HomeActivity extends AppCompatActivity implements OnFragmentInterac
     public void onResume(){
         super.onResume();
 //        getChatList(100);
-
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getChatList(200);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         fragmentManager = getSupportFragmentManager();

@@ -47,8 +47,7 @@ public class ChatsFragment extends Fragment {
     public static RecyclerView.Adapter chatsAdapter;
     private RecyclerView.LayoutManager chatsLayoutManager;
     private OnFragmentInteractionListener mListener;
-    public static ArrayList<ChatsItem> chatsArrayList;
-    public static ViewGroup chatsViewGroup;
+    public static ArrayList<ChatsItem> chatsArrayList = new ArrayList<>();
 
     public ChatsFragment() {
         // Required empty public constructor
@@ -78,14 +77,7 @@ public class ChatsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chats, container, false);
-        client.send(new TdApi.GetMe(), new Client.ResultHandler() {
-            @Override
-            public void onResult(TdApi.Object object) {
-                if(object.getConstructor() == TdApi.User.CONSTRUCTOR)
-                    setMe((TdApi.User)object);
-            }
-        }, null);
-        getChatList(200);
+//        getChatList(200);
         chatsArrayList = createChatsArrayList();
         chatsRecyclerView = view.findViewById(R.id.chatsRecycler);
         chatsRecyclerView.setHasFixedSize(true);
@@ -96,7 +88,6 @@ public class ChatsFragment extends Fragment {
         chatsRecyclerView.addItemDecoration(new DividerItemDecoration(container.getContext(), LinearLayoutManager.VERTICAL));
         chatsRecyclerView.setAdapter(chatsAdapter);
         ic.refreshChatsRecycler();
-        chatsViewGroup = container;
         return view;
     }
 
@@ -124,16 +115,7 @@ public class ChatsFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

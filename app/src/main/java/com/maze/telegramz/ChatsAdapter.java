@@ -150,7 +150,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListView
             }
 
             //ToDo: check if this is saved messages and change title and photo.
-            if (chat.id == getMe().id) {
+            if (getMe()!=null && chat.id == getMe().id) {
                 ch.setTitle("Saved Messages");
                 BitmapFactory.Options bmOptions = new BitmapFactory.Options();
                 bmOptions.inScaled = false;
