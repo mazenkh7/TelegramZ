@@ -25,6 +25,7 @@ import static com.maze.telegramz.ChatsFragment.chatsAdapter;
 import static com.maze.telegramz.Telegram.client;
 import static com.maze.telegramz.Telegram.getChatList;
 import static com.maze.telegramz.Telegram.setMe;
+import static com.maze.telegramz.Telegram.startClient;
 
 
 public class HomeActivity extends AppCompatActivity implements OnFragmentInteractionListener {
@@ -64,6 +65,7 @@ public class HomeActivity extends AppCompatActivity implements OnFragmentInterac
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getChatList(200);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         fragmentManager = getSupportFragmentManager();
@@ -74,13 +76,6 @@ public class HomeActivity extends AppCompatActivity implements OnFragmentInterac
         SharedPreferences.Editor editor = sp.edit();
         editor.putBoolean("Loggedin", true);
         editor.apply();
-        client.send(new TdApi.GetMe(), new Client.ResultHandler() {
-            @Override
-            public void onResult(TdApi.Object object) {
-                if(object.getConstructor() == TdApi.User.CONSTRUCTOR)
-                    setMe((TdApi.User)object);
-            }
-        }, null);
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         ic = new HomeActivityIC();

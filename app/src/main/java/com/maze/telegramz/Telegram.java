@@ -122,7 +122,7 @@ public class Telegram {
         public void onResult(TdApi.Object object) {
             switch (object.getConstructor()) {
                 case TdApi.Error.CONSTRUCTOR:
-                    onAuthorizationStateUpdated(null); // repeat last action
+                    onAuthorizationStateUpdated(null);
                     break;
             }
         }

@@ -12,13 +12,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.drinkless.td.libcore.telegram.Client;
+import org.drinkless.td.libcore.telegram.TdApi;
+
 import androidx.recyclerview.widget.DividerItemDecoration;
 
 import java.util.ArrayList;
 
 import static com.maze.telegramz.ChatsAdapter.createChatsArrayList;
 import static com.maze.telegramz.HomeActivity.ic;
+import static com.maze.telegramz.Telegram.client;
 import static com.maze.telegramz.Telegram.getChatList;
+import static com.maze.telegramz.Telegram.setMe;
 
 
 /**
@@ -73,6 +78,13 @@ public class ChatsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chats, container, false);
+        client.send(new TdApi.GetMe(), new Client.ResultHandler() {
+            @Override
+            public void onResult(TdApi.Object object) {
+                if(object.getConstructor() == TdApi.User.CONSTRUCTOR)
+                    setMe((TdApi.User)object);
+            }
+        }, null);
         getChatList(200);
         chatsArrayList = createChatsArrayList();
         chatsRecyclerView = view.findViewById(R.id.chatsRecycler);

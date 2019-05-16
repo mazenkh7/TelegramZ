@@ -18,7 +18,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         ccp = findViewById(R.id.ccp);
         ccpMini = findViewById(R.id.ccpMini);
         phoneNumField = findViewById(R.id.phoneNumField);

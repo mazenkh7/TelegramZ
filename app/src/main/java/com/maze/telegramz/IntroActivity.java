@@ -14,12 +14,12 @@ import static com.maze.telegramz.Telegram.startClient;
 public class IntroActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        startClient();
         super.onCreate(savedInstanceState);
         SharedPreferences sp = getSharedPreferences("TZSP", Context.MODE_PRIVATE);
         if (sp.getBoolean("Loggedin", false)) {
             final Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
-            startClient();
             finish();
         } else {
             setContentView(R.layout.activity_intro);
