@@ -80,7 +80,7 @@ public class ChatsFragment extends Fragment {
 //        getChatList(200);
         chatsArrayList = createChatsArrayList();
         chatsRecyclerView = view.findViewById(R.id.chatsRecycler);
-        chatsRecyclerView.setHasFixedSize(true);
+//        chatsRecyclerView.setHasFixedSize(false);
         chatsLayoutManager = new LinearLayoutManager(container.getContext());
         chatsAdapter = new ChatsAdapter(chatsArrayList);
         chatsRecyclerView.setLayoutManager(chatsLayoutManager);

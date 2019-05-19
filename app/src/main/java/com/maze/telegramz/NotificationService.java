@@ -109,6 +109,8 @@ public class NotificationService extends FirebaseMessagingService {
                     .setSmallIcon(R.mipmap.app_notification)
                     .setColor(Color.RED)
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setGroup("yo")
+                    .setGroupSummary(true)
                     .setLargeIcon(BitmapFactory.decodeFile(chat.photo.small.local.path));
             TdApi.NotificationTypeNewMessage contentMinimized = (TdApi.NotificationTypeNewMessage)notList.get(0).type;
             builder.setContentText(((TdApi.MessageText)contentMinimized.message.content).text.text);
@@ -131,7 +133,7 @@ public class NotificationService extends FirebaseMessagingService {
                     }
                 }
             }
-            TdApi.NotificationTypeNewMessage lastMsg = (TdApi.NotificationTypeNewMessage) notList.get(notList.size()-1).type;
+//            TdApi.NotificationTypeNewMessage lastMsg = (TdApi.NotificationTypeNewMessage) notList.get(notList.size()-1).type;
             builder.setStyle(notStyle);
             nm.notify(notificationGroup.notificationGroupId,builder.build());
 

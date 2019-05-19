@@ -57,22 +57,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListView
         if (currentItem.getDisplayPic() != null)
             holder.getDisplayPic().setImageBitmap(currentItem.getDisplayPic());
         else {
-            String s = "";
-            String m[] = currentItem.getTitle().split(" ");
-            for (String n : m) {
-                s = s.concat("" + n.charAt(0));
-            }
-            ColorGenerator cg = ColorGenerator.MATERIAL;
-            TextDrawable.IBuilder builder = TextDrawable.builder()
-                    .beginConfig()
-                    .height(60)
-                    .width(60)
-                    .bold()
-                    .fontSize(22)
-                    .endConfig()
-                    .round();
-            TextDrawable TD = builder.build(s.toUpperCase(),cg.getRandomColor());
-            holder.getDisplayPic().setImageDrawable(TD);
+            holder.getDisplayPic().setImageDrawable(currentItem.getTextDrawable());
         }
     }
 

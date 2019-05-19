@@ -1,11 +1,14 @@
 package com.maze.telegramz;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 
 import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 
 import java.io.File;
 
@@ -40,6 +43,7 @@ public class ChatsItem implements Comparable<ChatsItem> {
     private String lastMsg;
     private String date;
     private long order;
+    private TextDrawable textDrawable;
 
     public String getDate() {
         return date;
@@ -62,6 +66,31 @@ public class ChatsItem implements Comparable<ChatsItem> {
         this.id = id;
         this.order = order;
         setDisplayPic(f);
+        SharedPreferences sp = ic.getContext().getSharedPreferences("TZTD", Context.MODE_PRIVATE);
+        int color;
+        if (sp.getInt(""+id, -1)==-1) {
+            ColorGenerator cg = ColorGenerator.MATERIAL;
+            color = cg.getRandomColor();
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putInt(""+id,color);
+            editor.apply();
+        } else {
+            color = sp.getInt(""+id, -1);
+        }
+        TextDrawable.IBuilder builder = TextDrawable.builder()
+                .beginConfig()
+                .height(60)
+                .width(60)
+                .bold()
+                .fontSize(22)
+                .endConfig()
+                .round();
+        String s = "";
+        String m[] = title.split(" ");
+        for (String n : m) {
+            s = s.concat("" + n.charAt(0));
+        }
+        textDrawable = builder.build(s.toUpperCase(),color);
     }
 
     public Bitmap getDisplayPic() {
@@ -111,5 +140,9 @@ public class ChatsItem implements Comparable<ChatsItem> {
 
     public void setDisplayPicID(long displayPicID) {
         this.displayPicID = displayPicID;
+    }
+
+    public TextDrawable getTextDrawable() {
+        return textDrawable;
     }
 }
