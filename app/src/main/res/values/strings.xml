@@ -5,7 +5,7 @@
     <string name="title_activity_confirm_code">Confirmation</string>
     <string name="enter_phone_title">Your Phone</string>
     <string name="confirm_in">confrim_tick</string>
-    <string name="title_activity_chats_calls_profile">Chats</string>
+    <string name="title_activity_home">Chats</string>
     <string name="title_chats">Chats</string>
     <string name="title_calls">Calls</string>
     <string name="title_profile">Profile</string>

@@ -114,6 +114,10 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListView
         }
     }
 
+    public interface ChatItemListener{
+        void onClickListener(int position);
+    }
+
     public static ArrayList<ChatsItem> createChatsArrayList() {
         ArrayList<ChatsItem> list = new ArrayList<>();
         java.util.Iterator<Telegram.OrderedChat> iter = chatList.iterator();

@@ -33,6 +33,7 @@ public class ConfirmCodeActivity extends AppCompatActivity {
 //                Toast.makeText(getApplicationContext(),"code is " + verfCodeField.getText().toString() ,Toast.LENGTH_LONG).show();
                 Telegram.setVerfCode(verfCodeField.getText().toString());
                 final Intent intent = new Intent(this, HomeActivity.class);
+                intent.putExtra("fromIntro",false);
                 startActivity(intent);
                 finish();
         }

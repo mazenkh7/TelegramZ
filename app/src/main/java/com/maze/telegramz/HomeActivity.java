@@ -59,7 +59,6 @@ public class HomeActivity extends AppCompatActivity implements OnFragmentInterac
     @Override
     public void onResume(){
         super.onResume();
-//        getChatList(100);
     }
 
     @Override

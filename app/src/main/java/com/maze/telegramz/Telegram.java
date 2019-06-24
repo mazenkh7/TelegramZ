@@ -425,6 +425,7 @@ public class Telegram {
                 });
             }
         }
+        ic.refreshChatsRecycler();
     }
 
 

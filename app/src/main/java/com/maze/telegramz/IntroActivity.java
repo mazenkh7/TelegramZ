@@ -19,6 +19,7 @@ public class IntroActivity extends AppCompatActivity {
         SharedPreferences sp = getSharedPreferences("TZSP", Context.MODE_PRIVATE);
         if (sp.getBoolean("Loggedin", false)) {
             final Intent intent = new Intent(this, HomeActivity.class);
+            intent.putExtra("fromIntro",true);
             startActivity(intent);
             finish();
         } else {
