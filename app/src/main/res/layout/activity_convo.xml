@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ConvoActivity">
+
+    <com.stfalcon.chatkit.messages.MessagesList
+        android:id="@+id/messagesList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/input"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp"
+        app:outcomingDefaultBubbleColor="@color/colorAccent"
+        app:outcomingBubblePaddingTop="8dp"
+        app:outcomingBubblePaddingBottom="8dp"
+        app:outcomingBubblePaddingRight="10dp"
+        app:outcomingBubblePaddingLeft="10dp"
+        app:outcomingTimeTextStyle="italic"
+
+        app:incomingBubblePaddingTop="8dp"
+        app:incomingBubblePaddingBottom="8dp"
+        app:incomingBubblePaddingRight="10dp"
+        app:incomingBubblePaddingLeft="10dp"
+        app:incomingTimeTextStyle="italic"
+
+        app:layout_constraintBottom_toTopOf="@+id/input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.stfalcon.chatkit.messages.MessageInput
+        android:id="@+id/input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:showAttachmentButton="true"
+        app:inputHint="@string/hint_enter_a_message"
+        app:inputButtonDefaultIconColor="@color/colorAccent"
+        app:inputButtonDefaultBgColor="@color/white_five"
+        app:attachmentButtonDefaultIconColor="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</RelativeLayout>

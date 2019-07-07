@@ -2,9 +2,16 @@ package org.drinkless.td.libcore.telegram;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import androidx.annotation.IntDef;
 import androidx.annotation.Nullable;
+
+import com.stfalcon.chatkit.commons.models.IMessage;
+import com.stfalcon.chatkit.commons.models.IUser;
+
 /**
  * This class contains as static nested classes all other TDLib interface
  * type-classes and function-classes.
@@ -13491,7 +13498,7 @@ public class TdApi {
     /**
      * Describes a message.
      */
-    public static class Message extends Object {
+    public static class Message extends Object implements IMessage {
         /**
          * Message identifier, unique for the chat to which the message belongs.
          */
@@ -13655,6 +13662,126 @@ public class TdApi {
         @Override
         public int getConstructor() {
             return CONSTRUCTOR;
+        }
+
+        @Override
+        public String getId() {
+            return ""+id;
+        }
+
+        @Override
+        public String getText() {
+            String message = "Message";
+                switch (content.getConstructor()) {
+                    case TdApi.MessageText.CONSTRUCTOR:
+                        TdApi.MessageText mt = (TdApi.MessageText) content;
+                        message = mt.text.text;
+                        break;
+//                case MessageAnimation.CONSTRUCTOR:
+//                    break;
+//                case MessageAudio.CONSTRUCTOR:
+//                    break;
+//                case MessageBasicGroupChatCreate.CONSTRUCTOR:
+//                    break;
+//                case MessageCall.CONSTRUCTOR:
+//                    break;
+//                case MessageChatAddMembers.CONSTRUCTOR:
+//                    break;
+//                case MessageChatChangePhoto.CONSTRUCTOR:
+//                    break;
+//                case MessageChatChangeTitle.CONSTRUCTOR:
+//                    break;
+//                case MessageChatDeleteMember.CONSTRUCTOR:
+//                    break;
+//                case MessageChatDeletePhoto.CONSTRUCTOR:
+//                    break;
+//                case MessageChatJoinByLink.CONSTRUCTOR:
+//                    break;
+//                case MessageChatSetTtl.CONSTRUCTOR:
+//                    break;
+//                case MessageChatUpgradeFrom.CONSTRUCTOR:
+//                    break;
+//                case MessageChatUpgradeTo.CONSTRUCTOR:
+//                    break;
+//                case MessageContact.CONSTRUCTOR:
+//                    break;
+//                case MessageContactRegistered.CONSTRUCTOR:
+//                    break;
+//                case MessageCustomServiceAction.CONSTRUCTOR:
+//                    break;
+//                case MessageDocument.CONSTRUCTOR:
+//                    break;
+//                case MessageExpiredPhoto.CONSTRUCTOR:
+//                    break;
+//                case MessageExpiredVideo.CONSTRUCTOR:
+//                    break;
+//                case MessageGame.CONSTRUCTOR:
+//                    break;
+//                case MessageGameScore.CONSTRUCTOR:
+//                    break;
+//                case MessageInvoice.CONSTRUCTOR:
+//                    break;
+//                case MessageLocation.CONSTRUCTOR:
+//                    break;
+//                case MessagePassportDataReceived.CONSTRUCTOR:
+//                    break;
+//                case MessagePassportDataSent.CONSTRUCTOR:
+//                    break;
+//                case MessagePaymentSuccessful.CONSTRUCTOR:
+//                    break;
+//                case MessagePaymentSuccessfulBot.CONSTRUCTOR:
+//                    break;
+//                case MessagePhoto.CONSTRUCTOR:
+//                    break;
+//                case MessagePinMessage.CONSTRUCTOR:
+//                    break;
+//                case MessageScreenshotTaken.CONSTRUCTOR:
+//                    break;
+                    case TdApi.MessageSticker.CONSTRUCTOR:
+                        TdApi.MessageSticker ms = (TdApi.MessageSticker) content;
+                        message = ms.sticker.emoji + " Sticker";
+                        break;
+//                case MessageSupergroupChatCreate.CONSTRUCTOR:
+//                    break;
+//                case MessageUnsupported.CONSTRUCTOR:
+//                    break;
+//                case MessageVenue.CONSTRUCTOR:
+//                    break;
+//                case MessageVideo.CONSTRUCTOR:
+//                    break;
+//                case MessageVideoNote.CONSTRUCTOR:
+//                    break;
+//                case MessageVoiceNote.CONSTRUCTOR:
+//                    break;
+//                case MessageWebsiteConnected.CONSTRUCTOR:
+//                    break;
+                }
+                return message;
+        }
+
+        @Override
+        public IUser getUser() {
+            return new IUser() {
+                @Override
+                public String getId() {
+                    return ""+senderUserId;
+                }
+
+                @Override
+                public String getName() {
+                    return "sender";
+                }
+
+                @Override
+                public String getAvatar() {
+                    return null;
+                }
+            };
+        }
+
+        @Override
+        public java.util.Date getCreatedAt() {
+            return new java.util.Date(date * 1000L);
         }
     }
 

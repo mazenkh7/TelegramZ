@@ -21,7 +21,7 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 24
+    compileSdkVersion 28
 
     sourceSets.main {
         jniLibs.srcDir 'src/main/libs'
@@ -48,5 +48,8 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:support-annotations:28.0.0'
+    implementation 'androidx.annotation:annotation:1.0.0'
+//    implementation 'com.github.stfalcon:chatkit:0.3.3'
+    implementation 'com.github.knaeckeKami:ChatKit:0.0.5'
+
 }

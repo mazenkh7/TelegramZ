@@ -4,18 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.amulyakhare.textdrawable.TextDrawable;
-import com.amulyakhare.textdrawable.util.ColorGenerator;
 
 import org.drinkless.td.libcore.telegram.TdApi;
 
@@ -35,16 +28,17 @@ import static com.maze.telegramz.Telegram.getMe;
 
 public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListViewHolder> {
     private ArrayList<ChatsItem> cri;
-
-    public ChatsAdapter(ArrayList<ChatsItem> i) {
+    private OnChatClickListener mOccl;
+    public ChatsAdapter(ArrayList<ChatsItem> i, OnChatClickListener mOccl) {
         cri = i;
+        this.mOccl = mOccl;
     }
 
     @NonNull
     @Override
     public ChatListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_recycler_item, parent, false);
-        ChatListViewHolder clvh = new ChatListViewHolder(v);
+        ChatListViewHolder clvh = new ChatListViewHolder(v, mOccl);
         return clvh;
     }
 
@@ -67,12 +61,12 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListView
     }
 
 
-    public static class ChatListViewHolder extends RecyclerView.ViewHolder {
+    public static class ChatListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView displayPic;
         public TextView name;
         public TextView lastMsg;
         public TextView lastMsgTime;
-
+        public OnChatClickListener occl;
         public TextView getLastMsgTime() {
             return lastMsgTime;
         }
@@ -105,21 +99,28 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListView
             this.lastMsg = lastMsg;
         }
 
-        public ChatListViewHolder(@NonNull View itemView) {
+        public ChatListViewHolder(@NonNull View itemView, OnChatClickListener occl) {
             super(itemView);
             displayPic = itemView.findViewById(R.id.user_photo);
             name = itemView.findViewById(R.id.UserName);
             lastMsg = itemView.findViewById(R.id.LastMessage);
             lastMsgTime = itemView.findViewById(R.id.LastMessageTime);
+            this.occl = occl;
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            occl.onClick(getAdapterPosition());
         }
     }
 
-    public interface ChatItemListener{
+    public interface ChatItemListener {
         void onClickListener(int position);
     }
 
-    public static ArrayList<ChatsItem> createChatsArrayList() {
-        ArrayList<ChatsItem> list = new ArrayList<>();
+    public static /*ArrayList<ChatsItem>*/ void populateChatsArrayList(ArrayList<ChatsItem> list) {
+//        ArrayList<ChatsItem> list = new ArrayList<>();
         java.util.Iterator<Telegram.OrderedChat> iter = chatList.iterator();
         for (int i = 0; i < chatList.size(); i++) {
             long chatId = iter.next().chatId;
@@ -139,15 +140,15 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListView
             }
 
             //ToDo: check if this is saved messages and change title and photo.
-            if (getMe()!=null && chat.id == getMe().id) {
+            if (getMe() != null && chat.id == getMe().id) {
                 ch.setTitle("Saved Messages");
                 BitmapFactory.Options bmOptions = new BitmapFactory.Options();
                 bmOptions.inScaled = false;
-                ch.setDisplayPic(BitmapFactory.decodeResource(ic.getContext().getResources(),R.drawable.saved_messages,bmOptions));
+                ch.setDisplayPic(BitmapFactory.decodeResource(ic.getContext().getResources(), R.drawable.saved_messages, bmOptions));
             }
             list.add(ch);
         }
-        return list;
+//        return list;
     }
 
     private static char showDateNotTime(Date a, Date b) {
@@ -266,5 +267,9 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListView
             }
 //            Log.e("msg type class name", chat.lastMessage.content.getClass().getName());
         return lastMsg;
+    }
+
+    public interface OnChatClickListener {
+        void onClick(int pos);
     }
 }

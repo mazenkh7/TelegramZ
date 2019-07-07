@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ChatActivity" />
+        <activity android:name=".ConvoActivity"></activity>
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home" />
@@ -26,8 +26,7 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/enter_phone_title" />
-        <activity
-            android:name=".IntroActivity">
+        <activity android:name=".IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

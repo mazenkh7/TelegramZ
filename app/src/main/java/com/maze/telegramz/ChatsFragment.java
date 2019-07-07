@@ -1,29 +1,23 @@
 package com.maze.telegramz;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import org.drinkless.td.libcore.telegram.Client;
-import org.drinkless.td.libcore.telegram.TdApi;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
 
 import java.util.ArrayList;
 
-import static com.maze.telegramz.ChatsAdapter.createChatsArrayList;
+import static com.maze.telegramz.ChatsAdapter.populateChatsArrayList;
 import static com.maze.telegramz.HomeActivity.ic;
-import static com.maze.telegramz.Telegram.client;
-import static com.maze.telegramz.Telegram.getChatList;
-import static com.maze.telegramz.Telegram.setMe;
 
 
 /**
@@ -34,7 +28,7 @@ import static com.maze.telegramz.Telegram.setMe;
  * Use the {@link ChatsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ChatsFragment extends Fragment {
+public class ChatsFragment extends Fragment implements ChatsAdapter.OnChatClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -78,15 +72,16 @@ public class ChatsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chats, container, false);
 //        getChatList(200);
-        chatsArrayList = createChatsArrayList();
+        chatsArrayList = new ArrayList<>();
         chatsRecyclerView = view.findViewById(R.id.chatsRecycler);
 
         chatsLayoutManager = new LinearLayoutManager(container.getContext());
-        chatsAdapter = new ChatsAdapter(chatsArrayList);
+        chatsAdapter = new ChatsAdapter(chatsArrayList, this);
         chatsRecyclerView.setLayoutManager(chatsLayoutManager);
         chatsRecyclerView.setAdapter(chatsAdapter);
         chatsRecyclerView.addItemDecoration(new DividerItemDecoration(container.getContext(), LinearLayoutManager.VERTICAL));
         chatsRecyclerView.setAdapter(chatsAdapter);
+        populateChatsArrayList(chatsArrayList);
         ic.refreshChatsRecycler();
         return view;
     }
@@ -113,6 +108,15 @@ public class ChatsFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onClick(int pos) {
+        ChatsItem clickedItem = chatsArrayList.get(pos);
+        Intent intent = new Intent(this.getContext(), ConvoActivity.class);
+        intent.putExtra("title",clickedItem.getTitle());
+        intent.putExtra("id",clickedItem.getId());
+        startActivity(intent);
     }
 
 
