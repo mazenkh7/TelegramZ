@@ -71,16 +71,8 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListView
             return lastMsgTime;
         }
 
-        public void setLastMsgTime(TextView lastMsgTime) {
-            this.lastMsgTime = lastMsgTime;
-        }
-
         public ImageView getDisplayPic() {
             return displayPic;
-        }
-
-        public void setDisplayPic(ImageView displayPic) {
-            this.displayPic = displayPic;
         }
 
         public TextView getName() {
@@ -115,12 +107,8 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListView
         }
     }
 
-    public interface ChatItemListener {
-        void onClickListener(int position);
-    }
 
-    public static /*ArrayList<ChatsItem>*/ void populateChatsArrayList(ArrayList<ChatsItem> list) {
-//        ArrayList<ChatsItem> list = new ArrayList<>();
+    public static void populateChatsArrayList(ArrayList<ChatsItem> list) {
         java.util.Iterator<Telegram.OrderedChat> iter = chatList.iterator();
         for (int i = 0; i < chatList.size(); i++) {
             long chatId = iter.next().chatId;
@@ -139,7 +127,6 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListView
                     ch.setDisplayPic(f);
             }
 
-            //ToDo: check if this is saved messages and change title and photo.
             if (getMe() != null && chat.id == getMe().id) {
                 ch.setTitle("Saved Messages");
                 BitmapFactory.Options bmOptions = new BitmapFactory.Options();
@@ -148,7 +135,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListView
             }
             list.add(ch);
         }
-//        return list;
+        ic.refreshChatsRecycler();
     }
 
     private static char showDateNotTime(Date a, Date b) {
@@ -161,6 +148,11 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListView
             return 'd';
         else
             return 'h';
+    }
+
+    public static void prefetchAllChatsLastMessages(ArrayList<ChatsItem> list){
+        for (ChatsItem i : list)
+            client.send(new TdApi.GetChatHistory(i.getId(),0,0,100,false), null);
     }
 
     public static String makeDateString(long timeStamp) {
@@ -268,6 +260,8 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListView
 //            Log.e("msg type class name", chat.lastMessage.content.getClass().getName());
         return lastMsg;
     }
+
+
 
     public interface OnChatClickListener {
         void onClick(int pos);

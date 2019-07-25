@@ -48,8 +48,7 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.annotation:annotation:1.0.0'
-//    implementation 'com.github.stfalcon:chatkit:0.3.3'
+    implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'com.github.knaeckeKami:ChatKit:0.0.5'
 
 }

@@ -88,6 +88,11 @@ public class HomeActivity extends AppCompatActivity implements OnFragmentInterac
 
     }
 
+    @Override
+    public void onBackPressed(){
+        moveTaskToBack(true);
+    }
+
     public class HomeActivityIC {
         public void refreshChatsRecycler() {
             HomeActivity.this.runOnUiThread(new Runnable() {

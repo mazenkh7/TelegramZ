@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_material_light"
     tools:context=".ConvoActivity">
 
     <com.stfalcon.chatkit.messages.MessagesList
@@ -16,18 +17,28 @@
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="0dp"
+
         app:outcomingDefaultBubbleColor="@color/colorAccent"
         app:outcomingBubblePaddingTop="8dp"
         app:outcomingBubblePaddingBottom="8dp"
-        app:outcomingBubblePaddingRight="10dp"
-        app:outcomingBubblePaddingLeft="10dp"
+        app:outcomingBubblePaddingRight="8dp"
+        app:outcomingBubblePaddingLeft="8dp"
+        app:outcomingTextSize="16sp"
         app:outcomingTimeTextStyle="italic"
+        app:outcomingTimeTextSize="10sp"
+        app:outcomingTimeTextColor="@color/warm_grey_three"
 
         app:incomingBubblePaddingTop="8dp"
         app:incomingBubblePaddingBottom="8dp"
-        app:incomingBubblePaddingRight="10dp"
-        app:incomingBubblePaddingLeft="10dp"
+        app:incomingBubblePaddingRight="8dp"
+        app:incomingBubblePaddingLeft="8dp"
+        app:incomingTextSize="16sp"
+
         app:incomingTimeTextStyle="italic"
+        app:incomingTimeTextSize="10sp"
+        app:incomingImageTimeTextSize="10sp"
+        app:dateHeaderTextSize="10sp"
+
 
         app:layout_constraintBottom_toTopOf="@+id/input"
         app:layout_constraintEnd_toEndOf="parent"

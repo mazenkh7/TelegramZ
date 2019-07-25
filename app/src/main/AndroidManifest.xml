@@ -4,7 +4,7 @@
     package="com.maze.telegramz">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATIONE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
@@ -16,10 +16,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ConvoActivity"></activity>
+        <activity android:name=".ConvoActivity"
+            android:theme="@style/AppTheme.Slidr">
+        </activity>
         <activity
             android:name=".HomeActivity"
-            android:label="@string/title_activity_home" />
+            android:label="@string/title_activity_home"
+            android:launchMode="singleTask"/>
         <activity
             android:name=".ConfirmCodeActivity"
             android:label="@string/title_activity_confirm_code" />

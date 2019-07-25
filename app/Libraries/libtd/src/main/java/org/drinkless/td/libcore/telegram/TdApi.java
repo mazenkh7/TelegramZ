@@ -1,5 +1,7 @@
 package org.drinkless.td.libcore.telegram;
 
+import android.util.Log;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.text.SimpleDateFormat;
@@ -11,6 +13,7 @@ import androidx.annotation.Nullable;
 
 import com.stfalcon.chatkit.commons.models.IMessage;
 import com.stfalcon.chatkit.commons.models.IUser;
+import com.stfalcon.chatkit.commons.models.MessageContentType;
 
 /**
  * This class contains as static nested classes all other TDLib interface
@@ -40,342 +43,343 @@ public class TdApi {
     public abstract static class Function extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            AcceptCall.CONSTRUCTOR,
-            AcceptTermsOfService.CONSTRUCTOR,
-            AddChatMember.CONSTRUCTOR,
-            AddChatMembers.CONSTRUCTOR,
-            AddCustomServerLanguagePack.CONSTRUCTOR,
-            AddFavoriteSticker.CONSTRUCTOR,
-            AddLocalMessage.CONSTRUCTOR,
-            AddLogMessage.CONSTRUCTOR,
-            AddNetworkStatistics.CONSTRUCTOR,
-            AddProxy.CONSTRUCTOR,
-            AddRecentSticker.CONSTRUCTOR,
-            AddRecentlyFoundChat.CONSTRUCTOR,
-            AddSavedAnimation.CONSTRUCTOR,
-            AddStickerToSet.CONSTRUCTOR,
-            AnswerCallbackQuery.CONSTRUCTOR,
-            AnswerCustomQuery.CONSTRUCTOR,
-            AnswerInlineQuery.CONSTRUCTOR,
-            AnswerPreCheckoutQuery.CONSTRUCTOR,
-            AnswerShippingQuery.CONSTRUCTOR,
-            BlockUser.CONSTRUCTOR,
-            CancelDownloadFile.CONSTRUCTOR,
-            CancelUploadFile.CONSTRUCTOR,
-            ChangeChatReportSpamState.CONSTRUCTOR,
-            ChangeImportedContacts.CONSTRUCTOR,
-            ChangePhoneNumber.CONSTRUCTOR,
-            ChangeStickerSet.CONSTRUCTOR,
-            CheckAuthenticationBotToken.CONSTRUCTOR,
-            CheckAuthenticationCode.CONSTRUCTOR,
-            CheckAuthenticationPassword.CONSTRUCTOR,
-            CheckChangePhoneNumberCode.CONSTRUCTOR,
-            CheckChatInviteLink.CONSTRUCTOR,
-            CheckChatUsername.CONSTRUCTOR,
-            CheckDatabaseEncryptionKey.CONSTRUCTOR,
-            CheckEmailAddressVerificationCode.CONSTRUCTOR,
-            CheckPhoneNumberConfirmationCode.CONSTRUCTOR,
-            CheckPhoneNumberVerificationCode.CONSTRUCTOR,
-            CheckRecoveryEmailAddressCode.CONSTRUCTOR,
-            CleanFileName.CONSTRUCTOR,
-            ClearAllDraftMessages.CONSTRUCTOR,
-            ClearImportedContacts.CONSTRUCTOR,
-            ClearRecentStickers.CONSTRUCTOR,
-            ClearRecentlyFoundChats.CONSTRUCTOR,
-            Close.CONSTRUCTOR,
-            CloseChat.CONSTRUCTOR,
-            CloseSecretChat.CONSTRUCTOR,
-            CreateBasicGroupChat.CONSTRUCTOR,
-            CreateCall.CONSTRUCTOR,
-            CreateNewBasicGroupChat.CONSTRUCTOR,
-            CreateNewSecretChat.CONSTRUCTOR,
-            CreateNewStickerSet.CONSTRUCTOR,
-            CreateNewSupergroupChat.CONSTRUCTOR,
-            CreatePrivateChat.CONSTRUCTOR,
-            CreateSecretChat.CONSTRUCTOR,
-            CreateSupergroupChat.CONSTRUCTOR,
-            CreateTemporaryPassword.CONSTRUCTOR,
-            DeleteAccount.CONSTRUCTOR,
-            DeleteChatHistory.CONSTRUCTOR,
-            DeleteChatMessagesFromUser.CONSTRUCTOR,
-            DeleteChatReplyMarkup.CONSTRUCTOR,
-            DeleteFile.CONSTRUCTOR,
-            DeleteLanguagePack.CONSTRUCTOR,
-            DeleteMessages.CONSTRUCTOR,
-            DeletePassportElement.CONSTRUCTOR,
-            DeleteProfilePhoto.CONSTRUCTOR,
-            DeleteSavedCredentials.CONSTRUCTOR,
-            DeleteSavedOrderInfo.CONSTRUCTOR,
-            DeleteSupergroup.CONSTRUCTOR,
-            Destroy.CONSTRUCTOR,
-            DisableProxy.CONSTRUCTOR,
-            DiscardCall.CONSTRUCTOR,
-            DisconnectAllWebsites.CONSTRUCTOR,
-            DisconnectWebsite.CONSTRUCTOR,
-            DownloadFile.CONSTRUCTOR,
-            EditCustomLanguagePackInfo.CONSTRUCTOR,
-            EditInlineMessageCaption.CONSTRUCTOR,
-            EditInlineMessageLiveLocation.CONSTRUCTOR,
-            EditInlineMessageMedia.CONSTRUCTOR,
-            EditInlineMessageReplyMarkup.CONSTRUCTOR,
-            EditInlineMessageText.CONSTRUCTOR,
-            EditMessageCaption.CONSTRUCTOR,
-            EditMessageLiveLocation.CONSTRUCTOR,
-            EditMessageMedia.CONSTRUCTOR,
-            EditMessageReplyMarkup.CONSTRUCTOR,
-            EditMessageText.CONSTRUCTOR,
-            EditProxy.CONSTRUCTOR,
-            EnableProxy.CONSTRUCTOR,
-            FinishFileGeneration.CONSTRUCTOR,
-            ForwardMessages.CONSTRUCTOR,
-            GenerateChatInviteLink.CONSTRUCTOR,
-            GetAccountTtl.CONSTRUCTOR,
-            GetActiveLiveLocationMessages.CONSTRUCTOR,
-            GetActiveSessions.CONSTRUCTOR,
-            GetAllPassportElements.CONSTRUCTOR,
-            GetApplicationConfig.CONSTRUCTOR,
-            GetArchivedStickerSets.CONSTRUCTOR,
-            GetAttachedStickerSets.CONSTRUCTOR,
-            GetAuthorizationState.CONSTRUCTOR,
-            GetBasicGroup.CONSTRUCTOR,
-            GetBasicGroupFullInfo.CONSTRUCTOR,
-            GetBlockedUsers.CONSTRUCTOR,
-            GetCallbackQueryAnswer.CONSTRUCTOR,
-            GetChat.CONSTRUCTOR,
-            GetChatAdministrators.CONSTRUCTOR,
-            GetChatEventLog.CONSTRUCTOR,
-            GetChatHistory.CONSTRUCTOR,
-            GetChatMember.CONSTRUCTOR,
-            GetChatMessageByDate.CONSTRUCTOR,
-            GetChatMessageCount.CONSTRUCTOR,
-            GetChatNotificationSettingsExceptions.CONSTRUCTOR,
-            GetChatPinnedMessage.CONSTRUCTOR,
-            GetChatReportSpamState.CONSTRUCTOR,
-            GetChatStatisticsUrl.CONSTRUCTOR,
-            GetChats.CONSTRUCTOR,
-            GetConnectedWebsites.CONSTRUCTOR,
-            GetContacts.CONSTRUCTOR,
-            GetCountryCode.CONSTRUCTOR,
-            GetCreatedPublicChats.CONSTRUCTOR,
-            GetCurrentState.CONSTRUCTOR,
-            GetDatabaseStatistics.CONSTRUCTOR,
-            GetDeepLinkInfo.CONSTRUCTOR,
-            GetFavoriteStickers.CONSTRUCTOR,
-            GetFile.CONSTRUCTOR,
-            GetFileDownloadedPrefixSize.CONSTRUCTOR,
-            GetFileExtension.CONSTRUCTOR,
-            GetFileMimeType.CONSTRUCTOR,
-            GetGameHighScores.CONSTRUCTOR,
-            GetGroupsInCommon.CONSTRUCTOR,
-            GetImportedContactCount.CONSTRUCTOR,
-            GetInlineGameHighScores.CONSTRUCTOR,
-            GetInlineQueryResults.CONSTRUCTOR,
-            GetInstalledStickerSets.CONSTRUCTOR,
-            GetInviteText.CONSTRUCTOR,
-            GetJsonString.CONSTRUCTOR,
-            GetJsonValue.CONSTRUCTOR,
-            GetLanguagePackInfo.CONSTRUCTOR,
-            GetLanguagePackString.CONSTRUCTOR,
-            GetLanguagePackStrings.CONSTRUCTOR,
-            GetLocalizationTargetInfo.CONSTRUCTOR,
-            GetLogStream.CONSTRUCTOR,
-            GetLogTagVerbosityLevel.CONSTRUCTOR,
-            GetLogTags.CONSTRUCTOR,
-            GetLogVerbosityLevel.CONSTRUCTOR,
-            GetMapThumbnailFile.CONSTRUCTOR,
-            GetMe.CONSTRUCTOR,
-            GetMessage.CONSTRUCTOR,
-            GetMessageLink.CONSTRUCTOR,
-            GetMessageLocally.CONSTRUCTOR,
-            GetMessages.CONSTRUCTOR,
-            GetNetworkStatistics.CONSTRUCTOR,
-            GetOption.CONSTRUCTOR,
-            GetPassportAuthorizationForm.CONSTRUCTOR,
-            GetPassportAuthorizationFormAvailableElements.CONSTRUCTOR,
-            GetPassportElement.CONSTRUCTOR,
-            GetPasswordState.CONSTRUCTOR,
-            GetPaymentForm.CONSTRUCTOR,
-            GetPaymentReceipt.CONSTRUCTOR,
-            GetPreferredCountryLanguage.CONSTRUCTOR,
-            GetProxies.CONSTRUCTOR,
-            GetProxyLink.CONSTRUCTOR,
-            GetPublicMessageLink.CONSTRUCTOR,
-            GetPushReceiverId.CONSTRUCTOR,
-            GetRecentInlineBots.CONSTRUCTOR,
-            GetRecentStickers.CONSTRUCTOR,
-            GetRecentlyVisitedTMeUrls.CONSTRUCTOR,
-            GetRecoveryEmailAddress.CONSTRUCTOR,
-            GetRemoteFile.CONSTRUCTOR,
-            GetRepliedMessage.CONSTRUCTOR,
-            GetSavedAnimations.CONSTRUCTOR,
-            GetSavedOrderInfo.CONSTRUCTOR,
-            GetScopeNotificationSettings.CONSTRUCTOR,
-            GetSecretChat.CONSTRUCTOR,
-            GetStickerEmojis.CONSTRUCTOR,
-            GetStickerSet.CONSTRUCTOR,
-            GetStickers.CONSTRUCTOR,
-            GetStorageStatistics.CONSTRUCTOR,
-            GetStorageStatisticsFast.CONSTRUCTOR,
-            GetSupergroup.CONSTRUCTOR,
-            GetSupergroupFullInfo.CONSTRUCTOR,
-            GetSupergroupMembers.CONSTRUCTOR,
-            GetSupportUser.CONSTRUCTOR,
-            GetTemporaryPasswordState.CONSTRUCTOR,
-            GetTextEntities.CONSTRUCTOR,
-            GetTopChats.CONSTRUCTOR,
-            GetTrendingStickerSets.CONSTRUCTOR,
-            GetUser.CONSTRUCTOR,
-            GetUserFullInfo.CONSTRUCTOR,
-            GetUserPrivacySettingRules.CONSTRUCTOR,
-            GetUserProfilePhotos.CONSTRUCTOR,
-            GetWallpapers.CONSTRUCTOR,
-            GetWebPageInstantView.CONSTRUCTOR,
-            GetWebPagePreview.CONSTRUCTOR,
-            ImportContacts.CONSTRUCTOR,
-            JoinChat.CONSTRUCTOR,
-            JoinChatByInviteLink.CONSTRUCTOR,
-            LeaveChat.CONSTRUCTOR,
-            LogOut.CONSTRUCTOR,
-            OpenChat.CONSTRUCTOR,
-            OpenMessageContent.CONSTRUCTOR,
-            OptimizeStorage.CONSTRUCTOR,
-            ParseTextEntities.CONSTRUCTOR,
-            PinChatMessage.CONSTRUCTOR,
-            PingProxy.CONSTRUCTOR,
-            ProcessPushNotification.CONSTRUCTOR,
-            ReadAllChatMentions.CONSTRUCTOR,
-            ReadFilePart.CONSTRUCTOR,
-            RecoverAuthenticationPassword.CONSTRUCTOR,
-            RecoverPassword.CONSTRUCTOR,
-            RegisterDevice.CONSTRUCTOR,
-            RemoveContacts.CONSTRUCTOR,
-            RemoveFavoriteSticker.CONSTRUCTOR,
-            RemoveNotification.CONSTRUCTOR,
-            RemoveNotificationGroup.CONSTRUCTOR,
-            RemoveProxy.CONSTRUCTOR,
-            RemoveRecentHashtag.CONSTRUCTOR,
-            RemoveRecentSticker.CONSTRUCTOR,
-            RemoveRecentlyFoundChat.CONSTRUCTOR,
-            RemoveSavedAnimation.CONSTRUCTOR,
-            RemoveStickerFromSet.CONSTRUCTOR,
-            RemoveTopChat.CONSTRUCTOR,
-            ReorderInstalledStickerSets.CONSTRUCTOR,
-            ReportChat.CONSTRUCTOR,
-            ReportSupergroupSpam.CONSTRUCTOR,
-            RequestAuthenticationPasswordRecovery.CONSTRUCTOR,
-            RequestPasswordRecovery.CONSTRUCTOR,
-            ResendAuthenticationCode.CONSTRUCTOR,
-            ResendChangePhoneNumberCode.CONSTRUCTOR,
-            ResendEmailAddressVerificationCode.CONSTRUCTOR,
-            ResendPhoneNumberConfirmationCode.CONSTRUCTOR,
-            ResendPhoneNumberVerificationCode.CONSTRUCTOR,
-            ResendRecoveryEmailAddressCode.CONSTRUCTOR,
-            ResetAllNotificationSettings.CONSTRUCTOR,
-            ResetNetworkStatistics.CONSTRUCTOR,
-            SaveApplicationLogEvent.CONSTRUCTOR,
-            SearchCallMessages.CONSTRUCTOR,
-            SearchChatMembers.CONSTRUCTOR,
-            SearchChatMessages.CONSTRUCTOR,
-            SearchChatRecentLocationMessages.CONSTRUCTOR,
-            SearchChats.CONSTRUCTOR,
-            SearchChatsOnServer.CONSTRUCTOR,
-            SearchContacts.CONSTRUCTOR,
-            SearchHashtags.CONSTRUCTOR,
-            SearchInstalledStickerSets.CONSTRUCTOR,
-            SearchMessages.CONSTRUCTOR,
-            SearchPublicChat.CONSTRUCTOR,
-            SearchPublicChats.CONSTRUCTOR,
-            SearchSecretMessages.CONSTRUCTOR,
-            SearchStickerSet.CONSTRUCTOR,
-            SearchStickerSets.CONSTRUCTOR,
-            SearchStickers.CONSTRUCTOR,
-            SendBotStartMessage.CONSTRUCTOR,
-            SendCallDebugInformation.CONSTRUCTOR,
-            SendCallRating.CONSTRUCTOR,
-            SendChatAction.CONSTRUCTOR,
-            SendChatScreenshotTakenNotification.CONSTRUCTOR,
-            SendChatSetTtlMessage.CONSTRUCTOR,
-            SendCustomRequest.CONSTRUCTOR,
-            SendEmailAddressVerificationCode.CONSTRUCTOR,
-            SendInlineQueryResultMessage.CONSTRUCTOR,
-            SendMessage.CONSTRUCTOR,
-            SendMessageAlbum.CONSTRUCTOR,
-            SendPassportAuthorizationForm.CONSTRUCTOR,
-            SendPaymentForm.CONSTRUCTOR,
-            SendPhoneNumberConfirmationCode.CONSTRUCTOR,
-            SendPhoneNumberVerificationCode.CONSTRUCTOR,
-            SetAccountTtl.CONSTRUCTOR,
-            SetAlarm.CONSTRUCTOR,
-            SetAuthenticationPhoneNumber.CONSTRUCTOR,
-            SetBio.CONSTRUCTOR,
-            SetBotUpdatesStatus.CONSTRUCTOR,
-            SetChatClientData.CONSTRUCTOR,
-            SetChatDraftMessage.CONSTRUCTOR,
-            SetChatMemberStatus.CONSTRUCTOR,
-            SetChatNotificationSettings.CONSTRUCTOR,
-            SetChatPhoto.CONSTRUCTOR,
-            SetChatTitle.CONSTRUCTOR,
-            SetCustomLanguagePack.CONSTRUCTOR,
-            SetCustomLanguagePackString.CONSTRUCTOR,
-            SetDatabaseEncryptionKey.CONSTRUCTOR,
-            SetFileGenerationProgress.CONSTRUCTOR,
-            SetGameScore.CONSTRUCTOR,
-            SetInlineGameScore.CONSTRUCTOR,
-            SetLogStream.CONSTRUCTOR,
-            SetLogTagVerbosityLevel.CONSTRUCTOR,
-            SetLogVerbosityLevel.CONSTRUCTOR,
-            SetName.CONSTRUCTOR,
-            SetNetworkType.CONSTRUCTOR,
-            SetOption.CONSTRUCTOR,
-            SetPassportElement.CONSTRUCTOR,
-            SetPassportElementErrors.CONSTRUCTOR,
-            SetPassword.CONSTRUCTOR,
-            SetPinnedChats.CONSTRUCTOR,
-            SetPollAnswer.CONSTRUCTOR,
-            SetProfilePhoto.CONSTRUCTOR,
-            SetRecoveryEmailAddress.CONSTRUCTOR,
-            SetScopeNotificationSettings.CONSTRUCTOR,
-            SetStickerPositionInSet.CONSTRUCTOR,
-            SetSupergroupDescription.CONSTRUCTOR,
-            SetSupergroupStickerSet.CONSTRUCTOR,
-            SetSupergroupUsername.CONSTRUCTOR,
-            SetTdlibParameters.CONSTRUCTOR,
-            SetUserPrivacySettingRules.CONSTRUCTOR,
-            SetUsername.CONSTRUCTOR,
-            StopPoll.CONSTRUCTOR,
-            SynchronizeLanguagePack.CONSTRUCTOR,
-            TerminateAllOtherSessions.CONSTRUCTOR,
-            TerminateSession.CONSTRUCTOR,
-            TestCallBytes.CONSTRUCTOR,
-            TestCallEmpty.CONSTRUCTOR,
-            TestCallString.CONSTRUCTOR,
-            TestCallVectorInt.CONSTRUCTOR,
-            TestCallVectorIntObject.CONSTRUCTOR,
-            TestCallVectorString.CONSTRUCTOR,
-            TestCallVectorStringObject.CONSTRUCTOR,
-            TestGetDifference.CONSTRUCTOR,
-            TestNetwork.CONSTRUCTOR,
-            TestSquareInt.CONSTRUCTOR,
-            TestUseError.CONSTRUCTOR,
-            TestUseUpdate.CONSTRUCTOR,
-            ToggleBasicGroupAdministrators.CONSTRUCTOR,
-            ToggleChatDefaultDisableNotification.CONSTRUCTOR,
-            ToggleChatIsMarkedAsUnread.CONSTRUCTOR,
-            ToggleChatIsPinned.CONSTRUCTOR,
-            ToggleSupergroupInvites.CONSTRUCTOR,
-            ToggleSupergroupIsAllHistoryAvailable.CONSTRUCTOR,
-            ToggleSupergroupSignMessages.CONSTRUCTOR,
-            UnblockUser.CONSTRUCTOR,
-            UnpinChatMessage.CONSTRUCTOR,
-            UpgradeBasicGroupChatToSupergroupChat.CONSTRUCTOR,
-            UploadFile.CONSTRUCTOR,
-            UploadStickerFile.CONSTRUCTOR,
-            ValidateOrderInfo.CONSTRUCTOR,
-            ViewMessages.CONSTRUCTOR,
-            ViewTrendingStickerSets.CONSTRUCTOR,
-            WriteGeneratedFilePart.CONSTRUCTOR
+                AcceptCall.CONSTRUCTOR,
+                AcceptTermsOfService.CONSTRUCTOR,
+                AddChatMember.CONSTRUCTOR,
+                AddChatMembers.CONSTRUCTOR,
+                AddCustomServerLanguagePack.CONSTRUCTOR,
+                AddFavoriteSticker.CONSTRUCTOR,
+                AddLocalMessage.CONSTRUCTOR,
+                AddLogMessage.CONSTRUCTOR,
+                AddNetworkStatistics.CONSTRUCTOR,
+                AddProxy.CONSTRUCTOR,
+                AddRecentSticker.CONSTRUCTOR,
+                AddRecentlyFoundChat.CONSTRUCTOR,
+                AddSavedAnimation.CONSTRUCTOR,
+                AddStickerToSet.CONSTRUCTOR,
+                AnswerCallbackQuery.CONSTRUCTOR,
+                AnswerCustomQuery.CONSTRUCTOR,
+                AnswerInlineQuery.CONSTRUCTOR,
+                AnswerPreCheckoutQuery.CONSTRUCTOR,
+                AnswerShippingQuery.CONSTRUCTOR,
+                BlockUser.CONSTRUCTOR,
+                CancelDownloadFile.CONSTRUCTOR,
+                CancelUploadFile.CONSTRUCTOR,
+                ChangeChatReportSpamState.CONSTRUCTOR,
+                ChangeImportedContacts.CONSTRUCTOR,
+                ChangePhoneNumber.CONSTRUCTOR,
+                ChangeStickerSet.CONSTRUCTOR,
+                CheckAuthenticationBotToken.CONSTRUCTOR,
+                CheckAuthenticationCode.CONSTRUCTOR,
+                CheckAuthenticationPassword.CONSTRUCTOR,
+                CheckChangePhoneNumberCode.CONSTRUCTOR,
+                CheckChatInviteLink.CONSTRUCTOR,
+                CheckChatUsername.CONSTRUCTOR,
+                CheckDatabaseEncryptionKey.CONSTRUCTOR,
+                CheckEmailAddressVerificationCode.CONSTRUCTOR,
+                CheckPhoneNumberConfirmationCode.CONSTRUCTOR,
+                CheckPhoneNumberVerificationCode.CONSTRUCTOR,
+                CheckRecoveryEmailAddressCode.CONSTRUCTOR,
+                CleanFileName.CONSTRUCTOR,
+                ClearAllDraftMessages.CONSTRUCTOR,
+                ClearImportedContacts.CONSTRUCTOR,
+                ClearRecentStickers.CONSTRUCTOR,
+                ClearRecentlyFoundChats.CONSTRUCTOR,
+                Close.CONSTRUCTOR,
+                CloseChat.CONSTRUCTOR,
+                CloseSecretChat.CONSTRUCTOR,
+                CreateBasicGroupChat.CONSTRUCTOR,
+                CreateCall.CONSTRUCTOR,
+                CreateNewBasicGroupChat.CONSTRUCTOR,
+                CreateNewSecretChat.CONSTRUCTOR,
+                CreateNewStickerSet.CONSTRUCTOR,
+                CreateNewSupergroupChat.CONSTRUCTOR,
+                CreatePrivateChat.CONSTRUCTOR,
+                CreateSecretChat.CONSTRUCTOR,
+                CreateSupergroupChat.CONSTRUCTOR,
+                CreateTemporaryPassword.CONSTRUCTOR,
+                DeleteAccount.CONSTRUCTOR,
+                DeleteChatHistory.CONSTRUCTOR,
+                DeleteChatMessagesFromUser.CONSTRUCTOR,
+                DeleteChatReplyMarkup.CONSTRUCTOR,
+                DeleteFile.CONSTRUCTOR,
+                DeleteLanguagePack.CONSTRUCTOR,
+                DeleteMessages.CONSTRUCTOR,
+                DeletePassportElement.CONSTRUCTOR,
+                DeleteProfilePhoto.CONSTRUCTOR,
+                DeleteSavedCredentials.CONSTRUCTOR,
+                DeleteSavedOrderInfo.CONSTRUCTOR,
+                DeleteSupergroup.CONSTRUCTOR,
+                Destroy.CONSTRUCTOR,
+                DisableProxy.CONSTRUCTOR,
+                DiscardCall.CONSTRUCTOR,
+                DisconnectAllWebsites.CONSTRUCTOR,
+                DisconnectWebsite.CONSTRUCTOR,
+                DownloadFile.CONSTRUCTOR,
+                EditCustomLanguagePackInfo.CONSTRUCTOR,
+                EditInlineMessageCaption.CONSTRUCTOR,
+                EditInlineMessageLiveLocation.CONSTRUCTOR,
+                EditInlineMessageMedia.CONSTRUCTOR,
+                EditInlineMessageReplyMarkup.CONSTRUCTOR,
+                EditInlineMessageText.CONSTRUCTOR,
+                EditMessageCaption.CONSTRUCTOR,
+                EditMessageLiveLocation.CONSTRUCTOR,
+                EditMessageMedia.CONSTRUCTOR,
+                EditMessageReplyMarkup.CONSTRUCTOR,
+                EditMessageText.CONSTRUCTOR,
+                EditProxy.CONSTRUCTOR,
+                EnableProxy.CONSTRUCTOR,
+                FinishFileGeneration.CONSTRUCTOR,
+                ForwardMessages.CONSTRUCTOR,
+                GenerateChatInviteLink.CONSTRUCTOR,
+                GetAccountTtl.CONSTRUCTOR,
+                GetActiveLiveLocationMessages.CONSTRUCTOR,
+                GetActiveSessions.CONSTRUCTOR,
+                GetAllPassportElements.CONSTRUCTOR,
+                GetApplicationConfig.CONSTRUCTOR,
+                GetArchivedStickerSets.CONSTRUCTOR,
+                GetAttachedStickerSets.CONSTRUCTOR,
+                GetAuthorizationState.CONSTRUCTOR,
+                GetBasicGroup.CONSTRUCTOR,
+                GetBasicGroupFullInfo.CONSTRUCTOR,
+                GetBlockedUsers.CONSTRUCTOR,
+                GetCallbackQueryAnswer.CONSTRUCTOR,
+                GetChat.CONSTRUCTOR,
+                GetChatAdministrators.CONSTRUCTOR,
+                GetChatEventLog.CONSTRUCTOR,
+                GetChatHistory.CONSTRUCTOR,
+                GetChatMember.CONSTRUCTOR,
+                GetChatMessageByDate.CONSTRUCTOR,
+                GetChatMessageCount.CONSTRUCTOR,
+                GetChatNotificationSettingsExceptions.CONSTRUCTOR,
+                GetChatPinnedMessage.CONSTRUCTOR,
+                GetChatReportSpamState.CONSTRUCTOR,
+                GetChatStatisticsUrl.CONSTRUCTOR,
+                GetChats.CONSTRUCTOR,
+                GetConnectedWebsites.CONSTRUCTOR,
+                GetContacts.CONSTRUCTOR,
+                GetCountryCode.CONSTRUCTOR,
+                GetCreatedPublicChats.CONSTRUCTOR,
+                GetCurrentState.CONSTRUCTOR,
+                GetDatabaseStatistics.CONSTRUCTOR,
+                GetDeepLinkInfo.CONSTRUCTOR,
+                GetFavoriteStickers.CONSTRUCTOR,
+                GetFile.CONSTRUCTOR,
+                GetFileDownloadedPrefixSize.CONSTRUCTOR,
+                GetFileExtension.CONSTRUCTOR,
+                GetFileMimeType.CONSTRUCTOR,
+                GetGameHighScores.CONSTRUCTOR,
+                GetGroupsInCommon.CONSTRUCTOR,
+                GetImportedContactCount.CONSTRUCTOR,
+                GetInlineGameHighScores.CONSTRUCTOR,
+                GetInlineQueryResults.CONSTRUCTOR,
+                GetInstalledStickerSets.CONSTRUCTOR,
+                GetInviteText.CONSTRUCTOR,
+                GetJsonString.CONSTRUCTOR,
+                GetJsonValue.CONSTRUCTOR,
+                GetLanguagePackInfo.CONSTRUCTOR,
+                GetLanguagePackString.CONSTRUCTOR,
+                GetLanguagePackStrings.CONSTRUCTOR,
+                GetLocalizationTargetInfo.CONSTRUCTOR,
+                GetLogStream.CONSTRUCTOR,
+                GetLogTagVerbosityLevel.CONSTRUCTOR,
+                GetLogTags.CONSTRUCTOR,
+                GetLogVerbosityLevel.CONSTRUCTOR,
+                GetMapThumbnailFile.CONSTRUCTOR,
+                GetMe.CONSTRUCTOR,
+                GetMessage.CONSTRUCTOR,
+                GetMessageLink.CONSTRUCTOR,
+                GetMessageLocally.CONSTRUCTOR,
+                GetMessages.CONSTRUCTOR,
+                GetNetworkStatistics.CONSTRUCTOR,
+                GetOption.CONSTRUCTOR,
+                GetPassportAuthorizationForm.CONSTRUCTOR,
+                GetPassportAuthorizationFormAvailableElements.CONSTRUCTOR,
+                GetPassportElement.CONSTRUCTOR,
+                GetPasswordState.CONSTRUCTOR,
+                GetPaymentForm.CONSTRUCTOR,
+                GetPaymentReceipt.CONSTRUCTOR,
+                GetPreferredCountryLanguage.CONSTRUCTOR,
+                GetProxies.CONSTRUCTOR,
+                GetProxyLink.CONSTRUCTOR,
+                GetPublicMessageLink.CONSTRUCTOR,
+                GetPushReceiverId.CONSTRUCTOR,
+                GetRecentInlineBots.CONSTRUCTOR,
+                GetRecentStickers.CONSTRUCTOR,
+                GetRecentlyVisitedTMeUrls.CONSTRUCTOR,
+                GetRecoveryEmailAddress.CONSTRUCTOR,
+                GetRemoteFile.CONSTRUCTOR,
+                GetRepliedMessage.CONSTRUCTOR,
+                GetSavedAnimations.CONSTRUCTOR,
+                GetSavedOrderInfo.CONSTRUCTOR,
+                GetScopeNotificationSettings.CONSTRUCTOR,
+                GetSecretChat.CONSTRUCTOR,
+                GetStickerEmojis.CONSTRUCTOR,
+                GetStickerSet.CONSTRUCTOR,
+                GetStickers.CONSTRUCTOR,
+                GetStorageStatistics.CONSTRUCTOR,
+                GetStorageStatisticsFast.CONSTRUCTOR,
+                GetSupergroup.CONSTRUCTOR,
+                GetSupergroupFullInfo.CONSTRUCTOR,
+                GetSupergroupMembers.CONSTRUCTOR,
+                GetSupportUser.CONSTRUCTOR,
+                GetTemporaryPasswordState.CONSTRUCTOR,
+                GetTextEntities.CONSTRUCTOR,
+                GetTopChats.CONSTRUCTOR,
+                GetTrendingStickerSets.CONSTRUCTOR,
+                GetUser.CONSTRUCTOR,
+                GetUserFullInfo.CONSTRUCTOR,
+                GetUserPrivacySettingRules.CONSTRUCTOR,
+                GetUserProfilePhotos.CONSTRUCTOR,
+                GetWallpapers.CONSTRUCTOR,
+                GetWebPageInstantView.CONSTRUCTOR,
+                GetWebPagePreview.CONSTRUCTOR,
+                ImportContacts.CONSTRUCTOR,
+                JoinChat.CONSTRUCTOR,
+                JoinChatByInviteLink.CONSTRUCTOR,
+                LeaveChat.CONSTRUCTOR,
+                LogOut.CONSTRUCTOR,
+                OpenChat.CONSTRUCTOR,
+                OpenMessageContent.CONSTRUCTOR,
+                OptimizeStorage.CONSTRUCTOR,
+                ParseTextEntities.CONSTRUCTOR,
+                PinChatMessage.CONSTRUCTOR,
+                PingProxy.CONSTRUCTOR,
+                ProcessPushNotification.CONSTRUCTOR,
+                ReadAllChatMentions.CONSTRUCTOR,
+                ReadFilePart.CONSTRUCTOR,
+                RecoverAuthenticationPassword.CONSTRUCTOR,
+                RecoverPassword.CONSTRUCTOR,
+                RegisterDevice.CONSTRUCTOR,
+                RemoveContacts.CONSTRUCTOR,
+                RemoveFavoriteSticker.CONSTRUCTOR,
+                RemoveNotification.CONSTRUCTOR,
+                RemoveNotificationGroup.CONSTRUCTOR,
+                RemoveProxy.CONSTRUCTOR,
+                RemoveRecentHashtag.CONSTRUCTOR,
+                RemoveRecentSticker.CONSTRUCTOR,
+                RemoveRecentlyFoundChat.CONSTRUCTOR,
+                RemoveSavedAnimation.CONSTRUCTOR,
+                RemoveStickerFromSet.CONSTRUCTOR,
+                RemoveTopChat.CONSTRUCTOR,
+                ReorderInstalledStickerSets.CONSTRUCTOR,
+                ReportChat.CONSTRUCTOR,
+                ReportSupergroupSpam.CONSTRUCTOR,
+                RequestAuthenticationPasswordRecovery.CONSTRUCTOR,
+                RequestPasswordRecovery.CONSTRUCTOR,
+                ResendAuthenticationCode.CONSTRUCTOR,
+                ResendChangePhoneNumberCode.CONSTRUCTOR,
+                ResendEmailAddressVerificationCode.CONSTRUCTOR,
+                ResendPhoneNumberConfirmationCode.CONSTRUCTOR,
+                ResendPhoneNumberVerificationCode.CONSTRUCTOR,
+                ResendRecoveryEmailAddressCode.CONSTRUCTOR,
+                ResetAllNotificationSettings.CONSTRUCTOR,
+                ResetNetworkStatistics.CONSTRUCTOR,
+                SaveApplicationLogEvent.CONSTRUCTOR,
+                SearchCallMessages.CONSTRUCTOR,
+                SearchChatMembers.CONSTRUCTOR,
+                SearchChatMessages.CONSTRUCTOR,
+                SearchChatRecentLocationMessages.CONSTRUCTOR,
+                SearchChats.CONSTRUCTOR,
+                SearchChatsOnServer.CONSTRUCTOR,
+                SearchContacts.CONSTRUCTOR,
+                SearchHashtags.CONSTRUCTOR,
+                SearchInstalledStickerSets.CONSTRUCTOR,
+                SearchMessages.CONSTRUCTOR,
+                SearchPublicChat.CONSTRUCTOR,
+                SearchPublicChats.CONSTRUCTOR,
+                SearchSecretMessages.CONSTRUCTOR,
+                SearchStickerSet.CONSTRUCTOR,
+                SearchStickerSets.CONSTRUCTOR,
+                SearchStickers.CONSTRUCTOR,
+                SendBotStartMessage.CONSTRUCTOR,
+                SendCallDebugInformation.CONSTRUCTOR,
+                SendCallRating.CONSTRUCTOR,
+                SendChatAction.CONSTRUCTOR,
+                SendChatScreenshotTakenNotification.CONSTRUCTOR,
+                SendChatSetTtlMessage.CONSTRUCTOR,
+                SendCustomRequest.CONSTRUCTOR,
+                SendEmailAddressVerificationCode.CONSTRUCTOR,
+                SendInlineQueryResultMessage.CONSTRUCTOR,
+                SendMessage.CONSTRUCTOR,
+                SendMessageAlbum.CONSTRUCTOR,
+                SendPassportAuthorizationForm.CONSTRUCTOR,
+                SendPaymentForm.CONSTRUCTOR,
+                SendPhoneNumberConfirmationCode.CONSTRUCTOR,
+                SendPhoneNumberVerificationCode.CONSTRUCTOR,
+                SetAccountTtl.CONSTRUCTOR,
+                SetAlarm.CONSTRUCTOR,
+                SetAuthenticationPhoneNumber.CONSTRUCTOR,
+                SetBio.CONSTRUCTOR,
+                SetBotUpdatesStatus.CONSTRUCTOR,
+                SetChatClientData.CONSTRUCTOR,
+                SetChatDraftMessage.CONSTRUCTOR,
+                SetChatMemberStatus.CONSTRUCTOR,
+                SetChatNotificationSettings.CONSTRUCTOR,
+                SetChatPhoto.CONSTRUCTOR,
+                SetChatTitle.CONSTRUCTOR,
+                SetCustomLanguagePack.CONSTRUCTOR,
+                SetCustomLanguagePackString.CONSTRUCTOR,
+                SetDatabaseEncryptionKey.CONSTRUCTOR,
+                SetFileGenerationProgress.CONSTRUCTOR,
+                SetGameScore.CONSTRUCTOR,
+                SetInlineGameScore.CONSTRUCTOR,
+                SetLogStream.CONSTRUCTOR,
+                SetLogTagVerbosityLevel.CONSTRUCTOR,
+                SetLogVerbosityLevel.CONSTRUCTOR,
+                SetName.CONSTRUCTOR,
+                SetNetworkType.CONSTRUCTOR,
+                SetOption.CONSTRUCTOR,
+                SetPassportElement.CONSTRUCTOR,
+                SetPassportElementErrors.CONSTRUCTOR,
+                SetPassword.CONSTRUCTOR,
+                SetPinnedChats.CONSTRUCTOR,
+                SetPollAnswer.CONSTRUCTOR,
+                SetProfilePhoto.CONSTRUCTOR,
+                SetRecoveryEmailAddress.CONSTRUCTOR,
+                SetScopeNotificationSettings.CONSTRUCTOR,
+                SetStickerPositionInSet.CONSTRUCTOR,
+                SetSupergroupDescription.CONSTRUCTOR,
+                SetSupergroupStickerSet.CONSTRUCTOR,
+                SetSupergroupUsername.CONSTRUCTOR,
+                SetTdlibParameters.CONSTRUCTOR,
+                SetUserPrivacySettingRules.CONSTRUCTOR,
+                SetUsername.CONSTRUCTOR,
+                StopPoll.CONSTRUCTOR,
+                SynchronizeLanguagePack.CONSTRUCTOR,
+                TerminateAllOtherSessions.CONSTRUCTOR,
+                TerminateSession.CONSTRUCTOR,
+                TestCallBytes.CONSTRUCTOR,
+                TestCallEmpty.CONSTRUCTOR,
+                TestCallString.CONSTRUCTOR,
+                TestCallVectorInt.CONSTRUCTOR,
+                TestCallVectorIntObject.CONSTRUCTOR,
+                TestCallVectorString.CONSTRUCTOR,
+                TestCallVectorStringObject.CONSTRUCTOR,
+                TestGetDifference.CONSTRUCTOR,
+                TestNetwork.CONSTRUCTOR,
+                TestSquareInt.CONSTRUCTOR,
+                TestUseError.CONSTRUCTOR,
+                TestUseUpdate.CONSTRUCTOR,
+                ToggleBasicGroupAdministrators.CONSTRUCTOR,
+                ToggleChatDefaultDisableNotification.CONSTRUCTOR,
+                ToggleChatIsMarkedAsUnread.CONSTRUCTOR,
+                ToggleChatIsPinned.CONSTRUCTOR,
+                ToggleSupergroupInvites.CONSTRUCTOR,
+                ToggleSupergroupIsAllHistoryAvailable.CONSTRUCTOR,
+                ToggleSupergroupSignMessages.CONSTRUCTOR,
+                UnblockUser.CONSTRUCTOR,
+                UnpinChatMessage.CONSTRUCTOR,
+                UpgradeBasicGroupChatToSupergroupChat.CONSTRUCTOR,
+                UploadFile.CONSTRUCTOR,
+                UploadStickerFile.CONSTRUCTOR,
+                ValidateOrderInfo.CONSTRUCTOR,
+                ViewMessages.CONSTRUCTOR,
+                ViewTrendingStickerSets.CONSTRUCTOR,
+                WriteGeneratedFilePart.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -383,6 +387,7 @@ public class TdApi {
         @Constructors
         @Override
         public abstract int getConstructor();
+
         /**
          * @return string representation of the object.
          */
@@ -466,11 +471,11 @@ public class TdApi {
          * Describes an address.
          *
          * @param countryCode A two-letter ISO 3166-1 alpha-2 country code.
-         * @param state State, if applicable.
-         * @param city City.
+         * @param state       State, if applicable.
+         * @param city        City.
          * @param streetLine1 First line of the address.
          * @param streetLine2 Second line of the address.
-         * @param postalCode Address postal code.
+         * @param postalCode  Address postal code.
          */
         public Address(String countryCode, String state, String city, String streetLine1, String streetLine2, String postalCode) {
             this.countryCode = countryCode;
@@ -522,7 +527,8 @@ public class TdApi {
         /**
          * Animation thumbnail; may be null.
          */
-        @Nullable public PhotoSize thumbnail;
+        @Nullable
+        public PhotoSize thumbnail;
         /**
          * File containing the animation.
          */
@@ -537,11 +543,11 @@ public class TdApi {
         /**
          * Describes an animation file. The animation must be encoded in GIF or MPEG4 format.
          *
-         * @param duration Duration of the animation, in seconds; as defined by the sender.
-         * @param width Width of the animation.
-         * @param height Height of the animation.
-         * @param fileName Original name of the file; as defined by the sender.
-         * @param mimeType MIME type of the file, usually &quot;image/gif&quot; or &quot;video/mp4&quot;.
+         * @param duration  Duration of the animation, in seconds; as defined by the sender.
+         * @param width     Width of the animation.
+         * @param height    Height of the animation.
+         * @param fileName  Original name of the file; as defined by the sender.
+         * @param mimeType  MIME type of the file, usually &quot;image/gif&quot; or &quot;video/mp4&quot;.
          * @param thumbnail Animation thumbnail; may be null.
          * @param animation File containing the animation.
          */
@@ -634,7 +640,8 @@ public class TdApi {
         /**
          * The thumbnail of the album cover; as defined by the sender. The full size thumbnail should be extracted from the downloaded file; may be null.
          */
-        @Nullable public PhotoSize albumCoverThumbnail;
+        @Nullable
+        public PhotoSize albumCoverThumbnail;
         /**
          * File containing the audio.
          */
@@ -649,13 +656,13 @@ public class TdApi {
         /**
          * Describes an audio file. Audio is usually in MP3 format.
          *
-         * @param duration Duration of the audio, in seconds; as defined by the sender.
-         * @param title Title of the audio; as defined by the sender.
-         * @param performer Performer of the audio; as defined by the sender.
-         * @param fileName Original name of the file; as defined by the sender.
-         * @param mimeType The MIME type of the file; as defined by the sender.
+         * @param duration            Duration of the audio, in seconds; as defined by the sender.
+         * @param title               Title of the audio; as defined by the sender.
+         * @param performer           Performer of the audio; as defined by the sender.
+         * @param fileName            Original name of the file; as defined by the sender.
+         * @param mimeType            The MIME type of the file; as defined by the sender.
          * @param albumCoverThumbnail The thumbnail of the album cover; as defined by the sender. The full size thumbnail should be extracted from the downloaded file; may be null.
-         * @param audio File containing the audio.
+         * @param audio               File containing the audio.
          */
         public Audio(int duration, String title, String performer, String fileName, String mimeType, PhotoSize albumCoverThumbnail, File audio) {
             this.duration = duration;
@@ -696,7 +703,8 @@ public class TdApi {
         /**
          * Describes the way the next code will be sent to the user; may be null.
          */
-        @Nullable public AuthenticationCodeType nextType;
+        @Nullable
+        public AuthenticationCodeType nextType;
         /**
          * Timeout before the code should be re-sent, in seconds.
          */
@@ -712,9 +720,9 @@ public class TdApi {
          * Information about the authentication code that was sent.
          *
          * @param phoneNumber A phone number that is being authenticated.
-         * @param type Describes the way the code was sent to the user.
-         * @param nextType Describes the way the next code will be sent to the user; may be null.
-         * @param timeout Timeout before the code should be re-sent, in seconds.
+         * @param type        Describes the way the code was sent to the user.
+         * @param nextType    Describes the way the next code will be sent to the user; may be null.
+         * @param timeout     Timeout before the code should be re-sent, in seconds.
          */
         public AuthenticationCodeInfo(String phoneNumber, AuthenticationCodeType type, AuthenticationCodeType nextType, int timeout) {
             this.phoneNumber = phoneNumber;
@@ -744,12 +752,13 @@ public class TdApi {
     public abstract static class AuthenticationCodeType extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            AuthenticationCodeTypeTelegramMessage.CONSTRUCTOR,
-            AuthenticationCodeTypeSms.CONSTRUCTOR,
-            AuthenticationCodeTypeCall.CONSTRUCTOR,
-            AuthenticationCodeTypeFlashCall.CONSTRUCTOR
+                AuthenticationCodeTypeTelegramMessage.CONSTRUCTOR,
+                AuthenticationCodeTypeSms.CONSTRUCTOR,
+                AuthenticationCodeTypeCall.CONSTRUCTOR,
+                AuthenticationCodeTypeFlashCall.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -918,17 +927,18 @@ public class TdApi {
     public abstract static class AuthorizationState extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            AuthorizationStateWaitTdlibParameters.CONSTRUCTOR,
-            AuthorizationStateWaitEncryptionKey.CONSTRUCTOR,
-            AuthorizationStateWaitPhoneNumber.CONSTRUCTOR,
-            AuthorizationStateWaitCode.CONSTRUCTOR,
-            AuthorizationStateWaitPassword.CONSTRUCTOR,
-            AuthorizationStateReady.CONSTRUCTOR,
-            AuthorizationStateLoggingOut.CONSTRUCTOR,
-            AuthorizationStateClosing.CONSTRUCTOR,
-            AuthorizationStateClosed.CONSTRUCTOR
+                AuthorizationStateWaitTdlibParameters.CONSTRUCTOR,
+                AuthorizationStateWaitEncryptionKey.CONSTRUCTOR,
+                AuthorizationStateWaitPhoneNumber.CONSTRUCTOR,
+                AuthorizationStateWaitCode.CONSTRUCTOR,
+                AuthorizationStateWaitPassword.CONSTRUCTOR,
+                AuthorizationStateReady.CONSTRUCTOR,
+                AuthorizationStateLoggingOut.CONSTRUCTOR,
+                AuthorizationStateClosing.CONSTRUCTOR,
+                AuthorizationStateClosed.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -1037,7 +1047,8 @@ public class TdApi {
         /**
          * Telegram terms of service, which should be accepted before user can continue registration; may be null.
          */
-        @Nullable public TermsOfService termsOfService;
+        @Nullable
+        public TermsOfService termsOfService;
         /**
          * Information about the authorization code that was sent.
          */
@@ -1052,9 +1063,9 @@ public class TdApi {
         /**
          * TDLib needs the user's authentication code to finalize authorization.
          *
-         * @param isRegistered True, if the user is already registered.
+         * @param isRegistered   True, if the user is already registered.
          * @param termsOfService Telegram terms of service, which should be accepted before user can continue registration; may be null.
-         * @param codeInfo Information about the authorization code that was sent.
+         * @param codeInfo       Information about the authorization code that was sent.
          */
         public AuthorizationStateWaitCode(boolean isRegistered, TermsOfService termsOfService, AuthenticationCodeInfo codeInfo) {
             this.isRegistered = isRegistered;
@@ -1102,8 +1113,8 @@ public class TdApi {
         /**
          * The user has been authorized, but needs to enter a password to start using the application.
          *
-         * @param passwordHint Hint for the password; may be empty.
-         * @param hasRecoveryEmailAddress True if a recovery email address has been set up.
+         * @param passwordHint                Hint for the password; may be empty.
+         * @param hasRecoveryEmailAddress     True if a recovery email address has been set up.
          * @param recoveryEmailAddressPattern Pattern of the email address to which the recovery email was sent; empty until a recovery email has been sent.
          */
         public AuthorizationStateWaitPassword(String passwordHint, boolean hasRecoveryEmailAddress, String recoveryEmailAddressPattern) {
@@ -1264,12 +1275,12 @@ public class TdApi {
         /**
          * Represents a basic group of 0-200 users (must be upgraded to a supergroup to accommodate more than 200 users).
          *
-         * @param id Group identifier.
-         * @param memberCount Number of members in the group.
-         * @param status Status of the current user in the group.
+         * @param id                      Group identifier.
+         * @param memberCount             Number of members in the group.
+         * @param status                  Status of the current user in the group.
          * @param everyoneIsAdministrator True, if all members have been granted administrator rights in the group.
-         * @param isActive True, if the group is active.
-         * @param upgradedToSupergroupId Identifier of the supergroup to which this group was upgraded; 0 if none.
+         * @param isActive                True, if the group is active.
+         * @param upgradedToSupergroupId  Identifier of the supergroup to which this group was upgraded; 0 if none.
          */
         public BasicGroup(int id, int memberCount, ChatMemberStatus status, boolean everyoneIsAdministrator, boolean isActive, int upgradedToSupergroupId) {
             this.id = id;
@@ -1321,8 +1332,8 @@ public class TdApi {
          * Contains full information about a basic group.
          *
          * @param creatorUserId User identifier of the creator of the group; 0 if unknown.
-         * @param members Group members.
-         * @param inviteLink Invite link for this group; available only for the group creator and only after it has been generated at least once.
+         * @param members       Group members.
+         * @param inviteLink    Invite link for this group; available only for the group creator and only after it has been generated at least once.
          */
         public BasicGroupFullInfo(int creatorUserId, ChatMember[] members, String inviteLink) {
             this.creatorUserId = creatorUserId;
@@ -1366,7 +1377,7 @@ public class TdApi {
         /**
          * Represents commands supported by a bot.
          *
-         * @param command Text of the bot command.
+         * @param command     Text of the bot command.
          * @param description Description of the bot command.
          */
         public BotCommand(String command, String description) {
@@ -1411,7 +1422,7 @@ public class TdApi {
          * Provides information about a bot and its supported commands.
          *
          * @param description Long description shown on the user info page.
-         * @param commands A list of commands supported by the bot.
+         * @param commands    A list of commands supported by the bot.
          */
         public BotInfo(String description, BotCommand[] commands) {
             this.description = description;
@@ -1462,10 +1473,10 @@ public class TdApi {
         /**
          * Describes a call.
          *
-         * @param id Call identifier, not persistent.
-         * @param userId Peer user identifier.
+         * @param id         Call identifier, not persistent.
+         * @param userId     Peer user identifier.
          * @param isOutgoing True, if the call is outgoing.
-         * @param state Call state.
+         * @param state      Call state.
          */
         public Call(int id, int userId, boolean isOutgoing, CallState state) {
             this.id = id;
@@ -1522,10 +1533,10 @@ public class TdApi {
         /**
          * Describes the address of UDP reflectors.
          *
-         * @param id Reflector identifier.
-         * @param ip IPv4 reflector address.
-         * @param ipv6 IPv6 reflector address.
-         * @param port Reflector port number.
+         * @param id      Reflector identifier.
+         * @param ip      IPv4 reflector address.
+         * @param ipv6    IPv6 reflector address.
+         * @param port    Reflector port number.
          * @param peerTag Connection peer tag.
          */
         public CallConnection(long id, String ip, String ipv6, int port, byte[] peerTag) {
@@ -1557,13 +1568,14 @@ public class TdApi {
     public abstract static class CallDiscardReason extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            CallDiscardReasonEmpty.CONSTRUCTOR,
-            CallDiscardReasonMissed.CONSTRUCTOR,
-            CallDiscardReasonDeclined.CONSTRUCTOR,
-            CallDiscardReasonDisconnected.CONSTRUCTOR,
-            CallDiscardReasonHungUp.CONSTRUCTOR
+                CallDiscardReasonEmpty.CONSTRUCTOR,
+                CallDiscardReasonMissed.CONSTRUCTOR,
+                CallDiscardReasonDeclined.CONSTRUCTOR,
+                CallDiscardReasonDisconnected.CONSTRUCTOR,
+                CallDiscardReasonHungUp.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -1766,10 +1778,10 @@ public class TdApi {
         /**
          * Specifies the supported call protocols.
          *
-         * @param udpP2p True, if UDP peer-to-peer connections are supported.
+         * @param udpP2p       True, if UDP peer-to-peer connections are supported.
          * @param udpReflector True, if connection through UDP reflectors is supported.
-         * @param minLayer Minimum supported API layer; use 65.
-         * @param maxLayer Maximum supported API layer; use 65.
+         * @param minLayer     Minimum supported API layer; use 65.
+         * @param maxLayer     Maximum supported API layer; use 65.
          */
         public CallProtocol(boolean udpP2p, boolean udpReflector, int minLayer, int maxLayer) {
             this.udpP2p = udpP2p;
@@ -1799,14 +1811,15 @@ public class TdApi {
     public abstract static class CallState extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            CallStatePending.CONSTRUCTOR,
-            CallStateExchangingKeys.CONSTRUCTOR,
-            CallStateReady.CONSTRUCTOR,
-            CallStateHangingUp.CONSTRUCTOR,
-            CallStateDiscarded.CONSTRUCTOR,
-            CallStateError.CONSTRUCTOR
+                CallStatePending.CONSTRUCTOR,
+                CallStateExchangingKeys.CONSTRUCTOR,
+                CallStateReady.CONSTRUCTOR,
+                CallStateHangingUp.CONSTRUCTOR,
+                CallStateDiscarded.CONSTRUCTOR,
+                CallStateError.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -1838,7 +1851,7 @@ public class TdApi {
         /**
          * The call is pending, waiting to be accepted by a user.
          *
-         * @param isCreated True, if the call has already been created by the server.
+         * @param isCreated  True, if the call has already been created by the server.
          * @param isReceived True, if the call has already been received by the other party.
          */
         public CallStatePending(boolean isCreated, boolean isReceived) {
@@ -1923,12 +1936,12 @@ public class TdApi {
         /**
          * The call is ready to use.
          *
-         * @param protocol Call protocols supported by the peer.
-         * @param connections Available UDP reflectors.
-         * @param config A JSON-encoded call config.
+         * @param protocol      Call protocols supported by the peer.
+         * @param connections   Available UDP reflectors.
+         * @param config        A JSON-encoded call config.
          * @param encryptionKey Call encryption key.
-         * @param emojis Encryption key emojis fingerprint.
-         * @param allowP2p True, if peer-to-peer connection is allowed by users privacy settings.
+         * @param emojis        Encryption key emojis fingerprint.
+         * @param allowP2p      True, if peer-to-peer connection is allowed by users privacy settings.
          */
         public CallStateReady(CallProtocol protocol, CallConnection[] connections, String config, byte[] encryptionKey, String[] emojis, boolean allowP2p) {
             this.protocol = protocol;
@@ -2004,8 +2017,8 @@ public class TdApi {
         /**
          * The call has ended successfully.
          *
-         * @param reason The reason, why the call has ended.
-         * @param needRating True, if the call rating should be sent to the server.
+         * @param reason               The reason, why the call has ended.
+         * @param needRating           True, if the call rating should be sent to the server.
          * @param needDebugInformation True, if the call debug information should be sent to the server.
          */
         public CallStateDiscarded(CallDiscardReason reason, boolean needRating, boolean needDebugInformation) {
@@ -2092,9 +2105,9 @@ public class TdApi {
         /**
          * Contains a bot's answer to a callback query.
          *
-         * @param text Text of the answer.
+         * @param text      Text of the answer.
          * @param showAlert True, if an alert should be shown to the user instead of a toast notification.
-         * @param url URL to be opened.
+         * @param url       URL to be opened.
          */
         public CallbackQueryAnswer(String text, boolean showAlert, String url) {
             this.text = text;
@@ -2123,10 +2136,11 @@ public class TdApi {
     public abstract static class CallbackQueryPayload extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            CallbackQueryPayloadData.CONSTRUCTOR,
-            CallbackQueryPayloadGame.CONSTRUCTOR
+                CallbackQueryPayloadData.CONSTRUCTOR,
+                CallbackQueryPayloadGame.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -2231,11 +2245,13 @@ public class TdApi {
         /**
          * Chat photo; may be null.
          */
-        @Nullable public ChatPhoto photo;
+        @Nullable
+        public ChatPhoto photo;
         /**
          * Last message in the chat; may be null.
          */
-        @Nullable public Message lastMessage;
+        @Nullable
+        public Message lastMessage;
         /**
          * Descending parameter by which chats are sorted in the main chat list. If the order number of two chats is the same, they must be sorted in descending order by ID. If 0, the position of the chat in the list is undetermined.
          */
@@ -2299,7 +2315,8 @@ public class TdApi {
         /**
          * A draft of a message in the chat; may be null.
          */
-        @Nullable public DraftMessage draftMessage;
+        @Nullable
+        public DraftMessage draftMessage;
         /**
          * Contains client-specific data associated with the chat. (For example, the chat position or local chat notification settings can be stored here.) Persistent if a message database is used.
          */
@@ -2314,28 +2331,28 @@ public class TdApi {
         /**
          * A chat. (Can be a private chat, basic group, supergroup, or secret chat.)
          *
-         * @param id Chat unique identifier.
-         * @param type Type of the chat.
-         * @param title Chat title.
-         * @param photo Chat photo; may be null.
-         * @param lastMessage Last message in the chat; may be null.
-         * @param order Descending parameter by which chats are sorted in the main chat list. If the order number of two chats is the same, they must be sorted in descending order by ID. If 0, the position of the chat in the list is undetermined.
-         * @param isPinned True, if the chat is pinned.
-         * @param isMarkedAsUnread True, if the chat is marked as unread.
-         * @param isSponsored True, if the chat is sponsored by the user's MTProxy server.
-         * @param canBeDeletedOnlyForSelf True, if the chat messages can be deleted only for the current user while other users will continue to see the messages.
-         * @param canBeDeletedForAllUsers True, if the chat messages can be deleted for all users.
-         * @param canBeReported True, if the chat can be reported to Telegram moderators through reportChat.
+         * @param id                         Chat unique identifier.
+         * @param type                       Type of the chat.
+         * @param title                      Chat title.
+         * @param photo                      Chat photo; may be null.
+         * @param lastMessage                Last message in the chat; may be null.
+         * @param order                      Descending parameter by which chats are sorted in the main chat list. If the order number of two chats is the same, they must be sorted in descending order by ID. If 0, the position of the chat in the list is undetermined.
+         * @param isPinned                   True, if the chat is pinned.
+         * @param isMarkedAsUnread           True, if the chat is marked as unread.
+         * @param isSponsored                True, if the chat is sponsored by the user's MTProxy server.
+         * @param canBeDeletedOnlyForSelf    True, if the chat messages can be deleted only for the current user while other users will continue to see the messages.
+         * @param canBeDeletedForAllUsers    True, if the chat messages can be deleted for all users.
+         * @param canBeReported              True, if the chat can be reported to Telegram moderators through reportChat.
          * @param defaultDisableNotification Default value of the disableNotification parameter, used when a message is sent to the chat.
-         * @param unreadCount Number of unread messages in the chat.
-         * @param lastReadInboxMessageId Identifier of the last read incoming message.
-         * @param lastReadOutboxMessageId Identifier of the last read outgoing message.
-         * @param unreadMentionCount Number of unread messages with a mention/reply in the chat.
-         * @param notificationSettings Notification settings for this chat.
-         * @param pinnedMessageId Identifier of the pinned message in the chat; 0 if none.
-         * @param replyMarkupMessageId Identifier of the message from which reply markup needs to be used; 0 if there is no default custom reply markup in the chat.
-         * @param draftMessage A draft of a message in the chat; may be null.
-         * @param clientData Contains client-specific data associated with the chat. (For example, the chat position or local chat notification settings can be stored here.) Persistent if a message database is used.
+         * @param unreadCount                Number of unread messages in the chat.
+         * @param lastReadInboxMessageId     Identifier of the last read incoming message.
+         * @param lastReadOutboxMessageId    Identifier of the last read outgoing message.
+         * @param unreadMentionCount         Number of unread messages with a mention/reply in the chat.
+         * @param notificationSettings       Notification settings for this chat.
+         * @param pinnedMessageId            Identifier of the pinned message in the chat; 0 if none.
+         * @param replyMarkupMessageId       Identifier of the message from which reply markup needs to be used; 0 if there is no default custom reply markup in the chat.
+         * @param draftMessage               A draft of a message in the chat; may be null.
+         * @param clientData                 Contains client-specific data associated with the chat. (For example, the chat position or local chat notification settings can be stored here.) Persistent if a message database is used.
          */
         public Chat(long id, ChatType type, String title, ChatPhoto photo, Message lastMessage, long order, boolean isPinned, boolean isMarkedAsUnread, boolean isSponsored, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean canBeReported, boolean defaultDisableNotification, int unreadCount, long lastReadInboxMessageId, long lastReadOutboxMessageId, int unreadMentionCount, ChatNotificationSettings notificationSettings, long pinnedMessageId, long replyMarkupMessageId, DraftMessage draftMessage, String clientData) {
             this.id = id;
@@ -2383,21 +2400,22 @@ public class TdApi {
     public abstract static class ChatAction extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            ChatActionTyping.CONSTRUCTOR,
-            ChatActionRecordingVideo.CONSTRUCTOR,
-            ChatActionUploadingVideo.CONSTRUCTOR,
-            ChatActionRecordingVoiceNote.CONSTRUCTOR,
-            ChatActionUploadingVoiceNote.CONSTRUCTOR,
-            ChatActionUploadingPhoto.CONSTRUCTOR,
-            ChatActionUploadingDocument.CONSTRUCTOR,
-            ChatActionChoosingLocation.CONSTRUCTOR,
-            ChatActionChoosingContact.CONSTRUCTOR,
-            ChatActionStartPlayingGame.CONSTRUCTOR,
-            ChatActionRecordingVideoNote.CONSTRUCTOR,
-            ChatActionUploadingVideoNote.CONSTRUCTOR,
-            ChatActionCancel.CONSTRUCTOR
+                ChatActionTyping.CONSTRUCTOR,
+                ChatActionRecordingVideo.CONSTRUCTOR,
+                ChatActionUploadingVideo.CONSTRUCTOR,
+                ChatActionRecordingVoiceNote.CONSTRUCTOR,
+                ChatActionUploadingVoiceNote.CONSTRUCTOR,
+                ChatActionUploadingPhoto.CONSTRUCTOR,
+                ChatActionUploadingDocument.CONSTRUCTOR,
+                ChatActionChoosingLocation.CONSTRUCTOR,
+                ChatActionChoosingContact.CONSTRUCTOR,
+                ChatActionStartPlayingGame.CONSTRUCTOR,
+                ChatActionRecordingVideoNote.CONSTRUCTOR,
+                ChatActionUploadingVideoNote.CONSTRUCTOR,
+                ChatActionCancel.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -2827,8 +2845,8 @@ public class TdApi {
         /**
          * Represents a chat event.
          *
-         * @param id Chat event identifier.
-         * @param date Point in time (Unix timestamp) when the event happened.
+         * @param id     Chat event identifier.
+         * @param date   Point in time (Unix timestamp) when the event happened.
          * @param userId Identifier of the user who performed the action that triggered the event.
          * @param action Action performed by the user.
          */
@@ -2860,25 +2878,26 @@ public class TdApi {
     public abstract static class ChatEventAction extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            ChatEventMessageEdited.CONSTRUCTOR,
-            ChatEventMessageDeleted.CONSTRUCTOR,
-            ChatEventMessagePinned.CONSTRUCTOR,
-            ChatEventMessageUnpinned.CONSTRUCTOR,
-            ChatEventMemberJoined.CONSTRUCTOR,
-            ChatEventMemberLeft.CONSTRUCTOR,
-            ChatEventMemberInvited.CONSTRUCTOR,
-            ChatEventMemberPromoted.CONSTRUCTOR,
-            ChatEventMemberRestricted.CONSTRUCTOR,
-            ChatEventTitleChanged.CONSTRUCTOR,
-            ChatEventDescriptionChanged.CONSTRUCTOR,
-            ChatEventUsernameChanged.CONSTRUCTOR,
-            ChatEventPhotoChanged.CONSTRUCTOR,
-            ChatEventInvitesToggled.CONSTRUCTOR,
-            ChatEventSignMessagesToggled.CONSTRUCTOR,
-            ChatEventStickerSetChanged.CONSTRUCTOR,
-            ChatEventIsAllHistoryAvailableToggled.CONSTRUCTOR
+                ChatEventMessageEdited.CONSTRUCTOR,
+                ChatEventMessageDeleted.CONSTRUCTOR,
+                ChatEventMessagePinned.CONSTRUCTOR,
+                ChatEventMessageUnpinned.CONSTRUCTOR,
+                ChatEventMemberJoined.CONSTRUCTOR,
+                ChatEventMemberLeft.CONSTRUCTOR,
+                ChatEventMemberInvited.CONSTRUCTOR,
+                ChatEventMemberPromoted.CONSTRUCTOR,
+                ChatEventMemberRestricted.CONSTRUCTOR,
+                ChatEventTitleChanged.CONSTRUCTOR,
+                ChatEventDescriptionChanged.CONSTRUCTOR,
+                ChatEventUsernameChanged.CONSTRUCTOR,
+                ChatEventPhotoChanged.CONSTRUCTOR,
+                ChatEventInvitesToggled.CONSTRUCTOR,
+                ChatEventSignMessagesToggled.CONSTRUCTOR,
+                ChatEventStickerSetChanged.CONSTRUCTOR,
+                ChatEventIsAllHistoryAvailableToggled.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -3153,7 +3172,7 @@ public class TdApi {
         /**
          * A chat member has gained/lost administrator status, or the list of their administrator privileges has changed.
          *
-         * @param userId Chat member user identifier.
+         * @param userId    Chat member user identifier.
          * @param oldStatus Previous status of the chat member.
          * @param newStatus New status of the chat member.
          */
@@ -3203,7 +3222,7 @@ public class TdApi {
         /**
          * A chat member was restricted/unrestricted or banned/unbanned, or the list of their restrictions has changed.
          *
-         * @param userId Chat member user identifier.
+         * @param userId    Chat member user identifier.
          * @param oldStatus Previous status of the chat member.
          * @param newStatus New status of the chat member.
          */
@@ -3366,11 +3385,13 @@ public class TdApi {
         /**
          * Previous chat photo value; may be null.
          */
-        @Nullable public ChatPhoto oldPhoto;
+        @Nullable
+        public ChatPhoto oldPhoto;
         /**
          * New chat photo value; may be null.
          */
-        @Nullable public ChatPhoto newPhoto;
+        @Nullable
+        public ChatPhoto newPhoto;
 
         /**
          * The chat photo was changed.
@@ -3615,16 +3636,16 @@ public class TdApi {
         /**
          * Represents a set of filters used to obtain a chat event log.
          *
-         * @param messageEdits True, if message edits should be returned.
-         * @param messageDeletions True, if message deletions should be returned.
-         * @param messagePins True, if pin/unpin events should be returned.
-         * @param memberJoins True, if members joining events should be returned.
-         * @param memberLeaves True, if members leaving events should be returned.
-         * @param memberInvites True, if invited member events should be returned.
-         * @param memberPromotions True, if member promotion/demotion events should be returned.
+         * @param messageEdits       True, if message edits should be returned.
+         * @param messageDeletions   True, if message deletions should be returned.
+         * @param messagePins        True, if pin/unpin events should be returned.
+         * @param memberJoins        True, if members joining events should be returned.
+         * @param memberLeaves       True, if members leaving events should be returned.
+         * @param memberInvites      True, if invited member events should be returned.
+         * @param memberPromotions   True, if member promotion/demotion events should be returned.
          * @param memberRestrictions True, if member restricted/unrestricted/banned/unbanned events should be returned.
-         * @param infoChanges True, if changes in chat information should be returned.
-         * @param settingChanges True, if changes in chat settings should be returned.
+         * @param infoChanges        True, if changes in chat information should be returned.
+         * @param settingChanges     True, if changes in chat settings should be returned.
          */
         public ChatEventLogFilters(boolean messageEdits, boolean messageDeletions, boolean messagePins, boolean memberJoins, boolean memberLeaves, boolean memberInvites, boolean memberPromotions, boolean memberRestrictions, boolean infoChanges, boolean settingChanges) {
             this.messageEdits = messageEdits;
@@ -3748,7 +3769,8 @@ public class TdApi {
         /**
          * Chat photo; may be null.
          */
-        @Nullable public ChatPhoto photo;
+        @Nullable
+        public ChatPhoto photo;
         /**
          * Number of members.
          */
@@ -3771,13 +3793,13 @@ public class TdApi {
         /**
          * Contains information about a chat invite link.
          *
-         * @param chatId Chat identifier of the invite link; 0 if the user is not a member of this chat.
-         * @param type Contains information about the type of the chat.
-         * @param title Title of the chat.
-         * @param photo Chat photo; may be null.
-         * @param memberCount Number of members.
+         * @param chatId        Chat identifier of the invite link; 0 if the user is not a member of this chat.
+         * @param type          Contains information about the type of the chat.
+         * @param title         Title of the chat.
+         * @param photo         Chat photo; may be null.
+         * @param memberCount   Number of members.
          * @param memberUserIds User identifiers of some chat members that may be known to the current user.
-         * @param isPublic True, if the chat is a public supergroup or channel with a username.
+         * @param isPublic      True, if the chat is a public supergroup or channel with a username.
          */
         public ChatInviteLinkInfo(long chatId, ChatType type, String title, ChatPhoto photo, int memberCount, int[] memberUserIds, boolean isPublic) {
             this.chatId = chatId;
@@ -3826,7 +3848,8 @@ public class TdApi {
         /**
          * If the user is a bot, information about the bot; may be null. Can be null even for a bot if the bot is not a chat member.
          */
-        @Nullable public BotInfo botInfo;
+        @Nullable
+        public BotInfo botInfo;
 
         /**
          * A user with information about joining/leaving a chat.
@@ -3837,11 +3860,11 @@ public class TdApi {
         /**
          * A user with information about joining/leaving a chat.
          *
-         * @param userId User identifier of the chat member.
-         * @param inviterUserId Identifier of a user that invited/promoted/banned this member in the chat; 0 if unknown.
+         * @param userId         User identifier of the chat member.
+         * @param inviterUserId  Identifier of a user that invited/promoted/banned this member in the chat; 0 if unknown.
          * @param joinedChatDate Point in time (Unix timestamp) when the user joined a chat.
-         * @param status Status of the member in the chat.
-         * @param botInfo If the user is a bot, information about the bot; may be null. Can be null even for a bot if the bot is not a chat member.
+         * @param status         Status of the member in the chat.
+         * @param botInfo        If the user is a bot, information about the bot; may be null. Can be null even for a bot if the bot is not a chat member.
          */
         public ChatMember(int userId, int inviterUserId, int joinedChatDate, ChatMemberStatus status, BotInfo botInfo) {
             this.userId = userId;
@@ -3872,14 +3895,15 @@ public class TdApi {
     public abstract static class ChatMemberStatus extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            ChatMemberStatusCreator.CONSTRUCTOR,
-            ChatMemberStatusAdministrator.CONSTRUCTOR,
-            ChatMemberStatusMember.CONSTRUCTOR,
-            ChatMemberStatusRestricted.CONSTRUCTOR,
-            ChatMemberStatusLeft.CONSTRUCTOR,
-            ChatMemberStatusBanned.CONSTRUCTOR
+                ChatMemberStatusCreator.CONSTRUCTOR,
+                ChatMemberStatusAdministrator.CONSTRUCTOR,
+                ChatMemberStatusMember.CONSTRUCTOR,
+                ChatMemberStatusRestricted.CONSTRUCTOR,
+                ChatMemberStatusLeft.CONSTRUCTOR,
+                ChatMemberStatusBanned.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -3977,15 +4001,15 @@ public class TdApi {
         /**
          * The user is a member of a chat and has some additional privileges. In basic groups, administrators can edit and delete messages sent by others, add new members, and ban unprivileged members. In supergroups and channels, there are more detailed options for administrator privileges.
          *
-         * @param canBeEdited True, if the current user can edit the administrator privileges for the called user.
-         * @param canChangeInfo True, if the administrator can change the chat title, photo, and other settings.
-         * @param canPostMessages True, if the administrator can create channel posts; applicable to channels only.
-         * @param canEditMessages True, if the administrator can edit messages of other users and pin messages; applicable to channels only.
-         * @param canDeleteMessages True, if the administrator can delete messages of other users.
-         * @param canInviteUsers True, if the administrator can invite new users to the chat.
+         * @param canBeEdited        True, if the current user can edit the administrator privileges for the called user.
+         * @param canChangeInfo      True, if the administrator can change the chat title, photo, and other settings.
+         * @param canPostMessages    True, if the administrator can create channel posts; applicable to channels only.
+         * @param canEditMessages    True, if the administrator can edit messages of other users and pin messages; applicable to channels only.
+         * @param canDeleteMessages  True, if the administrator can delete messages of other users.
+         * @param canInviteUsers     True, if the administrator can invite new users to the chat.
          * @param canRestrictMembers True, if the administrator can restrict, ban, or unban chat members.
-         * @param canPinMessages True, if the administrator can pin messages; applicable to groups only.
-         * @param canPromoteMembers True, if the administrator can add new administrators with a subset of his own privileges or demote administrators that were directly or indirectly promoted by him.
+         * @param canPinMessages     True, if the administrator can pin messages; applicable to groups only.
+         * @param canPromoteMembers  True, if the administrator can add new administrators with a subset of his own privileges or demote administrators that were directly or indirectly promoted by him.
          */
         public ChatMemberStatusAdministrator(boolean canBeEdited, boolean canChangeInfo, boolean canPostMessages, boolean canEditMessages, boolean canDeleteMessages, boolean canInviteUsers, boolean canRestrictMembers, boolean canPinMessages, boolean canPromoteMembers) {
             this.canBeEdited = canBeEdited;
@@ -4076,11 +4100,11 @@ public class TdApi {
         /**
          * The user is under certain restrictions in the chat. Not supported in basic groups and channels.
          *
-         * @param isMember True, if the user is a member of the chat.
-         * @param restrictedUntilDate Point in time (Unix timestamp) when restrictions will be lifted from the user; 0 if never. If the user is restricted for more than 366 days or for less than 30 seconds from the current time, the user is considered to be restricted forever.
-         * @param canSendMessages True, if the user can send text messages, contacts, locations, and venues.
-         * @param canSendMediaMessages True, if the user can send audio files, documents, photos, videos, video notes, and voice notes. Implies canSendMessages permissions.
-         * @param canSendOtherMessages True, if the user can send animations, games, and stickers and use inline bots. Implies canSendMediaMessages permissions.
+         * @param isMember              True, if the user is a member of the chat.
+         * @param restrictedUntilDate   Point in time (Unix timestamp) when restrictions will be lifted from the user; 0 if never. If the user is restricted for more than 366 days or for less than 30 seconds from the current time, the user is considered to be restricted forever.
+         * @param canSendMessages       True, if the user can send text messages, contacts, locations, and venues.
+         * @param canSendMediaMessages  True, if the user can send audio files, documents, photos, videos, video notes, and voice notes. Implies canSendMessages permissions.
+         * @param canSendOtherMessages  True, if the user can send animations, games, and stickers and use inline bots. Implies canSendMediaMessages permissions.
          * @param canAddWebPagePreviews True, if the user may add a web page preview to his messages. Implies canSendMessages permissions.
          */
         public ChatMemberStatusRestricted(boolean isMember, int restrictedUntilDate, boolean canSendMessages, boolean canSendMediaMessages, boolean canSendOtherMessages, boolean canAddWebPagePreviews) {
@@ -4192,7 +4216,7 @@ public class TdApi {
          * Contains a list of chat members.
          *
          * @param totalCount Approximate total count of chat members found.
-         * @param members A list of chat members.
+         * @param members    A list of chat members.
          */
         public ChatMembers(int totalCount, ChatMember[] members) {
             this.totalCount = totalCount;
@@ -4220,13 +4244,14 @@ public class TdApi {
     public abstract static class ChatMembersFilter extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            ChatMembersFilterAdministrators.CONSTRUCTOR,
-            ChatMembersFilterMembers.CONSTRUCTOR,
-            ChatMembersFilterRestricted.CONSTRUCTOR,
-            ChatMembersFilterBanned.CONSTRUCTOR,
-            ChatMembersFilterBots.CONSTRUCTOR
+                ChatMembersFilterAdministrators.CONSTRUCTOR,
+                ChatMembersFilterMembers.CONSTRUCTOR,
+                ChatMembersFilterRestricted.CONSTRUCTOR,
+                ChatMembersFilterBanned.CONSTRUCTOR,
+                ChatMembersFilterBots.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -4415,16 +4440,16 @@ public class TdApi {
         /**
          * Contains information about notification settings for a chat.
          *
-         * @param useDefaultMuteFor If true, muteFor is ignored and the value for the relevant type of chat is used instead.
-         * @param muteFor Time left before notifications will be unmuted, in seconds.
-         * @param useDefaultSound If true, sound is ignored and the value for the relevant type of chat is used instead.
-         * @param sound The name of an audio file to be used for notification sounds; only applies to iOS applications.
-         * @param useDefaultShowPreview If true, showPreview is ignored and the value for the relevant type of chat is used instead.
-         * @param showPreview True, if message content should be displayed in notifications.
+         * @param useDefaultMuteFor                           If true, muteFor is ignored and the value for the relevant type of chat is used instead.
+         * @param muteFor                                     Time left before notifications will be unmuted, in seconds.
+         * @param useDefaultSound                             If true, sound is ignored and the value for the relevant type of chat is used instead.
+         * @param sound                                       The name of an audio file to be used for notification sounds; only applies to iOS applications.
+         * @param useDefaultShowPreview                       If true, showPreview is ignored and the value for the relevant type of chat is used instead.
+         * @param showPreview                                 True, if message content should be displayed in notifications.
          * @param useDefaultDisablePinnedMessageNotifications If true, disablePinnedMessageNotifications is ignored and the value for the relevant type of chat is used instead.
-         * @param disablePinnedMessageNotifications If true, notifications for incoming pinned messages will be created as for an ordinary unread message.
-         * @param useDefaultDisableMentionNotifications If true, disableMentionNotifications is ignored and the value for the relevant type of chat is used instead.
-         * @param disableMentionNotifications If true, notifications for messages with mentions will be created as for an ordinary unread message.
+         * @param disablePinnedMessageNotifications           If true, notifications for incoming pinned messages will be created as for an ordinary unread message.
+         * @param useDefaultDisableMentionNotifications       If true, disableMentionNotifications is ignored and the value for the relevant type of chat is used instead.
+         * @param disableMentionNotifications                 If true, notifications for messages with mentions will be created as for an ordinary unread message.
          */
         public ChatNotificationSettings(boolean useDefaultMuteFor, int muteFor, boolean useDefaultSound, String sound, boolean useDefaultShowPreview, boolean showPreview, boolean useDefaultDisablePinnedMessageNotifications, boolean disablePinnedMessageNotifications, boolean useDefaultDisableMentionNotifications, boolean disableMentionNotifications) {
             this.useDefaultMuteFor = useDefaultMuteFor;
@@ -4476,7 +4501,7 @@ public class TdApi {
          * Describes the photo of a chat.
          *
          * @param small A small (160x160) chat photo.
-         * @param big A big (640x640) chat photo.
+         * @param big   A big (640x640) chat photo.
          */
         public ChatPhoto(File small, File big) {
             this.small = small;
@@ -4504,14 +4529,15 @@ public class TdApi {
     public abstract static class ChatReportReason extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            ChatReportReasonSpam.CONSTRUCTOR,
-            ChatReportReasonViolence.CONSTRUCTOR,
-            ChatReportReasonPornography.CONSTRUCTOR,
-            ChatReportReasonChildAbuse.CONSTRUCTOR,
-            ChatReportReasonCopyright.CONSTRUCTOR,
-            ChatReportReasonCustom.CONSTRUCTOR
+                ChatReportReasonSpam.CONSTRUCTOR,
+                ChatReportReasonViolence.CONSTRUCTOR,
+                ChatReportReasonPornography.CONSTRUCTOR,
+                ChatReportReasonChildAbuse.CONSTRUCTOR,
+                ChatReportReasonCopyright.CONSTRUCTOR,
+                ChatReportReasonCustom.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -4729,12 +4755,13 @@ public class TdApi {
     public abstract static class ChatType extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            ChatTypePrivate.CONSTRUCTOR,
-            ChatTypeBasicGroup.CONSTRUCTOR,
-            ChatTypeSupergroup.CONSTRUCTOR,
-            ChatTypeSecret.CONSTRUCTOR
+                ChatTypePrivate.CONSTRUCTOR,
+                ChatTypeBasicGroup.CONSTRUCTOR,
+                ChatTypeSupergroup.CONSTRUCTOR,
+                ChatTypeSecret.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -4843,7 +4870,7 @@ public class TdApi {
          * A supergroup (i.e. a chat with up to GetOption(&quot;supergroup_max_size&quot;) other users), or channel (with unlimited members).
          *
          * @param supergroupId Supergroup or channel identifier.
-         * @param isChannel True, if the supergroup is a channel.
+         * @param isChannel    True, if the supergroup is a channel.
          */
         public ChatTypeSupergroup(int supergroupId, boolean isChannel) {
             this.supergroupId = supergroupId;
@@ -4887,7 +4914,7 @@ public class TdApi {
          * A secret chat with a user.
          *
          * @param secretChatId Secret chat identifier.
-         * @param userId User identifier of the secret chat peer.
+         * @param userId       User identifier of the secret chat peer.
          */
         public ChatTypeSecret(int secretChatId, int userId) {
             this.secretChatId = secretChatId;
@@ -4953,13 +4980,14 @@ public class TdApi {
     public abstract static class CheckChatUsernameResult extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            CheckChatUsernameResultOk.CONSTRUCTOR,
-            CheckChatUsernameResultUsernameInvalid.CONSTRUCTOR,
-            CheckChatUsernameResultUsernameOccupied.CONSTRUCTOR,
-            CheckChatUsernameResultPublicChatsTooMuch.CONSTRUCTOR,
-            CheckChatUsernameResultPublicGroupsUnavailable.CONSTRUCTOR
+                CheckChatUsernameResultOk.CONSTRUCTOR,
+                CheckChatUsernameResultUsernameInvalid.CONSTRUCTOR,
+                CheckChatUsernameResultUsernameOccupied.CONSTRUCTOR,
+                CheckChatUsernameResultPublicChatsTooMuch.CONSTRUCTOR,
+                CheckChatUsernameResultPublicGroupsUnavailable.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -5144,15 +5172,15 @@ public class TdApi {
         /**
          * Contains information about one website the current user is logged in with Telegram.
          *
-         * @param id Website identifier.
-         * @param domainName The domain name of the website.
-         * @param botUserId User identifier of a bot linked with the website.
-         * @param browser The version of a browser used to log in.
-         * @param platform Operating system the browser is running on.
-         * @param logInDate Point in time (Unix timestamp) when the user was logged in.
+         * @param id             Website identifier.
+         * @param domainName     The domain name of the website.
+         * @param botUserId      User identifier of a bot linked with the website.
+         * @param browser        The version of a browser used to log in.
+         * @param platform       Operating system the browser is running on.
+         * @param logInDate      Point in time (Unix timestamp) when the user was logged in.
          * @param lastActiveDate Point in time (Unix timestamp) when obtained authorization was last used.
-         * @param ip IP address from which the user was logged in, in human-readable format.
-         * @param location Human-readable description of a country and a region, from which the user was logged in, based on the IP address.
+         * @param ip             IP address from which the user was logged in, in human-readable format.
+         * @param location       Human-readable description of a country and a region, from which the user was logged in, based on the IP address.
          */
         public ConnectedWebsite(long id, String domainName, int botUserId, String browser, String platform, int logInDate, int lastActiveDate, String ip, String location) {
             this.id = id;
@@ -5225,13 +5253,14 @@ public class TdApi {
     public abstract static class ConnectionState extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            ConnectionStateWaitingForNetwork.CONSTRUCTOR,
-            ConnectionStateConnectingToProxy.CONSTRUCTOR,
-            ConnectionStateConnecting.CONSTRUCTOR,
-            ConnectionStateUpdating.CONSTRUCTOR,
-            ConnectionStateReady.CONSTRUCTOR
+                ConnectionStateWaitingForNetwork.CONSTRUCTOR,
+                ConnectionStateConnectingToProxy.CONSTRUCTOR,
+                ConnectionStateConnecting.CONSTRUCTOR,
+                ConnectionStateUpdating.CONSTRUCTOR,
+                ConnectionStateReady.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -5401,10 +5430,10 @@ public class TdApi {
          * Describes a user contact.
          *
          * @param phoneNumber Phone number of the user.
-         * @param firstName First name of the user; 1-255 characters in length.
-         * @param lastName Last name of the user.
-         * @param vcard Additional data about the user in a form of vCard; 0-2048 bytes in length.
-         * @param userId Identifier of the user, if known; otherwise 0.
+         * @param firstName   First name of the user; 1-255 characters in length.
+         * @param lastName    Last name of the user.
+         * @param vcard       Additional data about the user in a form of vCard; 0-2048 bytes in length.
+         * @param userId      Identifier of the user, if known; otherwise 0.
          */
         public Contact(String phoneNumber, String firstName, String lastName, String vcard, int userId) {
             this.phoneNumber = phoneNumber;
@@ -5568,9 +5597,9 @@ public class TdApi {
         /**
          * Represents a date according to the Gregorian calendar.
          *
-         * @param day Day of the month, 1-31.
+         * @param day   Day of the month, 1-31.
          * @param month Month, 1-12.
-         * @param year Year, 1-9999.
+         * @param year  Year, 1-9999.
          */
         public Date(int day, int month, int year) {
             this.day = day;
@@ -5658,7 +5687,7 @@ public class TdApi {
         /**
          * Contains information about a tg:// deep link.
          *
-         * @param text Text to be shown to the user.
+         * @param text                  Text to be shown to the user.
          * @param needUpdateApplication True, if user should be asked to update the application.
          */
         public DeepLinkInfo(FormattedText text, boolean needUpdateApplication) {
@@ -5687,19 +5716,20 @@ public class TdApi {
     public abstract static class DeviceToken extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            DeviceTokenFirebaseCloudMessaging.CONSTRUCTOR,
-            DeviceTokenApplePush.CONSTRUCTOR,
-            DeviceTokenApplePushVoIP.CONSTRUCTOR,
-            DeviceTokenWindowsPush.CONSTRUCTOR,
-            DeviceTokenMicrosoftPush.CONSTRUCTOR,
-            DeviceTokenMicrosoftPushVoIP.CONSTRUCTOR,
-            DeviceTokenWebPush.CONSTRUCTOR,
-            DeviceTokenSimplePush.CONSTRUCTOR,
-            DeviceTokenUbuntuPush.CONSTRUCTOR,
-            DeviceTokenBlackBerryPush.CONSTRUCTOR,
-            DeviceTokenTizenPush.CONSTRUCTOR
+                DeviceTokenFirebaseCloudMessaging.CONSTRUCTOR,
+                DeviceTokenApplePush.CONSTRUCTOR,
+                DeviceTokenApplePushVoIP.CONSTRUCTOR,
+                DeviceTokenWindowsPush.CONSTRUCTOR,
+                DeviceTokenMicrosoftPush.CONSTRUCTOR,
+                DeviceTokenMicrosoftPushVoIP.CONSTRUCTOR,
+                DeviceTokenWebPush.CONSTRUCTOR,
+                DeviceTokenSimplePush.CONSTRUCTOR,
+                DeviceTokenUbuntuPush.CONSTRUCTOR,
+                DeviceTokenBlackBerryPush.CONSTRUCTOR,
+                DeviceTokenTizenPush.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -5731,7 +5761,7 @@ public class TdApi {
         /**
          * A token for Firebase Cloud Messaging.
          *
-         * @param token Device registration token; may be empty to de-register a device.
+         * @param token   Device registration token; may be empty to de-register a device.
          * @param encrypt True, if push notifications should be additionally encrypted.
          */
         public DeviceTokenFirebaseCloudMessaging(String token, boolean encrypt) {
@@ -5775,7 +5805,7 @@ public class TdApi {
         /**
          * A token for Apple Push Notification service.
          *
-         * @param deviceToken Device token; may be empty to de-register a device.
+         * @param deviceToken  Device token; may be empty to de-register a device.
          * @param isAppSandbox True, if App Sandbox is enabled.
          */
         public DeviceTokenApplePush(String deviceToken, boolean isAppSandbox) {
@@ -5823,9 +5853,9 @@ public class TdApi {
         /**
          * A token for Apple Push Notification service VoIP notifications.
          *
-         * @param deviceToken Device token; may be empty to de-register a device.
+         * @param deviceToken  Device token; may be empty to de-register a device.
          * @param isAppSandbox True, if App Sandbox is enabled.
-         * @param encrypt True, if push notifications should be additionally encrypted.
+         * @param encrypt      True, if push notifications should be additionally encrypted.
          */
         public DeviceTokenApplePushVoIP(String deviceToken, boolean isAppSandbox, boolean encrypt) {
             this.deviceToken = deviceToken;
@@ -5987,9 +6017,9 @@ public class TdApi {
         /**
          * A token for web Push API.
          *
-         * @param endpoint Absolute URL exposed by the push service where the application server can send push messages; may be empty to de-register a device.
+         * @param endpoint        Absolute URL exposed by the push service where the application server can send push messages; may be empty to de-register a device.
          * @param p256dhBase64url Base64url-encoded P-256 elliptic curve Diffie-Hellman public key.
-         * @param authBase64url Base64url-encoded authentication secret.
+         * @param authBase64url   Base64url-encoded authentication secret.
          */
         public DeviceTokenWebPush(String endpoint, String p256dhBase64url, String authBase64url) {
             this.endpoint = endpoint;
@@ -6178,7 +6208,8 @@ public class TdApi {
         /**
          * Document thumbnail; as defined by the sender; may be null.
          */
-        @Nullable public PhotoSize thumbnail;
+        @Nullable
+        public PhotoSize thumbnail;
         /**
          * File containing the document.
          */
@@ -6193,10 +6224,10 @@ public class TdApi {
         /**
          * Describes a document of any type.
          *
-         * @param fileName Original name of the file; as defined by the sender.
-         * @param mimeType MIME type of the file; as defined by the sender.
+         * @param fileName  Original name of the file; as defined by the sender.
+         * @param mimeType  MIME type of the file; as defined by the sender.
          * @param thumbnail Document thumbnail; as defined by the sender; may be null.
-         * @param document File containing the document.
+         * @param document  File containing the document.
          */
         public Document(String fileName, String mimeType, PhotoSize thumbnail, File document) {
             this.fileName = fileName;
@@ -6286,7 +6317,7 @@ public class TdApi {
          * Information about the email address authentication code that was sent.
          *
          * @param emailAddressPattern Pattern of the email address to which an authentication code was sent.
-         * @param length Length of the code; 0 if unknown.
+         * @param length              Length of the code; 0 if unknown.
          */
         public EmailAddressAuthenticationCodeInfo(String emailAddressPattern, int length) {
             this.emailAddressPattern = emailAddressPattern;
@@ -6333,8 +6364,8 @@ public class TdApi {
         /**
          * Contains encrypted Telegram Passport data credentials.
          *
-         * @param data The encrypted credentials.
-         * @param hash The decrypted data hash.
+         * @param data   The encrypted credentials.
+         * @param hash   The decrypted data hash.
          * @param secret Secret for data decryption, encrypted with the service's public key.
          */
         public EncryptedCredentials(byte[] data, byte[] hash, byte[] secret) {
@@ -6376,11 +6407,13 @@ public class TdApi {
         /**
          * The reverse side of an identity document; may be null.
          */
-        @Nullable public DatedFile reverseSide;
+        @Nullable
+        public DatedFile reverseSide;
         /**
          * Selfie with the document; may be null.
          */
-        @Nullable public DatedFile selfie;
+        @Nullable
+        public DatedFile selfie;
         /**
          * List of files containing a certified English translation of the document.
          */
@@ -6407,15 +6440,15 @@ public class TdApi {
         /**
          * Contains information about an encrypted Telegram Passport element; for bots only.
          *
-         * @param type Type of Telegram Passport element.
-         * @param data Encrypted JSON-encoded data about the user.
-         * @param frontSide The front side of an identity document.
+         * @param type        Type of Telegram Passport element.
+         * @param data        Encrypted JSON-encoded data about the user.
+         * @param frontSide   The front side of an identity document.
          * @param reverseSide The reverse side of an identity document; may be null.
-         * @param selfie Selfie with the document; may be null.
+         * @param selfie      Selfie with the document; may be null.
          * @param translation List of files containing a certified English translation of the document.
-         * @param files List of attached files.
-         * @param value Unencrypted data, phone number or email address.
-         * @param hash Hash of the entire element.
+         * @param files       List of attached files.
+         * @param value       Unencrypted data, phone number or email address.
+         * @param hash        Hash of the entire element.
          */
         public EncryptedPassportElement(PassportElementType type, byte[] data, DatedFile frontSide, DatedFile reverseSide, DatedFile selfie, DatedFile[] translation, DatedFile[] files, String value, String hash) {
             this.type = type;
@@ -6465,7 +6498,7 @@ public class TdApi {
         /**
          * An object of this type can be returned on every function call, in case of an error.
          *
-         * @param code Error code; subject to future changes. If the error code is 406, the error message must not be processed in any way and must not be displayed to the user.
+         * @param code    Error code; subject to future changes. If the error code is 406, the error message must not be processed in any way and must not be displayed to the user.
          * @param message Error message; subject to future changes.
          */
         public Error(int code, String message) {
@@ -6521,11 +6554,11 @@ public class TdApi {
         /**
          * Represents a file.
          *
-         * @param id Unique file identifier.
-         * @param size File size; 0 if unknown.
+         * @param id           Unique file identifier.
+         * @param size         File size; 0 if unknown.
          * @param expectedSize Expected file size in case the exact file size is unknown, but an approximate size is known. Can be used to show download/upload progress.
-         * @param local Information about the local copy of the file.
-         * @param remote Information about the remote copy of the file.
+         * @param local        Information about the local copy of the file.
+         * @param remote       Information about the remote copy of the file.
          */
         public File(int id, int size, int expectedSize, LocalFile local, RemoteFile remote) {
             this.id = id;
@@ -6594,24 +6627,25 @@ public class TdApi {
     public abstract static class FileType extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            FileTypeNone.CONSTRUCTOR,
-            FileTypeAnimation.CONSTRUCTOR,
-            FileTypeAudio.CONSTRUCTOR,
-            FileTypeDocument.CONSTRUCTOR,
-            FileTypePhoto.CONSTRUCTOR,
-            FileTypeProfilePhoto.CONSTRUCTOR,
-            FileTypeSecret.CONSTRUCTOR,
-            FileTypeSecretThumbnail.CONSTRUCTOR,
-            FileTypeSecure.CONSTRUCTOR,
-            FileTypeSticker.CONSTRUCTOR,
-            FileTypeThumbnail.CONSTRUCTOR,
-            FileTypeUnknown.CONSTRUCTOR,
-            FileTypeVideo.CONSTRUCTOR,
-            FileTypeVideoNote.CONSTRUCTOR,
-            FileTypeVoiceNote.CONSTRUCTOR,
-            FileTypeWallpaper.CONSTRUCTOR
+                FileTypeNone.CONSTRUCTOR,
+                FileTypeAnimation.CONSTRUCTOR,
+                FileTypeAudio.CONSTRUCTOR,
+                FileTypeDocument.CONSTRUCTOR,
+                FileTypePhoto.CONSTRUCTOR,
+                FileTypeProfilePhoto.CONSTRUCTOR,
+                FileTypeSecret.CONSTRUCTOR,
+                FileTypeSecretThumbnail.CONSTRUCTOR,
+                FileTypeSecure.CONSTRUCTOR,
+                FileTypeSticker.CONSTRUCTOR,
+                FileTypeThumbnail.CONSTRUCTOR,
+                FileTypeUnknown.CONSTRUCTOR,
+                FileTypeVideo.CONSTRUCTOR,
+                FileTypeVideoNote.CONSTRUCTOR,
+                FileTypeVoiceNote.CONSTRUCTOR,
+                FileTypeWallpaper.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -7043,7 +7077,7 @@ public class TdApi {
         /**
          * A text with some entities.
          *
-         * @param text The text.
+         * @param text     The text.
          * @param entities Entities contained in the text.
          */
         public FormattedText(String text, TextEntity[] entities) {
@@ -7087,7 +7121,7 @@ public class TdApi {
         /**
          * Contains a list of messages found by a search.
          *
-         * @param messages List of messages.
+         * @param messages         List of messages.
          * @param nextFromSearchId Value to pass as fromSearchId to get more results.
          */
         public FoundMessages(Message[] messages, long nextFromSearchId) {
@@ -7140,7 +7174,8 @@ public class TdApi {
         /**
          * Game animation; may be null.
          */
-        @Nullable public Animation animation;
+        @Nullable
+        public Animation animation;
 
         /**
          * Describes a game.
@@ -7151,13 +7186,13 @@ public class TdApi {
         /**
          * Describes a game.
          *
-         * @param id Game ID.
-         * @param shortName Game short name. To share a game use the URL https://t.me/{botUsername}?game={gameShortName}.
-         * @param title Game title.
-         * @param text Game text, usually containing scoreboards for a game.
+         * @param id          Game ID.
+         * @param shortName   Game short name. To share a game use the URL https://t.me/{botUsername}?game={gameShortName}.
+         * @param title       Game title.
+         * @param text        Game text, usually containing scoreboards for a game.
          * @param description Game description.
-         * @param photo Game photo.
-         * @param animation Game animation; may be null.
+         * @param photo       Game photo.
+         * @param animation   Game animation; may be null.
          */
         public Game(long id, String shortName, String title, FormattedText text, String description, Photo photo, Animation animation) {
             this.id = id;
@@ -7210,8 +7245,8 @@ public class TdApi {
          * Contains one row of the game high score table.
          *
          * @param position Position in the high score table.
-         * @param userId User identifier.
-         * @param score User score.
+         * @param userId   User identifier.
+         * @param score    User score.
          */
         public GameHighScore(int position, int userId, int score) {
             this.position = position;
@@ -7358,7 +7393,8 @@ public class TdApi {
         /**
          * Document expiry date; may be null.
          */
-        @Nullable public Date expiryDate;
+        @Nullable
+        public Date expiryDate;
         /**
          * Front side of the document.
          */
@@ -7370,7 +7406,8 @@ public class TdApi {
         /**
          * Selfie with the document; may be null.
          */
-        @Nullable public DatedFile selfie;
+        @Nullable
+        public DatedFile selfie;
         /**
          * List of files containing a certified English translation of the document.
          */
@@ -7385,11 +7422,11 @@ public class TdApi {
         /**
          * An identity document.
          *
-         * @param number Document number; 1-24 characters.
-         * @param expiryDate Document expiry date; may be null.
-         * @param frontSide Front side of the document.
+         * @param number      Document number; 1-24 characters.
+         * @param expiryDate  Document expiry date; may be null.
+         * @param frontSide   Front side of the document.
          * @param reverseSide Reverse side of the document; only for driver license and identity card.
-         * @param selfie Selfie with the document; may be null.
+         * @param selfie      Selfie with the document; may be null.
          * @param translation List of files containing a certified English translation of the document.
          */
         public IdentityDocument(String number, Date expiryDate, DatedFile frontSide, DatedFile reverseSide, DatedFile selfie, DatedFile[] translation) {
@@ -7437,7 +7474,7 @@ public class TdApi {
         /**
          * Represents the result of an ImportContacts request.
          *
-         * @param userIds User identifiers of the imported contacts in the same order as they were specified in the request; 0 if the contact is not yet a registered user.
+         * @param userIds       User identifiers of the imported contacts in the same order as they were specified in the request; 0 if the contact is not yet a registered user.
          * @param importerCount The number of users that imported the corresponding contact; 0 for already registered users or if unavailable.
          */
         public ImportedContacts(int[] userIds, int[] importerCount) {
@@ -7510,13 +7547,14 @@ public class TdApi {
     public abstract static class InlineKeyboardButtonType extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            InlineKeyboardButtonTypeUrl.CONSTRUCTOR,
-            InlineKeyboardButtonTypeCallback.CONSTRUCTOR,
-            InlineKeyboardButtonTypeCallbackGame.CONSTRUCTOR,
-            InlineKeyboardButtonTypeSwitchInline.CONSTRUCTOR,
-            InlineKeyboardButtonTypeBuy.CONSTRUCTOR
+                InlineKeyboardButtonTypeUrl.CONSTRUCTOR,
+                InlineKeyboardButtonTypeCallback.CONSTRUCTOR,
+                InlineKeyboardButtonTypeCallbackGame.CONSTRUCTOR,
+                InlineKeyboardButtonTypeSwitchInline.CONSTRUCTOR,
+                InlineKeyboardButtonTypeBuy.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -7649,7 +7687,7 @@ public class TdApi {
         /**
          * A button that forces an inline query to the bot to be inserted in the input field.
          *
-         * @param query Inline query to be sent to the bot.
+         * @param query         Inline query to be sent to the bot.
          * @param inCurrentChat True, if the inline query should be sent from the current chat.
          */
         public InlineKeyboardButtonTypeSwitchInline(String query, boolean inCurrentChat) {
@@ -7703,20 +7741,21 @@ public class TdApi {
     public abstract static class InlineQueryResult extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            InlineQueryResultArticle.CONSTRUCTOR,
-            InlineQueryResultContact.CONSTRUCTOR,
-            InlineQueryResultLocation.CONSTRUCTOR,
-            InlineQueryResultVenue.CONSTRUCTOR,
-            InlineQueryResultGame.CONSTRUCTOR,
-            InlineQueryResultAnimation.CONSTRUCTOR,
-            InlineQueryResultAudio.CONSTRUCTOR,
-            InlineQueryResultDocument.CONSTRUCTOR,
-            InlineQueryResultPhoto.CONSTRUCTOR,
-            InlineQueryResultSticker.CONSTRUCTOR,
-            InlineQueryResultVideo.CONSTRUCTOR,
-            InlineQueryResultVoiceNote.CONSTRUCTOR
+                InlineQueryResultArticle.CONSTRUCTOR,
+                InlineQueryResultContact.CONSTRUCTOR,
+                InlineQueryResultLocation.CONSTRUCTOR,
+                InlineQueryResultVenue.CONSTRUCTOR,
+                InlineQueryResultGame.CONSTRUCTOR,
+                InlineQueryResultAnimation.CONSTRUCTOR,
+                InlineQueryResultAudio.CONSTRUCTOR,
+                InlineQueryResultDocument.CONSTRUCTOR,
+                InlineQueryResultPhoto.CONSTRUCTOR,
+                InlineQueryResultSticker.CONSTRUCTOR,
+                InlineQueryResultVideo.CONSTRUCTOR,
+                InlineQueryResultVoiceNote.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -7753,7 +7792,8 @@ public class TdApi {
         /**
          * Result thumbnail; may be null.
          */
-        @Nullable public PhotoSize thumbnail;
+        @Nullable
+        public PhotoSize thumbnail;
 
         /**
          * Represents a link to an article or web page.
@@ -7764,12 +7804,12 @@ public class TdApi {
         /**
          * Represents a link to an article or web page.
          *
-         * @param id Unique identifier of the query result.
-         * @param url URL of the result, if it exists.
-         * @param hideUrl True, if the URL must be not shown.
-         * @param title Title of the result.
+         * @param id          Unique identifier of the query result.
+         * @param url         URL of the result, if it exists.
+         * @param hideUrl     True, if the URL must be not shown.
+         * @param title       Title of the result.
          * @param description A short description of the result.
-         * @param thumbnail Result thumbnail; may be null.
+         * @param thumbnail   Result thumbnail; may be null.
          */
         public InlineQueryResultArticle(String id, String url, boolean hideUrl, String title, String description, PhotoSize thumbnail) {
             this.id = id;
@@ -7809,7 +7849,8 @@ public class TdApi {
         /**
          * Result thumbnail; may be null.
          */
-        @Nullable public PhotoSize thumbnail;
+        @Nullable
+        public PhotoSize thumbnail;
 
         /**
          * Represents a user contact.
@@ -7820,8 +7861,8 @@ public class TdApi {
         /**
          * Represents a user contact.
          *
-         * @param id Unique identifier of the query result.
-         * @param contact A user contact.
+         * @param id        Unique identifier of the query result.
+         * @param contact   A user contact.
          * @param thumbnail Result thumbnail; may be null.
          */
         public InlineQueryResultContact(String id, Contact contact, PhotoSize thumbnail) {
@@ -7863,7 +7904,8 @@ public class TdApi {
         /**
          * Result thumbnail; may be null.
          */
-        @Nullable public PhotoSize thumbnail;
+        @Nullable
+        public PhotoSize thumbnail;
 
         /**
          * Represents a point on the map.
@@ -7874,9 +7916,9 @@ public class TdApi {
         /**
          * Represents a point on the map.
          *
-         * @param id Unique identifier of the query result.
-         * @param location Location result.
-         * @param title Title of the result.
+         * @param id        Unique identifier of the query result.
+         * @param location  Location result.
+         * @param title     Title of the result.
          * @param thumbnail Result thumbnail; may be null.
          */
         public InlineQueryResultLocation(String id, Location location, String title, PhotoSize thumbnail) {
@@ -7915,7 +7957,8 @@ public class TdApi {
         /**
          * Result thumbnail; may be null.
          */
-        @Nullable public PhotoSize thumbnail;
+        @Nullable
+        public PhotoSize thumbnail;
 
         /**
          * Represents information about a venue.
@@ -7926,8 +7969,8 @@ public class TdApi {
         /**
          * Represents information about a venue.
          *
-         * @param id Unique identifier of the query result.
-         * @param venue Venue result.
+         * @param id        Unique identifier of the query result.
+         * @param venue     Venue result.
          * @param thumbnail Result thumbnail; may be null.
          */
         public InlineQueryResultVenue(String id, Venue venue, PhotoSize thumbnail) {
@@ -7972,7 +8015,7 @@ public class TdApi {
         /**
          * Represents information about a game.
          *
-         * @param id Unique identifier of the query result.
+         * @param id   Unique identifier of the query result.
          * @param game Game result.
          */
         public InlineQueryResultGame(String id, Game game) {
@@ -8020,9 +8063,9 @@ public class TdApi {
         /**
          * Represents an animation file.
          *
-         * @param id Unique identifier of the query result.
+         * @param id        Unique identifier of the query result.
          * @param animation Animation file.
-         * @param title Animation title.
+         * @param title     Animation title.
          */
         public InlineQueryResultAnimation(String id, Animation animation, String title) {
             this.id = id;
@@ -8066,7 +8109,7 @@ public class TdApi {
         /**
          * Represents an audio file.
          *
-         * @param id Unique identifier of the query result.
+         * @param id    Unique identifier of the query result.
          * @param audio Audio file.
          */
         public InlineQueryResultAudio(String id, Audio audio) {
@@ -8118,9 +8161,9 @@ public class TdApi {
         /**
          * Represents a document.
          *
-         * @param id Unique identifier of the query result.
-         * @param document Document.
-         * @param title Document title.
+         * @param id          Unique identifier of the query result.
+         * @param document    Document.
+         * @param title       Document title.
          * @param description Document description.
          */
         public InlineQueryResultDocument(String id, Document document, String title, String description) {
@@ -8174,9 +8217,9 @@ public class TdApi {
         /**
          * Represents a photo.
          *
-         * @param id Unique identifier of the query result.
-         * @param photo Photo.
-         * @param title Title of the result, if known.
+         * @param id          Unique identifier of the query result.
+         * @param photo       Photo.
+         * @param title       Title of the result, if known.
          * @param description A short description of the result, if known.
          */
         public InlineQueryResultPhoto(String id, Photo photo, String title, String description) {
@@ -8222,7 +8265,7 @@ public class TdApi {
         /**
          * Represents a sticker.
          *
-         * @param id Unique identifier of the query result.
+         * @param id      Unique identifier of the query result.
          * @param sticker Sticker.
          */
         public InlineQueryResultSticker(String id, Sticker sticker) {
@@ -8274,9 +8317,9 @@ public class TdApi {
         /**
          * Represents a video.
          *
-         * @param id Unique identifier of the query result.
-         * @param video Video.
-         * @param title Title of the video.
+         * @param id          Unique identifier of the query result.
+         * @param video       Video.
+         * @param title       Title of the video.
          * @param description Description of the video.
          */
         public InlineQueryResultVideo(String id, Video video, String title, String description) {
@@ -8326,9 +8369,9 @@ public class TdApi {
         /**
          * Represents a voice note.
          *
-         * @param id Unique identifier of the query result.
+         * @param id        Unique identifier of the query result.
          * @param voiceNote Voice note.
-         * @param title Title of the voice note.
+         * @param title     Title of the voice note.
          */
         public InlineQueryResultVoiceNote(String id, VoiceNote voiceNote, String title) {
             this.id = id;
@@ -8384,10 +8427,10 @@ public class TdApi {
         /**
          * Represents the results of the inline query. Use sendInlineQueryResultMessage to send the result of the query.
          *
-         * @param inlineQueryId Unique identifier of the inline query.
-         * @param nextOffset The offset for the next request. If empty, there are no more results.
-         * @param results Results of the query.
-         * @param switchPmText If non-empty, this text should be shown on the button, which opens a private chat with the bot and sends the bot a start message with the switchPmParameter.
+         * @param inlineQueryId     Unique identifier of the inline query.
+         * @param nextOffset        The offset for the next request. If empty, there are no more results.
+         * @param results           Results of the query.
+         * @param switchPmText      If non-empty, this text should be shown on the button, which opens a private chat with the bot and sends the bot a start message with the switchPmParameter.
          * @param switchPmParameter Parameter for the bot start message.
          */
         public InlineQueryResults(long inlineQueryId, String nextOffset, InlineQueryResult[] results, String switchPmText, String switchPmParameter) {
@@ -8419,12 +8462,13 @@ public class TdApi {
     public abstract static class InputCredentials extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            InputCredentialsSaved.CONSTRUCTOR,
-            InputCredentialsNew.CONSTRUCTOR,
-            InputCredentialsAndroidPay.CONSTRUCTOR,
-            InputCredentialsApplePay.CONSTRUCTOR
+                InputCredentialsSaved.CONSTRUCTOR,
+                InputCredentialsNew.CONSTRUCTOR,
+                InputCredentialsAndroidPay.CONSTRUCTOR,
+                InputCredentialsApplePay.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -8494,7 +8538,7 @@ public class TdApi {
         /**
          * Applies if a user enters new credentials on a payment provider website.
          *
-         * @param data Contains JSON-encoded data with a credential identifier from the payment provider.
+         * @param data      Contains JSON-encoded data with a credential identifier from the payment provider.
          * @param allowSave True, if the credential identifier can be saved on the server side.
          */
         public InputCredentialsNew(String data, boolean allowSave) {
@@ -8599,12 +8643,13 @@ public class TdApi {
     public abstract static class InputFile extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            InputFileId.CONSTRUCTOR,
-            InputFileRemote.CONSTRUCTOR,
-            InputFileLocal.CONSTRUCTOR,
-            InputFileGenerated.CONSTRUCTOR
+                InputFileId.CONSTRUCTOR,
+                InputFileRemote.CONSTRUCTOR,
+                InputFileLocal.CONSTRUCTOR,
+                InputFileGenerated.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -8755,7 +8800,7 @@ public class TdApi {
          * A file generated by the client.
          *
          * @param originalPath Local path to a file from which the file is generated; may be empty if there is no such file.
-         * @param conversion String specifying the conversion applied to the original file; should be persistent across application restarts. Conversions beginning with '#' are reserved for internal TDLib usage.
+         * @param conversion   String specifying the conversion applied to the original file; should be persistent across application restarts. Conversions beginning with '#' are reserved for internal TDLib usage.
          * @param expectedSize Expected size of the generated file; 0 if unknown.
          */
         public InputFileGenerated(String originalPath, String conversion, int expectedSize) {
@@ -8816,11 +8861,11 @@ public class TdApi {
         /**
          * An identity document to be saved to Telegram Passport.
          *
-         * @param number Document number; 1-24 characters.
-         * @param expiryDate Document expiry date, if available.
-         * @param frontSide Front side of the document.
+         * @param number      Document number; 1-24 characters.
+         * @param expiryDate  Document expiry date, if available.
+         * @param frontSide   Front side of the document.
          * @param reverseSide Reverse side of the document; only for driver license and identity card.
-         * @param selfie Selfie with the document, if available.
+         * @param selfie      Selfie with the document, if available.
          * @param translation List of files containing a certified English translation of the document.
          */
         public InputIdentityDocument(String number, Date expiryDate, InputFile frontSide, InputFile reverseSide, InputFile selfie, InputFile[] translation) {
@@ -8853,21 +8898,22 @@ public class TdApi {
     public abstract static class InputInlineQueryResult extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            InputInlineQueryResultAnimatedGif.CONSTRUCTOR,
-            InputInlineQueryResultAnimatedMpeg4.CONSTRUCTOR,
-            InputInlineQueryResultArticle.CONSTRUCTOR,
-            InputInlineQueryResultAudio.CONSTRUCTOR,
-            InputInlineQueryResultContact.CONSTRUCTOR,
-            InputInlineQueryResultDocument.CONSTRUCTOR,
-            InputInlineQueryResultGame.CONSTRUCTOR,
-            InputInlineQueryResultLocation.CONSTRUCTOR,
-            InputInlineQueryResultPhoto.CONSTRUCTOR,
-            InputInlineQueryResultSticker.CONSTRUCTOR,
-            InputInlineQueryResultVenue.CONSTRUCTOR,
-            InputInlineQueryResultVideo.CONSTRUCTOR,
-            InputInlineQueryResultVoiceNote.CONSTRUCTOR
+                InputInlineQueryResultAnimatedGif.CONSTRUCTOR,
+                InputInlineQueryResultAnimatedMpeg4.CONSTRUCTOR,
+                InputInlineQueryResultArticle.CONSTRUCTOR,
+                InputInlineQueryResultAudio.CONSTRUCTOR,
+                InputInlineQueryResultContact.CONSTRUCTOR,
+                InputInlineQueryResultDocument.CONSTRUCTOR,
+                InputInlineQueryResultGame.CONSTRUCTOR,
+                InputInlineQueryResultLocation.CONSTRUCTOR,
+                InputInlineQueryResultPhoto.CONSTRUCTOR,
+                InputInlineQueryResultSticker.CONSTRUCTOR,
+                InputInlineQueryResultVenue.CONSTRUCTOR,
+                InputInlineQueryResultVideo.CONSTRUCTOR,
+                InputInlineQueryResultVoiceNote.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -8927,14 +8973,14 @@ public class TdApi {
         /**
          * Represents a link to an animated GIF.
          *
-         * @param id Unique identifier of the query result.
-         * @param title Title of the query result.
-         * @param thumbnailUrl URL of the static result thumbnail (JPEG or GIF), if it exists.
-         * @param gifUrl The URL of the GIF-file (file size must not exceed 1MB).
-         * @param gifDuration Duration of the GIF, in seconds.
-         * @param gifWidth Width of the GIF.
-         * @param gifHeight Height of the GIF.
-         * @param replyMarkup The message reply markup. Must be of type replyMarkupInlineKeyboard or null.
+         * @param id                  Unique identifier of the query result.
+         * @param title               Title of the query result.
+         * @param thumbnailUrl        URL of the static result thumbnail (JPEG or GIF), if it exists.
+         * @param gifUrl              The URL of the GIF-file (file size must not exceed 1MB).
+         * @param gifDuration         Duration of the GIF, in seconds.
+         * @param gifWidth            Width of the GIF.
+         * @param gifHeight           Height of the GIF.
+         * @param replyMarkup         The message reply markup. Must be of type replyMarkupInlineKeyboard or null.
          * @param inputMessageContent The content of the message to be sent. Must be one of the following types: InputMessageText, InputMessageAnimation, InputMessageLocation, InputMessageVenue or InputMessageContact.
          */
         public InputInlineQueryResultAnimatedGif(String id, String title, String thumbnailUrl, String gifUrl, int gifDuration, int gifWidth, int gifHeight, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
@@ -9013,14 +9059,14 @@ public class TdApi {
         /**
          * Represents a link to an animated (i.e. without sound) H.264/MPEG-4 AVC video.
          *
-         * @param id Unique identifier of the query result.
-         * @param title Title of the result.
-         * @param thumbnailUrl URL of the static result thumbnail (JPEG or GIF), if it exists.
-         * @param mpeg4Url The URL of the MPEG4-file (file size must not exceed 1MB).
-         * @param mpeg4Duration Duration of the video, in seconds.
-         * @param mpeg4Width Width of the video.
-         * @param mpeg4Height Height of the video.
-         * @param replyMarkup The message reply markup. Must be of type replyMarkupInlineKeyboard or null.
+         * @param id                  Unique identifier of the query result.
+         * @param title               Title of the result.
+         * @param thumbnailUrl        URL of the static result thumbnail (JPEG or GIF), if it exists.
+         * @param mpeg4Url            The URL of the MPEG4-file (file size must not exceed 1MB).
+         * @param mpeg4Duration       Duration of the video, in seconds.
+         * @param mpeg4Width          Width of the video.
+         * @param mpeg4Height         Height of the video.
+         * @param replyMarkup         The message reply markup. Must be of type replyMarkupInlineKeyboard or null.
          * @param inputMessageContent The content of the message to be sent. Must be one of the following types: InputMessageText, InputMessageAnimation, InputMessageLocation, InputMessageVenue or InputMessageContact.
          */
         public InputInlineQueryResultAnimatedMpeg4(String id, String title, String thumbnailUrl, String mpeg4Url, int mpeg4Duration, int mpeg4Width, int mpeg4Height, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
@@ -9103,15 +9149,15 @@ public class TdApi {
         /**
          * Represents a link to an article or web page.
          *
-         * @param id Unique identifier of the query result.
-         * @param url URL of the result, if it exists.
-         * @param hideUrl True, if the URL must be not shown.
-         * @param title Title of the result.
-         * @param description A short description of the result.
-         * @param thumbnailUrl URL of the result thumbnail, if it exists.
-         * @param thumbnailWidth Thumbnail width, if known.
-         * @param thumbnailHeight Thumbnail height, if known.
-         * @param replyMarkup The message reply markup. Must be of type replyMarkupInlineKeyboard or null.
+         * @param id                  Unique identifier of the query result.
+         * @param url                 URL of the result, if it exists.
+         * @param hideUrl             True, if the URL must be not shown.
+         * @param title               Title of the result.
+         * @param description         A short description of the result.
+         * @param thumbnailUrl        URL of the result thumbnail, if it exists.
+         * @param thumbnailWidth      Thumbnail width, if known.
+         * @param thumbnailHeight     Thumbnail height, if known.
+         * @param replyMarkup         The message reply markup. Must be of type replyMarkupInlineKeyboard or null.
          * @param inputMessageContent The content of the message to be sent. Must be one of the following types: InputMessageText, InputMessageLocation, InputMessageVenue or InputMessageContact.
          */
         public InputInlineQueryResultArticle(String id, String url, boolean hideUrl, String title, String description, String thumbnailUrl, int thumbnailWidth, int thumbnailHeight, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
@@ -9183,12 +9229,12 @@ public class TdApi {
         /**
          * Represents a link to an MP3 audio file.
          *
-         * @param id Unique identifier of the query result.
-         * @param title Title of the audio file.
-         * @param performer Performer of the audio file.
-         * @param audioUrl The URL of the audio file.
-         * @param audioDuration Audio file duration, in seconds.
-         * @param replyMarkup The message reply markup. Must be of type replyMarkupInlineKeyboard or null.
+         * @param id                  Unique identifier of the query result.
+         * @param title               Title of the audio file.
+         * @param performer           Performer of the audio file.
+         * @param audioUrl            The URL of the audio file.
+         * @param audioDuration       Audio file duration, in seconds.
+         * @param replyMarkup         The message reply markup. Must be of type replyMarkupInlineKeyboard or null.
          * @param inputMessageContent The content of the message to be sent. Must be one of the following types: InputMessageText, InputMessageAudio, InputMessageLocation, InputMessageVenue or InputMessageContact.
          */
         public InputInlineQueryResultAudio(String id, String title, String performer, String audioUrl, int audioDuration, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
@@ -9257,12 +9303,12 @@ public class TdApi {
         /**
          * Represents a user contact.
          *
-         * @param id Unique identifier of the query result.
-         * @param contact User contact.
-         * @param thumbnailUrl URL of the result thumbnail, if it exists.
-         * @param thumbnailWidth Thumbnail width, if known.
-         * @param thumbnailHeight Thumbnail height, if known.
-         * @param replyMarkup The message reply markup. Must be of type replyMarkupInlineKeyboard or null.
+         * @param id                  Unique identifier of the query result.
+         * @param contact             User contact.
+         * @param thumbnailUrl        URL of the result thumbnail, if it exists.
+         * @param thumbnailWidth      Thumbnail width, if known.
+         * @param thumbnailHeight     Thumbnail height, if known.
+         * @param replyMarkup         The message reply markup. Must be of type replyMarkupInlineKeyboard or null.
          * @param inputMessageContent The content of the message to be sent. Must be one of the following types: InputMessageText, InputMessageLocation, InputMessageVenue or InputMessageContact.
          */
         public InputInlineQueryResultContact(String id, Contact contact, String thumbnailUrl, int thumbnailWidth, int thumbnailHeight, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
@@ -9343,15 +9389,15 @@ public class TdApi {
         /**
          * Represents a link to a file.
          *
-         * @param id Unique identifier of the query result.
-         * @param title Title of the resulting file.
-         * @param description Short description of the result, if known.
-         * @param documentUrl URL of the file.
-         * @param mimeType MIME type of the file content; only &quot;application/pdf&quot; and &quot;application/zip&quot; are currently allowed.
-         * @param thumbnailUrl The URL of the file thumbnail, if it exists.
-         * @param thumbnailWidth Width of the thumbnail.
-         * @param thumbnailHeight Height of the thumbnail.
-         * @param replyMarkup The message reply markup. Must be of type replyMarkupInlineKeyboard or null.
+         * @param id                  Unique identifier of the query result.
+         * @param title               Title of the resulting file.
+         * @param description         Short description of the result, if known.
+         * @param documentUrl         URL of the file.
+         * @param mimeType            MIME type of the file content; only &quot;application/pdf&quot; and &quot;application/zip&quot; are currently allowed.
+         * @param thumbnailUrl        The URL of the file thumbnail, if it exists.
+         * @param thumbnailWidth      Width of the thumbnail.
+         * @param thumbnailHeight     Height of the thumbnail.
+         * @param replyMarkup         The message reply markup. Must be of type replyMarkupInlineKeyboard or null.
          * @param inputMessageContent The content of the message to be sent. Must be one of the following types: InputMessageText, InputMessageDocument, InputMessageLocation, InputMessageVenue or InputMessageContact.
          */
         public InputInlineQueryResultDocument(String id, String title, String description, String documentUrl, String mimeType, String thumbnailUrl, int thumbnailWidth, int thumbnailHeight, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
@@ -9407,9 +9453,9 @@ public class TdApi {
         /**
          * Represents a game.
          *
-         * @param id Unique identifier of the query result.
+         * @param id            Unique identifier of the query result.
          * @param gameShortName Short name of the game.
-         * @param replyMarkup Message reply markup. Must be of type replyMarkupInlineKeyboard or null.
+         * @param replyMarkup   Message reply markup. Must be of type replyMarkupInlineKeyboard or null.
          */
         public InputInlineQueryResultGame(String id, String gameShortName, ReplyMarkup replyMarkup) {
             this.id = id;
@@ -9481,14 +9527,14 @@ public class TdApi {
         /**
          * Represents a point on the map.
          *
-         * @param id Unique identifier of the query result.
-         * @param location Location result.
-         * @param livePeriod Amount of time relative to the message sent time until the location can be updated, in seconds.
-         * @param title Title of the result.
-         * @param thumbnailUrl URL of the result thumbnail, if it exists.
-         * @param thumbnailWidth Thumbnail width, if known.
-         * @param thumbnailHeight Thumbnail height, if known.
-         * @param replyMarkup The message reply markup. Must be of type replyMarkupInlineKeyboard or null.
+         * @param id                  Unique identifier of the query result.
+         * @param location            Location result.
+         * @param livePeriod          Amount of time relative to the message sent time until the location can be updated, in seconds.
+         * @param title               Title of the result.
+         * @param thumbnailUrl        URL of the result thumbnail, if it exists.
+         * @param thumbnailWidth      Thumbnail width, if known.
+         * @param thumbnailHeight     Thumbnail height, if known.
+         * @param replyMarkup         The message reply markup. Must be of type replyMarkupInlineKeyboard or null.
          * @param inputMessageContent The content of the message to be sent. Must be one of the following types: InputMessageText, InputMessageLocation, InputMessageVenue or InputMessageContact.
          */
         public InputInlineQueryResultLocation(String id, Location location, int livePeriod, String title, String thumbnailUrl, int thumbnailWidth, int thumbnailHeight, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
@@ -9567,14 +9613,14 @@ public class TdApi {
         /**
          * Represents link to a JPEG image.
          *
-         * @param id Unique identifier of the query result.
-         * @param title Title of the result, if known.
-         * @param description A short description of the result, if known.
-         * @param thumbnailUrl URL of the photo thumbnail, if it exists.
-         * @param photoUrl The URL of the JPEG photo (photo size must not exceed 5MB).
-         * @param photoWidth Width of the photo.
-         * @param photoHeight Height of the photo.
-         * @param replyMarkup The message reply markup. Must be of type replyMarkupInlineKeyboard or null.
+         * @param id                  Unique identifier of the query result.
+         * @param title               Title of the result, if known.
+         * @param description         A short description of the result, if known.
+         * @param thumbnailUrl        URL of the photo thumbnail, if it exists.
+         * @param photoUrl            The URL of the JPEG photo (photo size must not exceed 5MB).
+         * @param photoWidth          Width of the photo.
+         * @param photoHeight         Height of the photo.
+         * @param replyMarkup         The message reply markup. Must be of type replyMarkupInlineKeyboard or null.
          * @param inputMessageContent The content of the message to be sent. Must be one of the following types: InputMessageText, InputMessagePhoto, InputMessageLocation, InputMessageVenue or InputMessageContact.
          */
         public InputInlineQueryResultPhoto(String id, String title, String description, String thumbnailUrl, String photoUrl, int photoWidth, int photoHeight, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
@@ -9645,12 +9691,12 @@ public class TdApi {
         /**
          * Represents a link to a WEBP sticker.
          *
-         * @param id Unique identifier of the query result.
-         * @param thumbnailUrl URL of the sticker thumbnail, if it exists.
-         * @param stickerUrl The URL of the WEBP sticker (sticker file size must not exceed 5MB).
-         * @param stickerWidth Width of the sticker.
-         * @param stickerHeight Height of the sticker.
-         * @param replyMarkup The message reply markup. Must be of type replyMarkupInlineKeyboard or null.
+         * @param id                  Unique identifier of the query result.
+         * @param thumbnailUrl        URL of the sticker thumbnail, if it exists.
+         * @param stickerUrl          The URL of the WEBP sticker (sticker file size must not exceed 5MB).
+         * @param stickerWidth        Width of the sticker.
+         * @param stickerHeight       Height of the sticker.
+         * @param replyMarkup         The message reply markup. Must be of type replyMarkupInlineKeyboard or null.
          * @param inputMessageContent The content of the message to be sent. Must be one of the following types: InputMessageText, inputMessageSticker, InputMessageLocation, InputMessageVenue or InputMessageContact.
          */
         public InputInlineQueryResultSticker(String id, String thumbnailUrl, String stickerUrl, int stickerWidth, int stickerHeight, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
@@ -9719,12 +9765,12 @@ public class TdApi {
         /**
          * Represents information about a venue.
          *
-         * @param id Unique identifier of the query result.
-         * @param venue Venue result.
-         * @param thumbnailUrl URL of the result thumbnail, if it exists.
-         * @param thumbnailWidth Thumbnail width, if known.
-         * @param thumbnailHeight Thumbnail height, if known.
-         * @param replyMarkup The message reply markup. Must be of type replyMarkupInlineKeyboard or null.
+         * @param id                  Unique identifier of the query result.
+         * @param venue               Venue result.
+         * @param thumbnailUrl        URL of the result thumbnail, if it exists.
+         * @param thumbnailWidth      Thumbnail width, if known.
+         * @param thumbnailHeight     Thumbnail height, if known.
+         * @param replyMarkup         The message reply markup. Must be of type replyMarkupInlineKeyboard or null.
          * @param inputMessageContent The content of the message to be sent. Must be one of the following types: InputMessageText, InputMessageLocation, InputMessageVenue or InputMessageContact.
          */
         public InputInlineQueryResultVenue(String id, Venue venue, String thumbnailUrl, int thumbnailWidth, int thumbnailHeight, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
@@ -9809,16 +9855,16 @@ public class TdApi {
         /**
          * Represents a link to a page containing an embedded video player or a video file.
          *
-         * @param id Unique identifier of the query result.
-         * @param title Title of the result.
-         * @param description A short description of the result, if known.
-         * @param thumbnailUrl The URL of the video thumbnail (JPEG), if it exists.
-         * @param videoUrl URL of the embedded video player or video file.
-         * @param mimeType MIME type of the content of the video URL, only &quot;text/html&quot; or &quot;video/mp4&quot; are currently supported.
-         * @param videoWidth Width of the video.
-         * @param videoHeight Height of the video.
-         * @param videoDuration Video duration, in seconds.
-         * @param replyMarkup The message reply markup. Must be of type replyMarkupInlineKeyboard or null.
+         * @param id                  Unique identifier of the query result.
+         * @param title               Title of the result.
+         * @param description         A short description of the result, if known.
+         * @param thumbnailUrl        The URL of the video thumbnail (JPEG), if it exists.
+         * @param videoUrl            URL of the embedded video player or video file.
+         * @param mimeType            MIME type of the content of the video URL, only &quot;text/html&quot; or &quot;video/mp4&quot; are currently supported.
+         * @param videoWidth          Width of the video.
+         * @param videoHeight         Height of the video.
+         * @param videoDuration       Video duration, in seconds.
+         * @param replyMarkup         The message reply markup. Must be of type replyMarkupInlineKeyboard or null.
          * @param inputMessageContent The content of the message to be sent. Must be one of the following types: InputMessageText, InputMessageVideo, InputMessageLocation, InputMessageVenue or InputMessageContact.
          */
         public InputInlineQueryResultVideo(String id, String title, String description, String thumbnailUrl, String videoUrl, String mimeType, int videoWidth, int videoHeight, int videoDuration, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
@@ -9887,11 +9933,11 @@ public class TdApi {
         /**
          * Represents a link to an opus-encoded audio file within an OGG container, single channel audio.
          *
-         * @param id Unique identifier of the query result.
-         * @param title Title of the voice note.
-         * @param voiceNoteUrl The URL of the voice note file.
-         * @param voiceNoteDuration Duration of the voice note, in seconds.
-         * @param replyMarkup The message reply markup. Must be of type replyMarkupInlineKeyboard or null.
+         * @param id                  Unique identifier of the query result.
+         * @param title               Title of the voice note.
+         * @param voiceNoteUrl        The URL of the voice note file.
+         * @param voiceNoteDuration   Duration of the voice note, in seconds.
+         * @param replyMarkup         The message reply markup. Must be of type replyMarkupInlineKeyboard or null.
          * @param inputMessageContent The content of the message to be sent. Must be one of the following types: InputMessageText, InputMessageVoiceNote, InputMessageLocation, InputMessageVenue or InputMessageContact.
          */
         public InputInlineQueryResultVoiceNote(String id, String title, String voiceNoteUrl, int voiceNoteDuration, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
@@ -9924,24 +9970,25 @@ public class TdApi {
     public abstract static class InputMessageContent extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            InputMessageText.CONSTRUCTOR,
-            InputMessageAnimation.CONSTRUCTOR,
-            InputMessageAudio.CONSTRUCTOR,
-            InputMessageDocument.CONSTRUCTOR,
-            InputMessagePhoto.CONSTRUCTOR,
-            InputMessageSticker.CONSTRUCTOR,
-            InputMessageVideo.CONSTRUCTOR,
-            InputMessageVideoNote.CONSTRUCTOR,
-            InputMessageVoiceNote.CONSTRUCTOR,
-            InputMessageLocation.CONSTRUCTOR,
-            InputMessageVenue.CONSTRUCTOR,
-            InputMessageContact.CONSTRUCTOR,
-            InputMessageGame.CONSTRUCTOR,
-            InputMessageInvoice.CONSTRUCTOR,
-            InputMessagePoll.CONSTRUCTOR,
-            InputMessageForwarded.CONSTRUCTOR
+                InputMessageText.CONSTRUCTOR,
+                InputMessageAnimation.CONSTRUCTOR,
+                InputMessageAudio.CONSTRUCTOR,
+                InputMessageDocument.CONSTRUCTOR,
+                InputMessagePhoto.CONSTRUCTOR,
+                InputMessageSticker.CONSTRUCTOR,
+                InputMessageVideo.CONSTRUCTOR,
+                InputMessageVideoNote.CONSTRUCTOR,
+                InputMessageVoiceNote.CONSTRUCTOR,
+                InputMessageLocation.CONSTRUCTOR,
+                InputMessageVenue.CONSTRUCTOR,
+                InputMessageContact.CONSTRUCTOR,
+                InputMessageGame.CONSTRUCTOR,
+                InputMessageInvoice.CONSTRUCTOR,
+                InputMessagePoll.CONSTRUCTOR,
+                InputMessageForwarded.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -9977,9 +10024,9 @@ public class TdApi {
         /**
          * A text message.
          *
-         * @param text Formatted text to be sent; 1-GetOption(&quot;message_text_length_max&quot;) characters. Only Bold, Italic, Code, Pre, PreCode and TextUrl entities are allowed to be specified manually.
+         * @param text                  Formatted text to be sent; 1-GetOption(&quot;message_text_length_max&quot;) characters. Only Bold, Italic, Code, Pre, PreCode and TextUrl entities are allowed to be specified manually.
          * @param disableWebPagePreview True, if rich web page previews for URLs in the message text should be disabled.
-         * @param clearDraft True, if a chat message draft should be deleted.
+         * @param clearDraft            True, if a chat message draft should be deleted.
          */
         public InputMessageText(FormattedText text, boolean disableWebPagePreview, boolean clearDraft) {
             this.text = text;
@@ -10041,10 +10088,10 @@ public class TdApi {
          *
          * @param animation Animation file to be sent.
          * @param thumbnail Animation thumbnail, if available.
-         * @param duration Duration of the animation, in seconds.
-         * @param width Width of the animation; may be replaced by the server.
-         * @param height Height of the animation; may be replaced by the server.
-         * @param caption Animation caption; 0-GetOption(&quot;message_caption_length_max&quot;) characters.
+         * @param duration  Duration of the animation, in seconds.
+         * @param width     Width of the animation; may be replaced by the server.
+         * @param height    Height of the animation; may be replaced by the server.
+         * @param caption   Animation caption; 0-GetOption(&quot;message_caption_length_max&quot;) characters.
          */
         public InputMessageAnimation(InputFile animation, InputThumbnail thumbnail, int duration, int width, int height, FormattedText caption) {
             this.animation = animation;
@@ -10107,12 +10154,12 @@ public class TdApi {
         /**
          * An audio message.
          *
-         * @param audio Audio file to be sent.
+         * @param audio               Audio file to be sent.
          * @param albumCoverThumbnail Thumbnail of the cover for the album, if available.
-         * @param duration Duration of the audio, in seconds; may be replaced by the server.
-         * @param title Title of the audio; 0-64 characters; may be replaced by the server.
-         * @param performer Performer of the audio; 0-64 characters, may be replaced by the server.
-         * @param caption Audio caption; 0-GetOption(&quot;message_caption_length_max&quot;) characters.
+         * @param duration            Duration of the audio, in seconds; may be replaced by the server.
+         * @param title               Title of the audio; 0-64 characters; may be replaced by the server.
+         * @param performer           Performer of the audio; 0-64 characters, may be replaced by the server.
+         * @param caption             Audio caption; 0-GetOption(&quot;message_caption_length_max&quot;) characters.
          */
         public InputMessageAudio(InputFile audio, InputThumbnail albumCoverThumbnail, int duration, String title, String performer, FormattedText caption) {
             this.audio = audio;
@@ -10163,9 +10210,9 @@ public class TdApi {
         /**
          * A document message (general file).
          *
-         * @param document Document to be sent.
+         * @param document  Document to be sent.
          * @param thumbnail Document thumbnail, if available.
-         * @param caption Document caption; 0-GetOption(&quot;message_caption_length_max&quot;) characters.
+         * @param caption   Document caption; 0-GetOption(&quot;message_caption_length_max&quot;) characters.
          */
         public InputMessageDocument(InputFile document, InputThumbnail thumbnail, FormattedText caption) {
             this.document = document;
@@ -10229,13 +10276,13 @@ public class TdApi {
         /**
          * A photo message.
          *
-         * @param photo Photo to send.
-         * @param thumbnail Photo thumbnail to be sent, this is sent to the other party in secret chats only.
+         * @param photo               Photo to send.
+         * @param thumbnail           Photo thumbnail to be sent, this is sent to the other party in secret chats only.
          * @param addedStickerFileIds File identifiers of the stickers added to the photo, if applicable.
-         * @param width Photo width.
-         * @param height Photo height.
-         * @param caption Photo caption; 0-GetOption(&quot;message_caption_length_max&quot;) characters.
-         * @param ttl Photo TTL (Time To Live), in seconds (0-60). A non-zero TTL can be specified only in private chats.
+         * @param width               Photo width.
+         * @param height              Photo height.
+         * @param caption             Photo caption; 0-GetOption(&quot;message_caption_length_max&quot;) characters.
+         * @param ttl                 Photo TTL (Time To Live), in seconds (0-60). A non-zero TTL can be specified only in private chats.
          */
         public InputMessagePhoto(InputFile photo, InputThumbnail thumbnail, int[] addedStickerFileIds, int width, int height, FormattedText caption, int ttl) {
             this.photo = photo;
@@ -10291,10 +10338,10 @@ public class TdApi {
         /**
          * A sticker message.
          *
-         * @param sticker Sticker to be sent.
+         * @param sticker   Sticker to be sent.
          * @param thumbnail Sticker thumbnail, if available.
-         * @param width Sticker width.
-         * @param height Sticker height.
+         * @param width     Sticker width.
+         * @param height    Sticker height.
          */
         public InputMessageSticker(InputFile sticker, InputThumbnail thumbnail, int width, int height) {
             this.sticker = sticker;
@@ -10367,15 +10414,15 @@ public class TdApi {
         /**
          * A video message.
          *
-         * @param video Video to be sent.
-         * @param thumbnail Video thumbnail, if available.
+         * @param video               Video to be sent.
+         * @param thumbnail           Video thumbnail, if available.
          * @param addedStickerFileIds File identifiers of the stickers added to the video, if applicable.
-         * @param duration Duration of the video, in seconds.
-         * @param width Video width.
-         * @param height Video height.
-         * @param supportsStreaming True, if the video should be tried to be streamed.
-         * @param caption Video caption; 0-GetOption(&quot;message_caption_length_max&quot;) characters.
-         * @param ttl Video TTL (Time To Live), in seconds (0-60). A non-zero TTL can be specified only in private chats.
+         * @param duration            Duration of the video, in seconds.
+         * @param width               Video width.
+         * @param height              Video height.
+         * @param supportsStreaming   True, if the video should be tried to be streamed.
+         * @param caption             Video caption; 0-GetOption(&quot;message_caption_length_max&quot;) characters.
+         * @param ttl                 Video TTL (Time To Live), in seconds (0-60). A non-zero TTL can be specified only in private chats.
          */
         public InputMessageVideo(InputFile video, InputThumbnail thumbnail, int[] addedStickerFileIds, int duration, int width, int height, boolean supportsStreaming, FormattedText caption, int ttl) {
             this.video = video;
@@ -10435,8 +10482,8 @@ public class TdApi {
          *
          * @param videoNote Video note to be sent.
          * @param thumbnail Video thumbnail, if available.
-         * @param duration Duration of the video, in seconds.
-         * @param length Video width and height; must be positive and not greater than 640.
+         * @param duration  Duration of the video, in seconds.
+         * @param length    Video width and height; must be positive and not greater than 640.
          */
         public InputMessageVideoNote(InputFile videoNote, InputThumbnail thumbnail, int duration, int length) {
             this.videoNote = videoNote;
@@ -10490,9 +10537,9 @@ public class TdApi {
          * A voice note message.
          *
          * @param voiceNote Voice note to be sent.
-         * @param duration Duration of the voice note, in seconds.
-         * @param waveform Waveform representation of the voice note, in 5-bit format.
-         * @param caption Voice note caption; 0-GetOption(&quot;message_caption_length_max&quot;) characters.
+         * @param duration  Duration of the voice note, in seconds.
+         * @param waveform  Waveform representation of the voice note, in 5-bit format.
+         * @param caption   Voice note caption; 0-GetOption(&quot;message_caption_length_max&quot;) characters.
          */
         public InputMessageVoiceNote(InputFile voiceNote, int duration, byte[] waveform, FormattedText caption) {
             this.voiceNote = voiceNote;
@@ -10537,7 +10584,7 @@ public class TdApi {
         /**
          * A message with a location.
          *
-         * @param location Location to be sent.
+         * @param location   Location to be sent.
          * @param livePeriod Period for which the location can be updated, in seconds; should bebetween 60 and 86400 for a live location and 0 otherwise.
          */
         public InputMessageLocation(Location location, int livePeriod) {
@@ -10657,7 +10704,7 @@ public class TdApi {
         /**
          * A message with a game; not supported for channels or secret chats.
          *
-         * @param botUserId User identifier of the bot that owns the game.
+         * @param botUserId     User identifier of the bot that owns the game.
          * @param gameShortName Short name of the game.
          */
         public InputMessageGame(int botUserId, String gameShortName) {
@@ -10737,16 +10784,16 @@ public class TdApi {
         /**
          * A message with an invoice; can be used only by bots and only in private chats.
          *
-         * @param invoice Invoice.
-         * @param title Product title; 1-32 characters.
-         * @param description Product description; 0-255 characters.
-         * @param photoUrl Product photo URL; optional.
-         * @param photoSize Product photo size.
-         * @param photoWidth Product photo width.
-         * @param photoHeight Product photo height.
-         * @param payload The invoice payload.
-         * @param providerToken Payment provider token.
-         * @param providerData JSON-encoded data about the invoice, which will be shared with the payment provider.
+         * @param invoice        Invoice.
+         * @param title          Product title; 1-32 characters.
+         * @param description    Product description; 0-255 characters.
+         * @param photoUrl       Product photo URL; optional.
+         * @param photoSize      Product photo size.
+         * @param photoWidth     Product photo width.
+         * @param photoHeight    Product photo height.
+         * @param payload        The invoice payload.
+         * @param providerToken  Payment provider token.
+         * @param providerData   JSON-encoded data about the invoice, which will be shared with the payment provider.
          * @param startParameter Unique invoice bot startParameter for the generation of this invoice.
          */
         public InputMessageInvoice(Invoice invoice, String title, String description, String photoUrl, int photoSize, int photoWidth, int photoHeight, byte[] payload, String providerToken, String providerData, String startParameter) {
@@ -10800,7 +10847,7 @@ public class TdApi {
          * A message with a poll. Polls can't be sent to private or secret chats.
          *
          * @param question Poll question, 1-255 characters.
-         * @param options List of poll answer options, 2-10 strings 1-100 characters each.
+         * @param options  List of poll answer options, 2-10 strings 1-100 characters each.
          */
         public InputMessagePoll(String question, String[] options) {
             this.question = question;
@@ -10847,8 +10894,8 @@ public class TdApi {
         /**
          * A forwarded message.
          *
-         * @param fromChatId Identifier for the chat this forwarded message came from.
-         * @param messageId Identifier of the message to forward.
+         * @param fromChatId  Identifier for the chat this forwarded message came from.
+         * @param messageId   Identifier of the message to forward.
          * @param inGameShare True, if a game message should be shared within a launched game; applies only to game messages.
          */
         public InputMessageForwarded(long fromChatId, long messageId, boolean inGameShare) {
@@ -10878,21 +10925,22 @@ public class TdApi {
     public abstract static class InputPassportElement extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            InputPassportElementPersonalDetails.CONSTRUCTOR,
-            InputPassportElementPassport.CONSTRUCTOR,
-            InputPassportElementDriverLicense.CONSTRUCTOR,
-            InputPassportElementIdentityCard.CONSTRUCTOR,
-            InputPassportElementInternalPassport.CONSTRUCTOR,
-            InputPassportElementAddress.CONSTRUCTOR,
-            InputPassportElementUtilityBill.CONSTRUCTOR,
-            InputPassportElementBankStatement.CONSTRUCTOR,
-            InputPassportElementRentalAgreement.CONSTRUCTOR,
-            InputPassportElementPassportRegistration.CONSTRUCTOR,
-            InputPassportElementTemporaryRegistration.CONSTRUCTOR,
-            InputPassportElementPhoneNumber.CONSTRUCTOR,
-            InputPassportElementEmailAddress.CONSTRUCTOR
+                InputPassportElementPersonalDetails.CONSTRUCTOR,
+                InputPassportElementPassport.CONSTRUCTOR,
+                InputPassportElementDriverLicense.CONSTRUCTOR,
+                InputPassportElementIdentityCard.CONSTRUCTOR,
+                InputPassportElementInternalPassport.CONSTRUCTOR,
+                InputPassportElementAddress.CONSTRUCTOR,
+                InputPassportElementUtilityBill.CONSTRUCTOR,
+                InputPassportElementBankStatement.CONSTRUCTOR,
+                InputPassportElementRentalAgreement.CONSTRUCTOR,
+                InputPassportElementPassportRegistration.CONSTRUCTOR,
+                InputPassportElementTemporaryRegistration.CONSTRUCTOR,
+                InputPassportElementPhoneNumber.CONSTRUCTOR,
+                InputPassportElementEmailAddress.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -11422,9 +11470,9 @@ public class TdApi {
         /**
          * Contains the description of an error in a Telegram Passport element; for bots only.
          *
-         * @param type Type of Telegram Passport element that has the error.
+         * @param type    Type of Telegram Passport element that has the error.
          * @param message Error message.
-         * @param source Error source.
+         * @param source  Error source.
          */
         public InputPassportElementError(PassportElementType type, String message, InputPassportElementErrorSource source) {
             this.type = type;
@@ -11453,17 +11501,18 @@ public class TdApi {
     public abstract static class InputPassportElementErrorSource extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            InputPassportElementErrorSourceUnspecified.CONSTRUCTOR,
-            InputPassportElementErrorSourceDataField.CONSTRUCTOR,
-            InputPassportElementErrorSourceFrontSide.CONSTRUCTOR,
-            InputPassportElementErrorSourceReverseSide.CONSTRUCTOR,
-            InputPassportElementErrorSourceSelfie.CONSTRUCTOR,
-            InputPassportElementErrorSourceTranslationFile.CONSTRUCTOR,
-            InputPassportElementErrorSourceTranslationFiles.CONSTRUCTOR,
-            InputPassportElementErrorSourceFile.CONSTRUCTOR,
-            InputPassportElementErrorSourceFiles.CONSTRUCTOR
+                InputPassportElementErrorSourceUnspecified.CONSTRUCTOR,
+                InputPassportElementErrorSourceDataField.CONSTRUCTOR,
+                InputPassportElementErrorSourceFrontSide.CONSTRUCTOR,
+                InputPassportElementErrorSourceReverseSide.CONSTRUCTOR,
+                InputPassportElementErrorSourceSelfie.CONSTRUCTOR,
+                InputPassportElementErrorSourceTranslationFile.CONSTRUCTOR,
+                InputPassportElementErrorSourceTranslationFiles.CONSTRUCTOR,
+                InputPassportElementErrorSourceFile.CONSTRUCTOR,
+                InputPassportElementErrorSourceFiles.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -11534,7 +11583,7 @@ public class TdApi {
          * A data field contains an error. The error is considered resolved when the field's value changes.
          *
          * @param fieldName Field name.
-         * @param dataHash Current data hash.
+         * @param dataHash  Current data hash.
          */
         public InputPassportElementErrorSourceDataField(String fieldName, byte[] dataHash) {
             this.fieldName = fieldName;
@@ -11843,7 +11892,7 @@ public class TdApi {
         /**
          * A personal document to be saved to Telegram Passport.
          *
-         * @param files List of files containing the pages of the document.
+         * @param files       List of files containing the pages of the document.
          * @param translation List of files containing a certified English translation of the document.
          */
         public InputPersonalDocument(InputFile[] files, InputFile[] translation) {
@@ -11880,7 +11929,8 @@ public class TdApi {
         /**
          * For masks, position where the mask should be placed; may be null.
          */
-        @Nullable public MaskPosition maskPosition;
+        @Nullable
+        public MaskPosition maskPosition;
 
         /**
          * Describes a sticker that should be added to a sticker set.
@@ -11891,8 +11941,8 @@ public class TdApi {
         /**
          * Describes a sticker that should be added to a sticker set.
          *
-         * @param pngSticker PNG image with the sticker; must be up to 512 kB in size and fit in a 512x512 square.
-         * @param emojis Emoji corresponding to the sticker.
+         * @param pngSticker   PNG image with the sticker; must be up to 512 kB in size and fit in a 512x512 square.
+         * @param emojis       Emoji corresponding to the sticker.
          * @param maskPosition For masks, position where the mask should be placed; may be null.
          */
         public InputSticker(InputFile pngSticker, String emojis, MaskPosition maskPosition) {
@@ -11942,8 +11992,8 @@ public class TdApi {
          * A thumbnail to be sent along with a file; should be in JPEG or WEBP format for stickers, and less than 200 kB in size.
          *
          * @param thumbnail Thumbnail file to send. Sending thumbnails by fileId is currently not supported.
-         * @param width Thumbnail width, usually shouldn't exceed 320. Use 0 if unknown.
-         * @param height Thumbnail height, usually shouldn't exceed 320. Use 0 if unknown.
+         * @param width     Thumbnail width, usually shouldn't exceed 320. Use 0 if unknown.
+         * @param height    Thumbnail height, usually shouldn't exceed 320. Use 0 if unknown.
          */
         public InputThumbnail(InputFile thumbnail, int width, int height) {
             this.thumbnail = thumbnail;
@@ -12019,16 +12069,16 @@ public class TdApi {
         /**
          * Product invoice.
          *
-         * @param currency ISO 4217 currency code.
-         * @param priceParts A list of objects used to calculate the total price of the product.
-         * @param isTest True, if the payment is a test payment.
-         * @param needName True, if the user's name is needed for payment.
-         * @param needPhoneNumber True, if the user's phone number is needed for payment.
-         * @param needEmailAddress True, if the user's email address is needed for payment.
-         * @param needShippingAddress True, if the user's shipping address is needed for payment.
-         * @param sendPhoneNumberToProvider True, if the user's phone number will be sent to the provider.
+         * @param currency                   ISO 4217 currency code.
+         * @param priceParts                 A list of objects used to calculate the total price of the product.
+         * @param isTest                     True, if the payment is a test payment.
+         * @param needName                   True, if the user's name is needed for payment.
+         * @param needPhoneNumber            True, if the user's phone number is needed for payment.
+         * @param needEmailAddress           True, if the user's email address is needed for payment.
+         * @param needShippingAddress        True, if the user's shipping address is needed for payment.
+         * @param sendPhoneNumberToProvider  True, if the user's phone number will be sent to the provider.
          * @param sendEmailAddressToProvider True, if the user's email address will be sent to the provider.
-         * @param isFlexible True, if the total price depends on the shipping method.
+         * @param isFlexible                 True, if the total price depends on the shipping method.
          */
         public Invoice(String currency, LabeledPricePart[] priceParts, boolean isTest, boolean needName, boolean needPhoneNumber, boolean needEmailAddress, boolean needShippingAddress, boolean sendPhoneNumberToProvider, boolean sendEmailAddressToProvider, boolean isFlexible) {
             this.currency = currency;
@@ -12079,7 +12129,7 @@ public class TdApi {
         /**
          * Represents one member of a JSON object.
          *
-         * @param key Member's key.
+         * @param key   Member's key.
          * @param value Member's value.
          */
         public JsonObjectMember(String key, JsonValue value) {
@@ -12108,14 +12158,15 @@ public class TdApi {
     public abstract static class JsonValue extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            JsonValueNull.CONSTRUCTOR,
-            JsonValueBoolean.CONSTRUCTOR,
-            JsonValueNumber.CONSTRUCTOR,
-            JsonValueString.CONSTRUCTOR,
-            JsonValueArray.CONSTRUCTOR,
-            JsonValueObject.CONSTRUCTOR
+                JsonValueNull.CONSTRUCTOR,
+                JsonValueBoolean.CONSTRUCTOR,
+                JsonValueNumber.CONSTRUCTOR,
+                JsonValueString.CONSTRUCTOR,
+                JsonValueArray.CONSTRUCTOR,
+                JsonValueObject.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -12391,11 +12442,12 @@ public class TdApi {
     public abstract static class KeyboardButtonType extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            KeyboardButtonTypeText.CONSTRUCTOR,
-            KeyboardButtonTypeRequestPhoneNumber.CONSTRUCTOR,
-            KeyboardButtonTypeRequestLocation.CONSTRUCTOR
+                KeyboardButtonTypeText.CONSTRUCTOR,
+                KeyboardButtonTypeRequestPhoneNumber.CONSTRUCTOR,
+                KeyboardButtonTypeRequestLocation.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -12502,7 +12554,7 @@ public class TdApi {
         /**
          * Portion of the price of a product (e.g., &quot;delivery cost&quot;, &quot;tax amount&quot;).
          *
-         * @param label Label for this portion of the product price.
+         * @param label  Label for this portion of the product price.
          * @param amount Currency amount in minimal quantity of the currency.
          */
         public LabeledPricePart(String label, long amount) {
@@ -12590,19 +12642,19 @@ public class TdApi {
         /**
          * Contains information about a language pack.
          *
-         * @param id Unique language pack identifier.
-         * @param baseLanguagePackId Identifier of a base language pack; may be empty. If a string is missed in the language pack, then it should be fetched from base language pack. Unsupported in custom language packs.
-         * @param name Language name.
-         * @param nativeName Name of the language in that language.
-         * @param pluralCode A language code to be used to apply plural forms. See https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html for more info.
-         * @param isOfficial True, if the language pack is official.
-         * @param isRtl True, if the language pack strings are RTL.
-         * @param isBeta True, if the language pack is a beta language pack.
-         * @param isInstalled True, if the language pack is installed by the current user.
-         * @param totalStringCount Total number of non-deleted strings from the language pack.
+         * @param id                    Unique language pack identifier.
+         * @param baseLanguagePackId    Identifier of a base language pack; may be empty. If a string is missed in the language pack, then it should be fetched from base language pack. Unsupported in custom language packs.
+         * @param name                  Language name.
+         * @param nativeName            Name of the language in that language.
+         * @param pluralCode            A language code to be used to apply plural forms. See https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html for more info.
+         * @param isOfficial            True, if the language pack is official.
+         * @param isRtl                 True, if the language pack strings are RTL.
+         * @param isBeta                True, if the language pack is a beta language pack.
+         * @param isInstalled           True, if the language pack is installed by the current user.
+         * @param totalStringCount      Total number of non-deleted strings from the language pack.
          * @param translatedStringCount Total number of translated strings from the language pack.
-         * @param localStringCount Total number of non-deleted strings from the language pack available locally.
-         * @param translationUrl Link to language translation interface; empty for custom local language packs.
+         * @param localStringCount      Total number of non-deleted strings from the language pack available locally.
+         * @param translationUrl        Link to language translation interface; empty for custom local language packs.
          */
         public LanguagePackInfo(String id, String baseLanguagePackId, String name, String nativeName, String pluralCode, boolean isOfficial, boolean isRtl, boolean isBeta, boolean isInstalled, int totalStringCount, int translatedStringCount, int localStringCount, String translationUrl) {
             this.id = id;
@@ -12656,7 +12708,7 @@ public class TdApi {
         /**
          * Represents one language pack string.
          *
-         * @param key String key.
+         * @param key   String key.
          * @param value String value.
          */
         public LanguagePackString(String key, LanguagePackStringValue value) {
@@ -12685,11 +12737,12 @@ public class TdApi {
     public abstract static class LanguagePackStringValue extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            LanguagePackStringValueOrdinary.CONSTRUCTOR,
-            LanguagePackStringValuePluralized.CONSTRUCTOR,
-            LanguagePackStringValueDeleted.CONSTRUCTOR
+                LanguagePackStringValueOrdinary.CONSTRUCTOR,
+                LanguagePackStringValuePluralized.CONSTRUCTOR,
+                LanguagePackStringValueDeleted.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -12775,11 +12828,11 @@ public class TdApi {
         /**
          * A language pack string which has different forms based on the number of some object it mentions. See https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html for more info.
          *
-         * @param zeroValue Value for zero objects.
-         * @param oneValue Value for one object.
-         * @param twoValue Value for two objects.
-         * @param fewValue Value for few objects.
-         * @param manyValue Value for many objects.
+         * @param zeroValue  Value for zero objects.
+         * @param oneValue   Value for one object.
+         * @param twoValue   Value for two objects.
+         * @param fewValue   Value for few objects.
+         * @param manyValue  Value for many objects.
          * @param otherValue Default value.
          */
         public LanguagePackStringValuePluralized(String zeroValue, String oneValue, String twoValue, String fewValue, String manyValue, String otherValue) {
@@ -12875,11 +12928,12 @@ public class TdApi {
     public abstract static class LinkState extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            LinkStateNone.CONSTRUCTOR,
-            LinkStateKnowsPhoneNumber.CONSTRUCTOR,
-            LinkStateIsContact.CONSTRUCTOR
+                LinkStateNone.CONSTRUCTOR,
+                LinkStateKnowsPhoneNumber.CONSTRUCTOR,
+                LinkStateIsContact.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -13010,14 +13064,14 @@ public class TdApi {
         /**
          * Represents a local file.
          *
-         * @param path Local path to the locally available file part; may be empty.
-         * @param canBeDownloaded True, if it is possible to try to download or generate the file.
-         * @param canBeDeleted True, if the file can be deleted.
-         * @param isDownloadingActive True, if the file is currently being downloaded (or a local copy is being generated by some other means).
+         * @param path                   Local path to the locally available file part; may be empty.
+         * @param canBeDownloaded        True, if it is possible to try to download or generate the file.
+         * @param canBeDeleted           True, if the file can be deleted.
+         * @param isDownloadingActive    True, if the file is currently being downloaded (or a local copy is being generated by some other means).
          * @param isDownloadingCompleted True, if the local copy is fully available.
-         * @param downloadOffset Download will be started from this offset. downloadedPrefixSize is calculated from this offset.
-         * @param downloadedPrefixSize If isDownloadingCompleted is false, then only some prefix of the file starting from downloadOffset is ready to be read. downloadedPrefixSize is the size of that prefix.
-         * @param downloadedSize Total downloaded file bytes. Should be used only for calculating download progress. The actual file size may be bigger, and some parts of it may contain garbage.
+         * @param downloadOffset         Download will be started from this offset. downloadedPrefixSize is calculated from this offset.
+         * @param downloadedPrefixSize   If isDownloadingCompleted is false, then only some prefix of the file starting from downloadOffset is ready to be read. downloadedPrefixSize is the size of that prefix.
+         * @param downloadedSize         Total downloaded file bytes. Should be used only for calculating download progress. The actual file size may be bigger, and some parts of it may contain garbage.
          */
         public LocalFile(String path, boolean canBeDownloaded, boolean canBeDeleted, boolean isDownloadingActive, boolean isDownloadingCompleted, int downloadOffset, int downloadedPrefixSize, int downloadedSize) {
             this.path = path;
@@ -13104,7 +13158,7 @@ public class TdApi {
         /**
          * Describes a location on planet Earth.
          *
-         * @param latitude Latitude of the location in degrees; as defined by the sender.
+         * @param latitude  Latitude of the location in degrees; as defined by the sender.
          * @param longitude Longitude of the location, in degrees; as defined by the sender.
          */
         public Location(double latitude, double longitude) {
@@ -13133,11 +13187,12 @@ public class TdApi {
     public abstract static class LogStream extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            LogStreamDefault.CONSTRUCTOR,
-            LogStreamFile.CONSTRUCTOR,
-            LogStreamEmpty.CONSTRUCTOR
+                LogStreamDefault.CONSTRUCTOR,
+                LogStreamFile.CONSTRUCTOR,
+                LogStreamEmpty.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -13194,7 +13249,7 @@ public class TdApi {
         /**
          * The log is written to a file.
          *
-         * @param path Path to the file to where the internal TDLib log will be written.
+         * @param path        Path to the file to where the internal TDLib log will be written.
          * @param maxFileSize Maximum size of the file to where the internal TDLib log is written before the file will be auto-rotated.
          */
         public LogStreamFile(String path, long maxFileSize) {
@@ -13324,12 +13379,13 @@ public class TdApi {
     public abstract static class MaskPoint extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            MaskPointForehead.CONSTRUCTOR,
-            MaskPointEyes.CONSTRUCTOR,
-            MaskPointMouth.CONSTRUCTOR,
-            MaskPointChin.CONSTRUCTOR
+                MaskPointForehead.CONSTRUCTOR,
+                MaskPointEyes.CONSTRUCTOR,
+                MaskPointMouth.CONSTRUCTOR,
+                MaskPointChin.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -13469,10 +13525,10 @@ public class TdApi {
         /**
          * Position on a photo where a mask should be placed.
          *
-         * @param point Part of the face, relative to which the mask should be placed.
+         * @param point  Part of the face, relative to which the mask should be placed.
          * @param xShift Shift by X-axis measured in widths of the mask scaled to the face size, from left to right. (For example, -1.0 will place the mask just to the left of the default mask position.)
          * @param yShift Shift by Y-axis measured in heights of the mask scaled to the face size, from top to bottom. (For example, 1.0 will place the mask just below the default mask position.)
-         * @param scale Mask scaling coefficient. (For example, 2.0 means a doubled size.)
+         * @param scale  Mask scaling coefficient. (For example, 2.0 means a doubled size.)
          */
         public MaskPosition(MaskPoint point, double xShift, double yShift, double scale) {
             this.point = point;
@@ -13498,7 +13554,7 @@ public class TdApi {
     /**
      * Describes a message.
      */
-    public static class Message extends Object implements IMessage {
+    public static class Message extends Object implements IMessage, MessageContentType.Image {
         /**
          * Message identifier, unique for the chat to which the message belongs.
          */
@@ -13514,7 +13570,8 @@ public class TdApi {
         /**
          * Information about the sending state of the message; may be null.
          */
-        @Nullable public MessageSendingState sendingState;
+        @Nullable
+        public MessageSendingState sendingState;
         /**
          * True, if the message is outgoing.
          */
@@ -13554,7 +13611,8 @@ public class TdApi {
         /**
          * Information about the initial message sender; may be null.
          */
-        @Nullable public MessageForwardInfo forwardInfo;
+        @Nullable
+        public MessageForwardInfo forwardInfo;
         /**
          * If non-zero, the identifier of the message this message is replying to; can be the identifier of a deleted message.
          */
@@ -13590,8 +13648,12 @@ public class TdApi {
         /**
          * Reply markup for the message; may be null.
          */
-        @Nullable public ReplyMarkup replyMarkup;
-
+        @Nullable
+        public ReplyMarkup replyMarkup;
+        /**
+         * Image url for chat kit library - added by mazen
+         */
+        public String url;
         /**
          * Describes a message.
          */
@@ -13601,29 +13663,29 @@ public class TdApi {
         /**
          * Describes a message.
          *
-         * @param id Message identifier, unique for the chat to which the message belongs.
-         * @param senderUserId Identifier of the user who sent the message; 0 if unknown. It is unknown for channel posts.
-         * @param chatId Chat identifier.
-         * @param sendingState Information about the sending state of the message; may be null.
-         * @param isOutgoing True, if the message is outgoing.
-         * @param canBeEdited True, if the message can be edited. For live location and poll messages this fields shows, whether editMessageLiveLocation or stopPoll can be used with this message by the client.
-         * @param canBeForwarded True, if the message can be forwarded.
+         * @param id                      Message identifier, unique for the chat to which the message belongs.
+         * @param senderUserId            Identifier of the user who sent the message; 0 if unknown. It is unknown for channel posts.
+         * @param chatId                  Chat identifier.
+         * @param sendingState            Information about the sending state of the message; may be null.
+         * @param isOutgoing              True, if the message is outgoing.
+         * @param canBeEdited             True, if the message can be edited. For live location and poll messages this fields shows, whether editMessageLiveLocation or stopPoll can be used with this message by the client.
+         * @param canBeForwarded          True, if the message can be forwarded.
          * @param canBeDeletedOnlyForSelf True, if the message can be deleted only for the current user while other users will continue to see it.
          * @param canBeDeletedForAllUsers True, if the message can be deleted for all users.
-         * @param isChannelPost True, if the message is a channel post. All messages to channels are channel posts, all other messages are not channel posts.
-         * @param containsUnreadMention True, if the message contains an unread mention for the current user.
-         * @param date Point in time (Unix timestamp) when the message was sent.
-         * @param editDate Point in time (Unix timestamp) when the message was last edited.
-         * @param forwardInfo Information about the initial message sender; may be null.
-         * @param replyToMessageId If non-zero, the identifier of the message this message is replying to; can be the identifier of a deleted message.
-         * @param ttl For self-destructing messages, the message's TTL (Time To Live), in seconds; 0 if none. TDLib will send updateDeleteMessages or updateMessageContent once the TTL expires.
-         * @param ttlExpiresIn Time left before the message expires, in seconds.
-         * @param viaBotUserId If non-zero, the user identifier of the bot through which this message was sent.
-         * @param authorSignature For channel posts, optional author signature.
-         * @param views Number of times this message was viewed.
-         * @param mediaAlbumId Unique identifier of an album this message belongs to. Only photos and videos can be grouped together in albums.
-         * @param content Content of the message.
-         * @param replyMarkup Reply markup for the message; may be null.
+         * @param isChannelPost           True, if the message is a channel post. All messages to channels are channel posts, all other messages are not channel posts.
+         * @param containsUnreadMention   True, if the message contains an unread mention for the current user.
+         * @param date                    Point in time (Unix timestamp) when the message was sent.
+         * @param editDate                Point in time (Unix timestamp) when the message was last edited.
+         * @param forwardInfo             Information about the initial message sender; may be null.
+         * @param replyToMessageId        If non-zero, the identifier of the message this message is replying to; can be the identifier of a deleted message.
+         * @param ttl                     For self-destructing messages, the message's TTL (Time To Live), in seconds; 0 if none. TDLib will send updateDeleteMessages or updateMessageContent once the TTL expires.
+         * @param ttlExpiresIn            Time left before the message expires, in seconds.
+         * @param viaBotUserId            If non-zero, the user identifier of the bot through which this message was sent.
+         * @param authorSignature         For channel posts, optional author signature.
+         * @param views                   Number of times this message was viewed.
+         * @param mediaAlbumId            Unique identifier of an album this message belongs to. Only photos and videos can be grouped together in albums.
+         * @param content                 Content of the message.
+         * @param replyMarkup             Reply markup for the message; may be null.
          */
         public Message(long id, int senderUserId, long chatId, MessageSendingState sendingState, boolean isOutgoing, boolean canBeEdited, boolean canBeForwarded, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean isChannelPost, boolean containsUnreadMention, int date, int editDate, MessageForwardInfo forwardInfo, long replyToMessageId, int ttl, double ttlExpiresIn, int viaBotUserId, String authorSignature, int views, long mediaAlbumId, MessageContent content, ReplyMarkup replyMarkup) {
             this.id = id;
@@ -13666,17 +13728,19 @@ public class TdApi {
 
         @Override
         public String getId() {
-            return ""+id;
+            return "" + id;
         }
+
+
 
         @Override
         public String getText() {
             String message = "Message";
-                switch (content.getConstructor()) {
-                    case TdApi.MessageText.CONSTRUCTOR:
-                        TdApi.MessageText mt = (TdApi.MessageText) content;
-                        message = mt.text.text;
-                        break;
+            switch (content.getConstructor()) {
+                case TdApi.MessageText.CONSTRUCTOR:
+                    TdApi.MessageText mt = (TdApi.MessageText) content;
+                    message = mt.text.text;
+                    break;
 //                case MessageAnimation.CONSTRUCTOR:
 //                    break;
 //                case MessageAudio.CONSTRUCTOR:
@@ -13731,16 +13795,17 @@ public class TdApi {
 //                    break;
 //                case MessagePaymentSuccessfulBot.CONSTRUCTOR:
 //                    break;
-//                case MessagePhoto.CONSTRUCTOR:
-//                    break;
+                case MessagePhoto.CONSTRUCTOR:
+                    message = "Image";
+                    break;
 //                case MessagePinMessage.CONSTRUCTOR:
 //                    break;
 //                case MessageScreenshotTaken.CONSTRUCTOR:
 //                    break;
-                    case TdApi.MessageSticker.CONSTRUCTOR:
-                        TdApi.MessageSticker ms = (TdApi.MessageSticker) content;
-                        message = ms.sticker.emoji + " Sticker";
-                        break;
+                case TdApi.MessageSticker.CONSTRUCTOR:
+                    TdApi.MessageSticker ms = (TdApi.MessageSticker) content;
+                    message = ms.sticker.emoji + " Sticker";
+                    break;
 //                case MessageSupergroupChatCreate.CONSTRUCTOR:
 //                    break;
 //                case MessageUnsupported.CONSTRUCTOR:
@@ -13751,12 +13816,14 @@ public class TdApi {
 //                    break;
 //                case MessageVideoNote.CONSTRUCTOR:
 //                    break;
-//                case MessageVoiceNote.CONSTRUCTOR:
-//                    break;
+                case MessageVoiceNote.CONSTRUCTOR:
+                    MessageVoiceNote vn = (MessageVoiceNote) content;
+                    message = "Voice Note";
+                    break;
 //                case MessageWebsiteConnected.CONSTRUCTOR:
 //                    break;
-                }
-                return message;
+            }
+            return message;
         }
 
         @Override
@@ -13764,7 +13831,7 @@ public class TdApi {
             return new IUser() {
                 @Override
                 public String getId() {
-                    return ""+senderUserId;
+                    return "" + senderUserId;
                 }
 
                 @Override
@@ -13783,6 +13850,17 @@ public class TdApi {
         public java.util.Date getCreatedAt() {
             return new java.util.Date(date * 1000L);
         }
+
+
+        @Nullable
+        @Override
+        public String getImageUrl() {
+            return url;
+        }
+
+        public void setImageUrl(String url){
+            this.url = url;
+        }
     }
 
     /**
@@ -13792,48 +13870,49 @@ public class TdApi {
     public abstract static class MessageContent extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            MessageText.CONSTRUCTOR,
-            MessageAnimation.CONSTRUCTOR,
-            MessageAudio.CONSTRUCTOR,
-            MessageDocument.CONSTRUCTOR,
-            MessagePhoto.CONSTRUCTOR,
-            MessageExpiredPhoto.CONSTRUCTOR,
-            MessageSticker.CONSTRUCTOR,
-            MessageVideo.CONSTRUCTOR,
-            MessageExpiredVideo.CONSTRUCTOR,
-            MessageVideoNote.CONSTRUCTOR,
-            MessageVoiceNote.CONSTRUCTOR,
-            MessageLocation.CONSTRUCTOR,
-            MessageVenue.CONSTRUCTOR,
-            MessageContact.CONSTRUCTOR,
-            MessageGame.CONSTRUCTOR,
-            MessagePoll.CONSTRUCTOR,
-            MessageInvoice.CONSTRUCTOR,
-            MessageCall.CONSTRUCTOR,
-            MessageBasicGroupChatCreate.CONSTRUCTOR,
-            MessageSupergroupChatCreate.CONSTRUCTOR,
-            MessageChatChangeTitle.CONSTRUCTOR,
-            MessageChatChangePhoto.CONSTRUCTOR,
-            MessageChatDeletePhoto.CONSTRUCTOR,
-            MessageChatAddMembers.CONSTRUCTOR,
-            MessageChatJoinByLink.CONSTRUCTOR,
-            MessageChatDeleteMember.CONSTRUCTOR,
-            MessageChatUpgradeTo.CONSTRUCTOR,
-            MessageChatUpgradeFrom.CONSTRUCTOR,
-            MessagePinMessage.CONSTRUCTOR,
-            MessageScreenshotTaken.CONSTRUCTOR,
-            MessageChatSetTtl.CONSTRUCTOR,
-            MessageCustomServiceAction.CONSTRUCTOR,
-            MessageGameScore.CONSTRUCTOR,
-            MessagePaymentSuccessful.CONSTRUCTOR,
-            MessagePaymentSuccessfulBot.CONSTRUCTOR,
-            MessageContactRegistered.CONSTRUCTOR,
-            MessageWebsiteConnected.CONSTRUCTOR,
-            MessagePassportDataSent.CONSTRUCTOR,
-            MessagePassportDataReceived.CONSTRUCTOR,
-            MessageUnsupported.CONSTRUCTOR
+                MessageText.CONSTRUCTOR,
+                MessageAnimation.CONSTRUCTOR,
+                MessageAudio.CONSTRUCTOR,
+                MessageDocument.CONSTRUCTOR,
+                MessagePhoto.CONSTRUCTOR,
+                MessageExpiredPhoto.CONSTRUCTOR,
+                MessageSticker.CONSTRUCTOR,
+                MessageVideo.CONSTRUCTOR,
+                MessageExpiredVideo.CONSTRUCTOR,
+                MessageVideoNote.CONSTRUCTOR,
+                MessageVoiceNote.CONSTRUCTOR,
+                MessageLocation.CONSTRUCTOR,
+                MessageVenue.CONSTRUCTOR,
+                MessageContact.CONSTRUCTOR,
+                MessageGame.CONSTRUCTOR,
+                MessagePoll.CONSTRUCTOR,
+                MessageInvoice.CONSTRUCTOR,
+                MessageCall.CONSTRUCTOR,
+                MessageBasicGroupChatCreate.CONSTRUCTOR,
+                MessageSupergroupChatCreate.CONSTRUCTOR,
+                MessageChatChangeTitle.CONSTRUCTOR,
+                MessageChatChangePhoto.CONSTRUCTOR,
+                MessageChatDeletePhoto.CONSTRUCTOR,
+                MessageChatAddMembers.CONSTRUCTOR,
+                MessageChatJoinByLink.CONSTRUCTOR,
+                MessageChatDeleteMember.CONSTRUCTOR,
+                MessageChatUpgradeTo.CONSTRUCTOR,
+                MessageChatUpgradeFrom.CONSTRUCTOR,
+                MessagePinMessage.CONSTRUCTOR,
+                MessageScreenshotTaken.CONSTRUCTOR,
+                MessageChatSetTtl.CONSTRUCTOR,
+                MessageCustomServiceAction.CONSTRUCTOR,
+                MessageGameScore.CONSTRUCTOR,
+                MessagePaymentSuccessful.CONSTRUCTOR,
+                MessagePaymentSuccessfulBot.CONSTRUCTOR,
+                MessageContactRegistered.CONSTRUCTOR,
+                MessageWebsiteConnected.CONSTRUCTOR,
+                MessagePassportDataSent.CONSTRUCTOR,
+                MessagePassportDataReceived.CONSTRUCTOR,
+                MessageUnsupported.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -13854,7 +13933,8 @@ public class TdApi {
         /**
          * A preview of the web page that's mentioned in the text; may be null.
          */
-        @Nullable public WebPage webPage;
+        @Nullable
+        public WebPage webPage;
 
         /**
          * A text message.
@@ -13865,7 +13945,7 @@ public class TdApi {
         /**
          * A text message.
          *
-         * @param text Text of the message.
+         * @param text    Text of the message.
          * @param webPage A preview of the web page that's mentioned in the text; may be null.
          */
         public MessageText(FormattedText text, WebPage webPage) {
@@ -13914,8 +13994,8 @@ public class TdApi {
          * An animation message (GIF-style).
          *
          * @param animation Message content.
-         * @param caption Animation caption.
-         * @param isSecret True, if the animation thumbnail must be blurred and the animation must be shown only while tapped.
+         * @param caption   Animation caption.
+         * @param isSecret  True, if the animation thumbnail must be blurred and the animation must be shown only while tapped.
          */
         public MessageAnimation(Animation animation, FormattedText caption, boolean isSecret) {
             this.animation = animation;
@@ -13959,7 +14039,7 @@ public class TdApi {
         /**
          * An audio message.
          *
-         * @param audio Message content.
+         * @param audio   Message content.
          * @param caption Audio caption.
          */
         public MessageAudio(Audio audio, FormattedText caption) {
@@ -14004,7 +14084,7 @@ public class TdApi {
          * A document message (general file).
          *
          * @param document Message content.
-         * @param caption Document caption.
+         * @param caption  Document caption.
          */
         public MessageDocument(Document document, FormattedText caption) {
             this.document = document;
@@ -14051,8 +14131,8 @@ public class TdApi {
         /**
          * A photo message.
          *
-         * @param photo Message content.
-         * @param caption Photo caption.
+         * @param photo    Message content.
+         * @param caption  Photo caption.
          * @param isSecret True, if the photo must be blurred and must be shown only while tapped.
          */
         public MessagePhoto(Photo photo, FormattedText caption, boolean isSecret) {
@@ -14164,8 +14244,8 @@ public class TdApi {
         /**
          * A video message.
          *
-         * @param video Message content.
-         * @param caption Video caption.
+         * @param video    Message content.
+         * @param caption  Video caption.
          * @param isSecret True, if the video thumbnail must be blurred and the video must be shown only while tapped.
          */
         public MessageVideo(Video video, FormattedText caption, boolean isSecret) {
@@ -14240,8 +14320,8 @@ public class TdApi {
          * A video note message.
          *
          * @param videoNote Message content.
-         * @param isViewed True, if at least one of the recipients has viewed the video note.
-         * @param isSecret True, if the video note thumbnail must be blurred and the video note must be shown only while tapped.
+         * @param isViewed  True, if at least one of the recipients has viewed the video note.
+         * @param isSecret  True, if the video note thumbnail must be blurred and the video note must be shown only while tapped.
          */
         public MessageVideoNote(VideoNote videoNote, boolean isViewed, boolean isSecret) {
             this.videoNote = videoNote;
@@ -14289,8 +14369,8 @@ public class TdApi {
         /**
          * A voice note message.
          *
-         * @param voiceNote Message content.
-         * @param caption Voice note caption.
+         * @param voiceNote  Message content.
+         * @param caption    Voice note caption.
          * @param isListened True, if at least one of the recipients has listened to the voice note.
          */
         public MessageVoiceNote(VoiceNote voiceNote, FormattedText caption, boolean isListened) {
@@ -14339,9 +14419,9 @@ public class TdApi {
         /**
          * A message with a location.
          *
-         * @param location Message content.
+         * @param location   Message content.
          * @param livePeriod Time relative to the message sent date until which the location can be updated, in seconds.
-         * @param expiresIn Left time for which the location can be updated, in seconds. updateMessageContent is not sent when this field changes.
+         * @param expiresIn  Left time for which the location can be updated, in seconds. updateMessageContent is not sent when this field changes.
          */
         public MessageLocation(Location location, int livePeriod, int expiresIn) {
             this.location = location;
@@ -14530,7 +14610,8 @@ public class TdApi {
         /**
          * Product photo; may be null.
          */
-        @Nullable public Photo photo;
+        @Nullable
+        public Photo photo;
         /**
          * Currency for the product price.
          */
@@ -14565,15 +14646,15 @@ public class TdApi {
         /**
          * A message with an invoice from a bot.
          *
-         * @param title Product title.
-         * @param description Product description.
-         * @param photo Product photo; may be null.
-         * @param currency Currency for the product price.
-         * @param totalAmount Product total price in the minimal quantity of the currency.
-         * @param startParameter Unique invoice bot startParameter. To share an invoice use the URL https://t.me/{botUsername}?start={startParameter}.
-         * @param isTest True, if the invoice is a test invoice.
+         * @param title               Product title.
+         * @param description         Product description.
+         * @param photo               Product photo; may be null.
+         * @param currency            Currency for the product price.
+         * @param totalAmount         Product total price in the minimal quantity of the currency.
+         * @param startParameter      Unique invoice bot startParameter. To share an invoice use the URL https://t.me/{botUsername}?start={startParameter}.
+         * @param isTest              True, if the invoice is a test invoice.
          * @param needShippingAddress True, if the shipping address should be specified.
-         * @param receiptMessageId The identifier of the message with the receipt, after the product has been purchased.
+         * @param receiptMessageId    The identifier of the message with the receipt, after the product has been purchased.
          */
         public MessageInvoice(String title, String description, Photo photo, String currency, long totalAmount, String startParameter, boolean isTest, boolean needShippingAddress, long receiptMessageId) {
             this.title = title;
@@ -14624,7 +14705,7 @@ public class TdApi {
          * A message with information about an ended call.
          *
          * @param discardReason Reason why the call was discarded.
-         * @param duration Call duration, in seconds.
+         * @param duration      Call duration, in seconds.
          */
         public MessageCall(CallDiscardReason discardReason, int duration) {
             this.discardReason = discardReason;
@@ -14667,7 +14748,7 @@ public class TdApi {
         /**
          * A newly created basic group.
          *
-         * @param title Title of the basic group.
+         * @param title         Title of the basic group.
          * @param memberUserIds User identifiers of members in the basic group.
          */
         public MessageBasicGroupChatCreate(String title, int[] memberUserIds) {
@@ -14989,7 +15070,7 @@ public class TdApi {
         /**
          * A supergroup has been created from a basic group.
          *
-         * @param title Title of the newly created supergroup.
+         * @param title        Title of the newly created supergroup.
          * @param basicGroupId The identifier of the original basic group.
          */
         public MessageChatUpgradeFrom(String title, int basicGroupId) {
@@ -15177,8 +15258,8 @@ public class TdApi {
          * A new high score was achieved in a game.
          *
          * @param gameMessageId Identifier of the message with the game, can be an identifier of a deleted message.
-         * @param gameId Identifier of the game; may be different from the games presented in the message with the game.
-         * @param score New score.
+         * @param gameId        Identifier of the game; may be different from the games presented in the message with the game.
+         * @param score         New score.
          */
         public MessageGameScore(long gameMessageId, long gameId, int score) {
             this.gameMessageId = gameMessageId;
@@ -15227,8 +15308,8 @@ public class TdApi {
          * A payment has been completed.
          *
          * @param invoiceMessageId Identifier of the message with the corresponding invoice; can be an identifier of a deleted message.
-         * @param currency Currency for the price of the product.
-         * @param totalAmount Total price for the product, in the minimal quantity of the currency.
+         * @param currency         Currency for the price of the product.
+         * @param totalAmount      Total price for the product, in the minimal quantity of the currency.
          */
         public MessagePaymentSuccessful(long invoiceMessageId, String currency, long totalAmount) {
             this.invoiceMessageId = invoiceMessageId;
@@ -15277,7 +15358,8 @@ public class TdApi {
         /**
          * Information about the order; may be null.
          */
-        @Nullable public OrderInfo orderInfo;
+        @Nullable
+        public OrderInfo orderInfo;
         /**
          * Telegram payment identifier.
          */
@@ -15296,12 +15378,12 @@ public class TdApi {
         /**
          * A payment has been completed; for bots only.
          *
-         * @param invoiceMessageId Identifier of the message with the corresponding invoice; can be an identifier of a deleted message.
-         * @param currency Currency for price of the product.
-         * @param totalAmount Total price for the product, in the minimal quantity of the currency.
-         * @param invoicePayload Invoice payload.
-         * @param shippingOptionId Identifier of the shipping option chosen by the user; may be empty if not applicable.
-         * @param orderInfo Information about the order; may be null.
+         * @param invoiceMessageId        Identifier of the message with the corresponding invoice; can be an identifier of a deleted message.
+         * @param currency                Currency for price of the product.
+         * @param totalAmount             Total price for the product, in the minimal quantity of the currency.
+         * @param invoicePayload          Invoice payload.
+         * @param shippingOptionId        Identifier of the shipping option chosen by the user; may be empty if not applicable.
+         * @param orderInfo               Information about the order; may be null.
          * @param telegramPaymentChargeId Telegram payment identifier.
          * @param providerPaymentChargeId Provider payment identifier.
          */
@@ -15453,7 +15535,7 @@ public class TdApi {
         /**
          * Telegram Passport data has been received; for bots only.
          *
-         * @param elements List of received Telegram Passport elements.
+         * @param elements    List of received Telegram Passport elements.
          * @param credentials Encrypted data credentials.
          */
         public MessagePassportDataReceived(EncryptedPassportElement[] elements, EncryptedCredentials credentials) {
@@ -15530,9 +15612,9 @@ public class TdApi {
         /**
          * Contains information about a forwarded message.
          *
-         * @param origin Origin of a forwarded message.
-         * @param date Point in time (Unix timestamp) when the message was originally sent.
-         * @param fromChatId For messages forwarded to the chat with the current user (saved messages), the identifier of the chat from which the message was forwarded last time; 0 if unknown.
+         * @param origin        Origin of a forwarded message.
+         * @param date          Point in time (Unix timestamp) when the message was originally sent.
+         * @param fromChatId    For messages forwarded to the chat with the current user (saved messages), the identifier of the chat from which the message was forwarded last time; 0 if unknown.
          * @param fromMessageId For messages forwarded to the chat with the current user (saved messages), the identifier of the original message from which the new message was forwarded last time; 0 if unknown.
          */
         public MessageForwardInfo(MessageForwardOrigin origin, int date, long fromChatId, long fromMessageId) {
@@ -15563,11 +15645,12 @@ public class TdApi {
     public abstract static class MessageForwardOrigin extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            MessageForwardOriginUser.CONSTRUCTOR,
-            MessageForwardOriginHiddenUser.CONSTRUCTOR,
-            MessageForwardOriginChannel.CONSTRUCTOR
+                MessageForwardOriginUser.CONSTRUCTOR,
+                MessageForwardOriginHiddenUser.CONSTRUCTOR,
+                MessageForwardOriginChannel.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -15679,8 +15762,8 @@ public class TdApi {
         /**
          * The message was originally a post in a channel.
          *
-         * @param chatId Identifier of the chat from which the message was originally forwarded.
-         * @param messageId Message identifier of the original message; 0 if unknown.
+         * @param chatId          Identifier of the chat from which the message was originally forwarded.
+         * @param messageId       Message identifier of the original message; 0 if unknown.
          * @param authorSignature Original post author signature.
          */
         public MessageForwardOriginChannel(long chatId, long messageId, String authorSignature) {
@@ -15710,10 +15793,11 @@ public class TdApi {
     public abstract static class MessageSendingState extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            MessageSendingStatePending.CONSTRUCTOR,
-            MessageSendingStateFailed.CONSTRUCTOR
+                MessageSendingStatePending.CONSTRUCTOR,
+                MessageSendingStateFailed.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -15796,7 +15880,7 @@ public class TdApi {
          * Contains a list of messages.
          *
          * @param totalCount Approximate total count of messages found.
-         * @param messages List of messages; messages may be null.
+         * @param messages   List of messages; messages may be null.
          */
         public Messages(int totalCount, Message[] messages) {
             this.totalCount = totalCount;
@@ -15840,7 +15924,7 @@ public class TdApi {
          * A full list of available network statistic entries.
          *
          * @param sinceDate Point in time (Unix timestamp) when the app began collecting statistics.
-         * @param entries Network statistics entries.
+         * @param entries   Network statistics entries.
          */
         public NetworkStatistics(int sinceDate, NetworkStatisticsEntry[] entries) {
             this.sinceDate = sinceDate;
@@ -15868,10 +15952,11 @@ public class TdApi {
     public abstract static class NetworkStatisticsEntry extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            NetworkStatisticsEntryFile.CONSTRUCTOR,
-            NetworkStatisticsEntryCall.CONSTRUCTOR
+                NetworkStatisticsEntryFile.CONSTRUCTOR,
+                NetworkStatisticsEntryCall.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -15911,9 +15996,9 @@ public class TdApi {
         /**
          * Contains information about the total amount of data that was used to send and receive files.
          *
-         * @param fileType Type of the file the data is part of.
-         * @param networkType Type of the network the data was sent through. Call setNetworkType to maintain the actual network type.
-         * @param sentBytes Total number of bytes sent.
+         * @param fileType      Type of the file the data is part of.
+         * @param networkType   Type of the network the data was sent through. Call setNetworkType to maintain the actual network type.
+         * @param sentBytes     Total number of bytes sent.
          * @param receivedBytes Total number of bytes received.
          */
         public NetworkStatisticsEntryFile(FileType fileType, NetworkType networkType, long sentBytes, long receivedBytes) {
@@ -15967,10 +16052,10 @@ public class TdApi {
         /**
          * Contains information about the total amount of data that was used for calls.
          *
-         * @param networkType Type of the network the data was sent through. Call setNetworkType to maintain the actual network type.
-         * @param sentBytes Total number of bytes sent.
+         * @param networkType   Type of the network the data was sent through. Call setNetworkType to maintain the actual network type.
+         * @param sentBytes     Total number of bytes sent.
          * @param receivedBytes Total number of bytes received.
-         * @param duration Total call duration, in seconds.
+         * @param duration      Total call duration, in seconds.
          */
         public NetworkStatisticsEntryCall(NetworkType networkType, long sentBytes, long receivedBytes, double duration) {
             this.networkType = networkType;
@@ -16000,13 +16085,14 @@ public class TdApi {
     public abstract static class NetworkType extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            NetworkTypeNone.CONSTRUCTOR,
-            NetworkTypeMobile.CONSTRUCTOR,
-            NetworkTypeMobileRoaming.CONSTRUCTOR,
-            NetworkTypeWiFi.CONSTRUCTOR,
-            NetworkTypeOther.CONSTRUCTOR
+                NetworkTypeNone.CONSTRUCTOR,
+                NetworkTypeMobile.CONSTRUCTOR,
+                NetworkTypeMobileRoaming.CONSTRUCTOR,
+                NetworkTypeWiFi.CONSTRUCTOR,
+                NetworkTypeOther.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -16167,7 +16253,7 @@ public class TdApi {
         /**
          * Contains information about a notification.
          *
-         * @param id Unique persistent identifier of this notification.
+         * @param id   Unique persistent identifier of this notification.
          * @param date Notification date.
          * @param type Notification type.
          */
@@ -16225,10 +16311,10 @@ public class TdApi {
         /**
          * Describes a group of notifications.
          *
-         * @param id Unique persistent auto-incremented from 1 identifier of the notification group.
-         * @param type Type of the group.
-         * @param chatId Identifier of a chat to which all notifications in the group belong.
-         * @param totalCount Total number of active notifications in the group.
+         * @param id            Unique persistent auto-incremented from 1 identifier of the notification group.
+         * @param type          Type of the group.
+         * @param chatId        Identifier of a chat to which all notifications in the group belong.
+         * @param totalCount    Total number of active notifications in the group.
          * @param notifications The list of active notifications.
          */
         public NotificationGroup(int id, NotificationGroupType type, long chatId, int totalCount, Notification[] notifications) {
@@ -16260,12 +16346,13 @@ public class TdApi {
     public abstract static class NotificationGroupType extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            NotificationGroupTypeMessages.CONSTRUCTOR,
-            NotificationGroupTypeMentions.CONSTRUCTOR,
-            NotificationGroupTypeSecretChat.CONSTRUCTOR,
-            NotificationGroupTypeCalls.CONSTRUCTOR
+                NotificationGroupTypeMessages.CONSTRUCTOR,
+                NotificationGroupTypeMentions.CONSTRUCTOR,
+                NotificationGroupTypeSecretChat.CONSTRUCTOR,
+                NotificationGroupTypeCalls.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -16382,11 +16469,12 @@ public class TdApi {
     public abstract static class NotificationSettingsScope extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            NotificationSettingsScopePrivateChats.CONSTRUCTOR,
-            NotificationSettingsScopeGroupChats.CONSTRUCTOR,
-            NotificationSettingsScopeChannelChats.CONSTRUCTOR
+                NotificationSettingsScopePrivateChats.CONSTRUCTOR,
+                NotificationSettingsScopeGroupChats.CONSTRUCTOR,
+                NotificationSettingsScopeChannelChats.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -16478,12 +16566,13 @@ public class TdApi {
     public abstract static class NotificationType extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            NotificationTypeNewMessage.CONSTRUCTOR,
-            NotificationTypeNewSecretChat.CONSTRUCTOR,
-            NotificationTypeNewCall.CONSTRUCTOR,
-            NotificationTypeNewPushMessage.CONSTRUCTOR
+                NotificationTypeNewMessage.CONSTRUCTOR,
+                NotificationTypeNewSecretChat.CONSTRUCTOR,
+                NotificationTypeNewCall.CONSTRUCTOR,
+                NotificationTypeNewPushMessage.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -16620,9 +16709,9 @@ public class TdApi {
         /**
          * New message was received through a push notification.
          *
-         * @param messageId The message identifier. The message will not be available in the chat history, but the ID can be used in viewMessages and as replyToMessageId.
+         * @param messageId    The message identifier. The message will not be available in the chat history, but the ID can be used in viewMessages and as replyToMessageId.
          * @param senderUserId Sender of the message. Corresponding user may be inaccessible.
-         * @param content Push message content.
+         * @param content      Push message content.
          */
         public NotificationTypeNewPushMessage(long messageId, int senderUserId, PushMessageContent content) {
             this.messageId = messageId;
@@ -16676,12 +16765,13 @@ public class TdApi {
     public abstract static class OptionValue extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            OptionValueBoolean.CONSTRUCTOR,
-            OptionValueEmpty.CONSTRUCTOR,
-            OptionValueInteger.CONSTRUCTOR,
-            OptionValueString.CONSTRUCTOR
+                OptionValueBoolean.CONSTRUCTOR,
+                OptionValueEmpty.CONSTRUCTOR,
+                OptionValueInteger.CONSTRUCTOR,
+                OptionValueString.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -16849,7 +16939,8 @@ public class TdApi {
         /**
          * Shipping address for this order; may be null.
          */
-        @Nullable public Address shippingAddress;
+        @Nullable
+        public Address shippingAddress;
 
         /**
          * Order information.
@@ -16860,9 +16951,9 @@ public class TdApi {
         /**
          * Order information.
          *
-         * @param name Name of the user.
-         * @param phoneNumber Phone number of the user.
-         * @param emailAddress Email address of the user.
+         * @param name            Name of the user.
+         * @param phoneNumber     Phone number of the user.
+         * @param emailAddress    Email address of the user.
          * @param shippingAddress Shipping address for this order; may be null.
          */
         public OrderInfo(String name, String phoneNumber, String emailAddress, Address shippingAddress) {
@@ -16893,36 +16984,37 @@ public class TdApi {
     public abstract static class PageBlock extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            PageBlockTitle.CONSTRUCTOR,
-            PageBlockSubtitle.CONSTRUCTOR,
-            PageBlockAuthorDate.CONSTRUCTOR,
-            PageBlockHeader.CONSTRUCTOR,
-            PageBlockSubheader.CONSTRUCTOR,
-            PageBlockKicker.CONSTRUCTOR,
-            PageBlockParagraph.CONSTRUCTOR,
-            PageBlockPreformatted.CONSTRUCTOR,
-            PageBlockFooter.CONSTRUCTOR,
-            PageBlockDivider.CONSTRUCTOR,
-            PageBlockAnchor.CONSTRUCTOR,
-            PageBlockList.CONSTRUCTOR,
-            PageBlockBlockQuote.CONSTRUCTOR,
-            PageBlockPullQuote.CONSTRUCTOR,
-            PageBlockAnimation.CONSTRUCTOR,
-            PageBlockAudio.CONSTRUCTOR,
-            PageBlockPhoto.CONSTRUCTOR,
-            PageBlockVideo.CONSTRUCTOR,
-            PageBlockCover.CONSTRUCTOR,
-            PageBlockEmbedded.CONSTRUCTOR,
-            PageBlockEmbeddedPost.CONSTRUCTOR,
-            PageBlockCollage.CONSTRUCTOR,
-            PageBlockSlideshow.CONSTRUCTOR,
-            PageBlockChatLink.CONSTRUCTOR,
-            PageBlockTable.CONSTRUCTOR,
-            PageBlockDetails.CONSTRUCTOR,
-            PageBlockRelatedArticles.CONSTRUCTOR,
-            PageBlockMap.CONSTRUCTOR
+                PageBlockTitle.CONSTRUCTOR,
+                PageBlockSubtitle.CONSTRUCTOR,
+                PageBlockAuthorDate.CONSTRUCTOR,
+                PageBlockHeader.CONSTRUCTOR,
+                PageBlockSubheader.CONSTRUCTOR,
+                PageBlockKicker.CONSTRUCTOR,
+                PageBlockParagraph.CONSTRUCTOR,
+                PageBlockPreformatted.CONSTRUCTOR,
+                PageBlockFooter.CONSTRUCTOR,
+                PageBlockDivider.CONSTRUCTOR,
+                PageBlockAnchor.CONSTRUCTOR,
+                PageBlockList.CONSTRUCTOR,
+                PageBlockBlockQuote.CONSTRUCTOR,
+                PageBlockPullQuote.CONSTRUCTOR,
+                PageBlockAnimation.CONSTRUCTOR,
+                PageBlockAudio.CONSTRUCTOR,
+                PageBlockPhoto.CONSTRUCTOR,
+                PageBlockVideo.CONSTRUCTOR,
+                PageBlockCover.CONSTRUCTOR,
+                PageBlockEmbedded.CONSTRUCTOR,
+                PageBlockEmbeddedPost.CONSTRUCTOR,
+                PageBlockCollage.CONSTRUCTOR,
+                PageBlockSlideshow.CONSTRUCTOR,
+                PageBlockChatLink.CONSTRUCTOR,
+                PageBlockTable.CONSTRUCTOR,
+                PageBlockDetails.CONSTRUCTOR,
+                PageBlockRelatedArticles.CONSTRUCTOR,
+                PageBlockMap.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -17030,7 +17122,7 @@ public class TdApi {
         /**
          * The author and publishing date of a page.
          *
-         * @param author Author.
+         * @param author      Author.
          * @param publishDate Point in time (Unix timestamp) when the article was published; 0 if unknown.
          */
         public PageBlockAuthorDate(RichText author, int publishDate) {
@@ -17226,7 +17318,7 @@ public class TdApi {
         /**
          * A preformatted text paragraph.
          *
-         * @param text Paragraph text.
+         * @param text     Paragraph text.
          * @param language Programming language for which the text should be formatted.
          */
         public PageBlockPreformatted(RichText text, String language) {
@@ -17409,7 +17501,7 @@ public class TdApi {
         /**
          * A block quote.
          *
-         * @param text Quote text.
+         * @param text   Quote text.
          * @param credit Quote credit.
          */
         public PageBlockBlockQuote(RichText text, RichText credit) {
@@ -17453,7 +17545,7 @@ public class TdApi {
         /**
          * A pull quote.
          *
-         * @param text Quote text.
+         * @param text   Quote text.
          * @param credit Quote credit.
          */
         public PageBlockPullQuote(RichText text, RichText credit) {
@@ -17482,7 +17574,8 @@ public class TdApi {
         /**
          * Animation file; may be null.
          */
-        @Nullable public Animation animation;
+        @Nullable
+        public Animation animation;
         /**
          * Animation caption.
          */
@@ -17501,8 +17594,8 @@ public class TdApi {
         /**
          * An animation.
          *
-         * @param animation Animation file; may be null.
-         * @param caption Animation caption.
+         * @param animation    Animation file; may be null.
+         * @param caption      Animation caption.
          * @param needAutoplay True, if the animation should be played automatically.
          */
         public PageBlockAnimation(Animation animation, PageBlockCaption caption, boolean needAutoplay) {
@@ -17532,7 +17625,8 @@ public class TdApi {
         /**
          * Audio file; may be null.
          */
-        @Nullable public Audio audio;
+        @Nullable
+        public Audio audio;
         /**
          * Audio file caption.
          */
@@ -17547,7 +17641,7 @@ public class TdApi {
         /**
          * An audio file.
          *
-         * @param audio Audio file; may be null.
+         * @param audio   Audio file; may be null.
          * @param caption Audio file caption.
          */
         public PageBlockAudio(Audio audio, PageBlockCaption caption) {
@@ -17576,7 +17670,8 @@ public class TdApi {
         /**
          * Photo file; may be null.
          */
-        @Nullable public Photo photo;
+        @Nullable
+        public Photo photo;
         /**
          * Photo caption.
          */
@@ -17595,9 +17690,9 @@ public class TdApi {
         /**
          * A photo.
          *
-         * @param photo Photo file; may be null.
+         * @param photo   Photo file; may be null.
          * @param caption Photo caption.
-         * @param url URL that needs to be opened when the photo is clicked.
+         * @param url     URL that needs to be opened when the photo is clicked.
          */
         public PageBlockPhoto(Photo photo, PageBlockCaption caption, String url) {
             this.photo = photo;
@@ -17626,7 +17721,8 @@ public class TdApi {
         /**
          * Video file; may be null.
          */
-        @Nullable public Video video;
+        @Nullable
+        public Video video;
         /**
          * Video caption.
          */
@@ -17649,10 +17745,10 @@ public class TdApi {
         /**
          * A video.
          *
-         * @param video Video file; may be null.
-         * @param caption Video caption.
+         * @param video        Video file; may be null.
+         * @param caption      Video caption.
          * @param needAutoplay True, if the video should be played automatically.
-         * @param isLooped True, if the video should be looped.
+         * @param isLooped     True, if the video should be looped.
          */
         public PageBlockVideo(Video video, PageBlockCaption caption, boolean needAutoplay, boolean isLooped) {
             this.video = video;
@@ -17728,7 +17824,8 @@ public class TdApi {
         /**
          * Poster photo, if available; may be null.
          */
-        @Nullable public Photo posterPhoto;
+        @Nullable
+        public Photo posterPhoto;
         /**
          * Block width, 0 if unknown.
          */
@@ -17759,13 +17856,13 @@ public class TdApi {
         /**
          * An embedded web page.
          *
-         * @param url Web page URL, if available.
-         * @param html HTML-markup of the embedded page.
-         * @param posterPhoto Poster photo, if available; may be null.
-         * @param width Block width, 0 if unknown.
-         * @param height Block height, 0 if unknown.
-         * @param caption Block caption.
-         * @param isFullWidth True, if the block should be full width.
+         * @param url            Web page URL, if available.
+         * @param html           HTML-markup of the embedded page.
+         * @param posterPhoto    Poster photo, if available; may be null.
+         * @param width          Block width, 0 if unknown.
+         * @param height         Block height, 0 if unknown.
+         * @param caption        Block caption.
+         * @param isFullWidth    True, if the block should be full width.
          * @param allowScrolling True, if scrolling should be allowed.
          */
         public PageBlockEmbedded(String url, String html, Photo posterPhoto, int width, int height, PageBlockCaption caption, boolean isFullWidth, boolean allowScrolling) {
@@ -17831,12 +17928,12 @@ public class TdApi {
         /**
          * An embedded post.
          *
-         * @param url Web page URL.
-         * @param author Post author.
+         * @param url         Web page URL.
+         * @param author      Post author.
          * @param authorPhoto Post author photo.
-         * @param date Point in time (Unix timestamp) when the post was created; 0 if unknown.
-         * @param pageBlocks Post content.
-         * @param caption Post caption.
+         * @param date        Point in time (Unix timestamp) when the post was created; 0 if unknown.
+         * @param pageBlocks  Post content.
+         * @param caption     Post caption.
          */
         public PageBlockEmbeddedPost(String url, String author, Photo authorPhoto, int date, PageBlock[] pageBlocks, PageBlockCaption caption) {
             this.url = url;
@@ -17884,7 +17981,7 @@ public class TdApi {
          * A collage.
          *
          * @param pageBlocks Collage item contents.
-         * @param caption Block caption.
+         * @param caption    Block caption.
          */
         public PageBlockCollage(PageBlock[] pageBlocks, PageBlockCaption caption) {
             this.pageBlocks = pageBlocks;
@@ -17928,7 +18025,7 @@ public class TdApi {
          * A slideshow.
          *
          * @param pageBlocks Slideshow item contents.
-         * @param caption Block caption.
+         * @param caption    Block caption.
          */
         public PageBlockSlideshow(PageBlock[] pageBlocks, PageBlockCaption caption) {
             this.pageBlocks = pageBlocks;
@@ -17960,7 +18057,8 @@ public class TdApi {
         /**
          * Chat photo; may be null.
          */
-        @Nullable public ChatPhoto photo;
+        @Nullable
+        public ChatPhoto photo;
         /**
          * Chat username, by which all other information about the chat should be resolved.
          */
@@ -17975,8 +18073,8 @@ public class TdApi {
         /**
          * A link to a chat.
          *
-         * @param title Chat title.
-         * @param photo Chat photo; may be null.
+         * @param title    Chat title.
+         * @param photo    Chat photo; may be null.
          * @param username Chat username, by which all other information about the chat should be resolved.
          */
         public PageBlockChatLink(String title, ChatPhoto photo, String username) {
@@ -18029,10 +18127,10 @@ public class TdApi {
         /**
          * A table.
          *
-         * @param caption Table caption.
-         * @param cells Table cells.
+         * @param caption    Table caption.
+         * @param cells      Table cells.
          * @param isBordered True, if the table is bordered.
-         * @param isStriped True, if the table is striped.
+         * @param isStriped  True, if the table is striped.
          */
         public PageBlockTable(RichText caption, PageBlockTableCell[][] cells, boolean isBordered, boolean isStriped) {
             this.caption = caption;
@@ -18081,9 +18179,9 @@ public class TdApi {
         /**
          * A collapsible block.
          *
-         * @param header Always visible heading for the block.
+         * @param header     Always visible heading for the block.
          * @param pageBlocks Block contents.
-         * @param isOpen True, if the block is open by default.
+         * @param isOpen     True, if the block is open by default.
          */
         public PageBlockDetails(RichText header, PageBlock[] pageBlocks, boolean isOpen) {
             this.header = header;
@@ -18127,7 +18225,7 @@ public class TdApi {
         /**
          * Related articles.
          *
-         * @param header Block header.
+         * @param header   Block header.
          * @param articles List of related articles.
          */
         public PageBlockRelatedArticles(RichText header, PageBlockRelatedArticle[] articles) {
@@ -18184,10 +18282,10 @@ public class TdApi {
          * A map.
          *
          * @param location Location of the map center.
-         * @param zoom Map zoom level.
-         * @param width Map width.
-         * @param height Map height.
-         * @param caption Block caption.
+         * @param zoom     Map zoom level.
+         * @param width    Map width.
+         * @param height   Map height.
+         * @param caption  Block caption.
          */
         public PageBlockMap(Location location, int zoom, int width, int height, PageBlockCaption caption) {
             this.location = location;
@@ -18233,7 +18331,7 @@ public class TdApi {
         /**
          * Contains a caption of an instant view web page block, consisting of a text and a trailing credit.
          *
-         * @param text Content of the caption.
+         * @param text   Content of the caption.
          * @param credit Block credit (like HTML tag &lt;cite&gt;).
          */
         public PageBlockCaption(RichText text, RichText credit) {
@@ -18262,11 +18360,12 @@ public class TdApi {
     public abstract static class PageBlockHorizontalAlignment extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            PageBlockHorizontalAlignmentLeft.CONSTRUCTOR,
-            PageBlockHorizontalAlignmentCenter.CONSTRUCTOR,
-            PageBlockHorizontalAlignmentRight.CONSTRUCTOR
+                PageBlockHorizontalAlignmentLeft.CONSTRUCTOR,
+                PageBlockHorizontalAlignmentCenter.CONSTRUCTOR,
+                PageBlockHorizontalAlignmentRight.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -18373,7 +18472,7 @@ public class TdApi {
         /**
          * Describes an item of a list page block.
          *
-         * @param label Item label.
+         * @param label      Item label.
          * @param pageBlocks Item blocks.
          */
         public PageBlockListItem(String label, PageBlock[] pageBlocks) {
@@ -18414,7 +18513,8 @@ public class TdApi {
         /**
          * Article photo; may be null.
          */
-        @Nullable public Photo photo;
+        @Nullable
+        public Photo photo;
         /**
          * Article author; may be empty.
          */
@@ -18433,11 +18533,11 @@ public class TdApi {
         /**
          * Contains information about a related article.
          *
-         * @param url Related article URL.
-         * @param title Article title; may be empty.
+         * @param url         Related article URL.
+         * @param title       Article title; may be empty.
          * @param description Article description; may be empty.
-         * @param photo Article photo; may be null.
-         * @param author Article author; may be empty.
+         * @param photo       Article photo; may be null.
+         * @param author      Article author; may be empty.
          * @param publishDate Point in time (Unix timestamp) when the article was published; 0 if unknown.
          */
         public PageBlockRelatedArticle(String url, String title, String description, Photo photo, String author, int publishDate) {
@@ -18501,12 +18601,12 @@ public class TdApi {
         /**
          * Represents a cell of a table.
          *
-         * @param text Cell text.
+         * @param text     Cell text.
          * @param isHeader True, if it is a header cell.
-         * @param colspan The number of columns the cell should span.
-         * @param rowspan The number of rows the cell should span.
-         * @param align Horizontal cell content alignment.
-         * @param valign Vertical cell content alignment.
+         * @param colspan  The number of columns the cell should span.
+         * @param rowspan  The number of rows the cell should span.
+         * @param align    Horizontal cell content alignment.
+         * @param valign   Vertical cell content alignment.
          */
         public PageBlockTableCell(RichText text, boolean isHeader, int colspan, int rowspan, PageBlockHorizontalAlignment align, PageBlockVerticalAlignment valign) {
             this.text = text;
@@ -18538,11 +18638,12 @@ public class TdApi {
     public abstract static class PageBlockVerticalAlignment extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            PageBlockVerticalAlignmentTop.CONSTRUCTOR,
-            PageBlockVerticalAlignmentMiddle.CONSTRUCTOR,
-            PageBlockVerticalAlignmentBottom.CONSTRUCTOR
+                PageBlockVerticalAlignmentTop.CONSTRUCTOR,
+                PageBlockVerticalAlignmentMiddle.CONSTRUCTOR,
+                PageBlockVerticalAlignmentBottom.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -18653,7 +18754,7 @@ public class TdApi {
         /**
          * Contains information about a Telegram Passport authorization form that was requested.
          *
-         * @param id Unique identifier of the authorization form.
+         * @param id               Unique identifier of the authorization form.
          * @param requiredElements Information about the Telegram Passport elements that need to be provided to complete the form.
          * @param privacyPolicyUrl URL for the privacy policy of the service; may be empty.
          */
@@ -18684,21 +18785,22 @@ public class TdApi {
     public abstract static class PassportElement extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            PassportElementPersonalDetails.CONSTRUCTOR,
-            PassportElementPassport.CONSTRUCTOR,
-            PassportElementDriverLicense.CONSTRUCTOR,
-            PassportElementIdentityCard.CONSTRUCTOR,
-            PassportElementInternalPassport.CONSTRUCTOR,
-            PassportElementAddress.CONSTRUCTOR,
-            PassportElementUtilityBill.CONSTRUCTOR,
-            PassportElementBankStatement.CONSTRUCTOR,
-            PassportElementRentalAgreement.CONSTRUCTOR,
-            PassportElementPassportRegistration.CONSTRUCTOR,
-            PassportElementTemporaryRegistration.CONSTRUCTOR,
-            PassportElementPhoneNumber.CONSTRUCTOR,
-            PassportElementEmailAddress.CONSTRUCTOR
+                PassportElementPersonalDetails.CONSTRUCTOR,
+                PassportElementPassport.CONSTRUCTOR,
+                PassportElementDriverLicense.CONSTRUCTOR,
+                PassportElementIdentityCard.CONSTRUCTOR,
+                PassportElementInternalPassport.CONSTRUCTOR,
+                PassportElementAddress.CONSTRUCTOR,
+                PassportElementUtilityBill.CONSTRUCTOR,
+                PassportElementBankStatement.CONSTRUCTOR,
+                PassportElementRentalAgreement.CONSTRUCTOR,
+                PassportElementPassportRegistration.CONSTRUCTOR,
+                PassportElementTemporaryRegistration.CONSTRUCTOR,
+                PassportElementPhoneNumber.CONSTRUCTOR,
+                PassportElementEmailAddress.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -19228,9 +19330,9 @@ public class TdApi {
         /**
          * Contains the description of an error in a Telegram Passport element.
          *
-         * @param type Type of the Telegram Passport element which has the error.
+         * @param type    Type of the Telegram Passport element which has the error.
          * @param message Error message.
-         * @param source Error source.
+         * @param source  Error source.
          */
         public PassportElementError(PassportElementType type, String message, PassportElementErrorSource source) {
             this.type = type;
@@ -19259,17 +19361,18 @@ public class TdApi {
     public abstract static class PassportElementErrorSource extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            PassportElementErrorSourceUnspecified.CONSTRUCTOR,
-            PassportElementErrorSourceDataField.CONSTRUCTOR,
-            PassportElementErrorSourceFrontSide.CONSTRUCTOR,
-            PassportElementErrorSourceReverseSide.CONSTRUCTOR,
-            PassportElementErrorSourceSelfie.CONSTRUCTOR,
-            PassportElementErrorSourceTranslationFile.CONSTRUCTOR,
-            PassportElementErrorSourceTranslationFiles.CONSTRUCTOR,
-            PassportElementErrorSourceFile.CONSTRUCTOR,
-            PassportElementErrorSourceFiles.CONSTRUCTOR
+                PassportElementErrorSourceUnspecified.CONSTRUCTOR,
+                PassportElementErrorSourceDataField.CONSTRUCTOR,
+                PassportElementErrorSourceFrontSide.CONSTRUCTOR,
+                PassportElementErrorSourceReverseSide.CONSTRUCTOR,
+                PassportElementErrorSourceSelfie.CONSTRUCTOR,
+                PassportElementErrorSourceTranslationFile.CONSTRUCTOR,
+                PassportElementErrorSourceTranslationFiles.CONSTRUCTOR,
+                PassportElementErrorSourceFile.CONSTRUCTOR,
+                PassportElementErrorSourceFiles.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -19550,21 +19653,22 @@ public class TdApi {
     public abstract static class PassportElementType extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            PassportElementTypePersonalDetails.CONSTRUCTOR,
-            PassportElementTypePassport.CONSTRUCTOR,
-            PassportElementTypeDriverLicense.CONSTRUCTOR,
-            PassportElementTypeIdentityCard.CONSTRUCTOR,
-            PassportElementTypeInternalPassport.CONSTRUCTOR,
-            PassportElementTypeAddress.CONSTRUCTOR,
-            PassportElementTypeUtilityBill.CONSTRUCTOR,
-            PassportElementTypeBankStatement.CONSTRUCTOR,
-            PassportElementTypeRentalAgreement.CONSTRUCTOR,
-            PassportElementTypePassportRegistration.CONSTRUCTOR,
-            PassportElementTypeTemporaryRegistration.CONSTRUCTOR,
-            PassportElementTypePhoneNumber.CONSTRUCTOR,
-            PassportElementTypeEmailAddress.CONSTRUCTOR
+                PassportElementTypePersonalDetails.CONSTRUCTOR,
+                PassportElementTypePassport.CONSTRUCTOR,
+                PassportElementTypeDriverLicense.CONSTRUCTOR,
+                PassportElementTypeIdentityCard.CONSTRUCTOR,
+                PassportElementTypeInternalPassport.CONSTRUCTOR,
+                PassportElementTypeAddress.CONSTRUCTOR,
+                PassportElementTypeUtilityBill.CONSTRUCTOR,
+                PassportElementTypeBankStatement.CONSTRUCTOR,
+                PassportElementTypeRentalAgreement.CONSTRUCTOR,
+                PassportElementTypePassportRegistration.CONSTRUCTOR,
+                PassportElementTypeTemporaryRegistration.CONSTRUCTOR,
+                PassportElementTypePhoneNumber.CONSTRUCTOR,
+                PassportElementTypeEmailAddress.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -19960,7 +20064,7 @@ public class TdApi {
          * Contains information about a Telegram Passport elements and corresponding errors.
          *
          * @param elements Telegram Passport elements.
-         * @param errors Errors in the elements that are already available.
+         * @param errors   Errors in the elements that are already available.
          */
         public PassportElementsWithErrors(PassportElement[] elements, PassportElementError[] errors) {
             this.elements = elements;
@@ -20049,10 +20153,10 @@ public class TdApi {
         /**
          * Contains information about a Telegram Passport element that was requested by a service.
          *
-         * @param type Type of the element.
-         * @param isSelfieRequired True, if a selfie is required with the identity document.
+         * @param type                  Type of the element.
+         * @param isSelfieRequired      True, if a selfie is required with the identity document.
          * @param isTranslationRequired True, if a certified English translation is required with the document.
-         * @param isNativeNameRequired True, if personal details must include the user's name in the language of their country of residence.
+         * @param isNativeNameRequired  True, if personal details must include the user's name in the language of their country of residence.
          */
         public PassportSuitableElement(PassportElementType type, boolean isSelfieRequired, boolean isTranslationRequired, boolean isNativeNameRequired) {
             this.type = type;
@@ -20098,7 +20202,8 @@ public class TdApi {
         /**
          * Information about the recovery email address to which the confirmation email was sent; may be null.
          */
-        @Nullable public EmailAddressAuthenticationCodeInfo recoveryEmailAddressCodeInfo;
+        @Nullable
+        public EmailAddressAuthenticationCodeInfo recoveryEmailAddressCodeInfo;
 
         /**
          * Represents the current state of 2-step verification.
@@ -20109,10 +20214,10 @@ public class TdApi {
         /**
          * Represents the current state of 2-step verification.
          *
-         * @param hasPassword True, if a 2-step verification password is set.
-         * @param passwordHint Hint for the password; may be empty.
-         * @param hasRecoveryEmailAddress True, if a recovery email is set.
-         * @param hasPassportData True, if some Telegram Passport elements were saved.
+         * @param hasPassword                  True, if a 2-step verification password is set.
+         * @param passwordHint                 Hint for the password; may be empty.
+         * @param hasRecoveryEmailAddress      True, if a recovery email is set.
+         * @param hasPassportData              True, if some Telegram Passport elements were saved.
          * @param recoveryEmailAddressCodeInfo Information about the recovery email address to which the confirmation email was sent; may be null.
          */
         public PasswordState(boolean hasPassword, String passwordHint, boolean hasRecoveryEmailAddress, boolean hasPassportData, EmailAddressAuthenticationCodeInfo recoveryEmailAddressCodeInfo) {
@@ -20152,15 +20257,18 @@ public class TdApi {
         /**
          * Contains information about the payment provider, if available, to support it natively without the need for opening the URL; may be null.
          */
-        @Nullable public PaymentsProviderStripe paymentsProvider;
+        @Nullable
+        public PaymentsProviderStripe paymentsProvider;
         /**
          * Saved server-side order information; may be null.
          */
-        @Nullable public OrderInfo savedOrderInfo;
+        @Nullable
+        public OrderInfo savedOrderInfo;
         /**
          * Contains information about saved card credentials; may be null.
          */
-        @Nullable public SavedCredentials savedCredentials;
+        @Nullable
+        public SavedCredentials savedCredentials;
         /**
          * True, if the user can choose to save credentials.
          */
@@ -20179,13 +20287,13 @@ public class TdApi {
         /**
          * Contains information about an invoice payment form.
          *
-         * @param invoice Full information of the invoice.
-         * @param url Payment form URL.
-         * @param paymentsProvider Contains information about the payment provider, if available, to support it natively without the need for opening the URL; may be null.
-         * @param savedOrderInfo Saved server-side order information; may be null.
-         * @param savedCredentials Contains information about saved card credentials; may be null.
+         * @param invoice            Full information of the invoice.
+         * @param url                Payment form URL.
+         * @param paymentsProvider   Contains information about the payment provider, if available, to support it natively without the need for opening the URL; may be null.
+         * @param savedOrderInfo     Saved server-side order information; may be null.
+         * @param savedCredentials   Contains information about saved card credentials; may be null.
          * @param canSaveCredentials True, if the user can choose to save credentials.
-         * @param needPassword True, if the user will be able to save credentials protected by a password they set up.
+         * @param needPassword       True, if the user will be able to save credentials protected by a password they set up.
          */
         public PaymentForm(Invoice invoice, String url, PaymentsProviderStripe paymentsProvider, OrderInfo savedOrderInfo, SavedCredentials savedCredentials, boolean canSaveCredentials, boolean needPassword) {
             this.invoice = invoice;
@@ -20230,11 +20338,13 @@ public class TdApi {
         /**
          * Contains order information; may be null.
          */
-        @Nullable public OrderInfo orderInfo;
+        @Nullable
+        public OrderInfo orderInfo;
         /**
          * Chosen shipping option; may be null.
          */
-        @Nullable public ShippingOption shippingOption;
+        @Nullable
+        public ShippingOption shippingOption;
         /**
          * Title of the saved credentials.
          */
@@ -20249,12 +20359,12 @@ public class TdApi {
         /**
          * Contains information about a successful payment.
          *
-         * @param date Point in time (Unix timestamp) when the payment was made.
+         * @param date                   Point in time (Unix timestamp) when the payment was made.
          * @param paymentsProviderUserId User identifier of the payment provider bot.
-         * @param invoice Contains information about the invoice.
-         * @param orderInfo Contains order information; may be null.
-         * @param shippingOption Chosen shipping option; may be null.
-         * @param credentialsTitle Title of the saved credentials.
+         * @param invoice                Contains information about the invoice.
+         * @param orderInfo              Contains order information; may be null.
+         * @param shippingOption         Chosen shipping option; may be null.
+         * @param credentialsTitle       Title of the saved credentials.
          */
         public PaymentReceipt(int date, int paymentsProviderUserId, Invoice invoice, OrderInfo orderInfo, ShippingOption shippingOption, String credentialsTitle) {
             this.date = date;
@@ -20301,7 +20411,7 @@ public class TdApi {
         /**
          * Contains the result of a payment request.
          *
-         * @param success True, if the payment request was successful; otherwise the verificationUrl will be not empty.
+         * @param success         True, if the payment request was successful; otherwise the verificationUrl will be not empty.
          * @param verificationUrl URL for additional payment credentials verification.
          */
         public PaymentResult(boolean success, String verificationUrl) {
@@ -20353,9 +20463,9 @@ public class TdApi {
         /**
          * Stripe payment provider.
          *
-         * @param publishableKey Stripe API publishable key.
-         * @param needCountry True, if the user country must be provided.
-         * @param needPostalCode True, if the user ZIP/postal code must be provided.
+         * @param publishableKey     Stripe API publishable key.
+         * @param needCountry        True, if the user country must be provided.
+         * @param needPostalCode     True, if the user ZIP/postal code must be provided.
          * @param needCardholderName True, if the cardholder name must be provided.
          */
         public PaymentsProviderStripe(String publishableKey, boolean needCountry, boolean needPostalCode, boolean needCardholderName) {
@@ -20433,15 +20543,15 @@ public class TdApi {
         /**
          * Contains the user's personal details.
          *
-         * @param firstName First name of the user written in English; 1-255 characters.
-         * @param middleName Middle name of the user written in English; 0-255 characters.
-         * @param lastName Last name of the user written in English; 1-255 characters.
-         * @param nativeFirstName Native first name of the user; 1-255 characters.
-         * @param nativeMiddleName Native middle name of the user; 0-255 characters.
-         * @param nativeLastName Native last name of the user; 1-255 characters.
-         * @param birthdate Birthdate of the user.
-         * @param gender Gender of the user, &quot;male&quot; or &quot;female&quot;.
-         * @param countryCode A two-letter ISO 3166-1 alpha-2 country code of the user's country.
+         * @param firstName            First name of the user written in English; 1-255 characters.
+         * @param middleName           Middle name of the user written in English; 0-255 characters.
+         * @param lastName             Last name of the user written in English; 1-255 characters.
+         * @param nativeFirstName      Native first name of the user; 1-255 characters.
+         * @param nativeMiddleName     Native middle name of the user; 0-255 characters.
+         * @param nativeLastName       Native last name of the user; 1-255 characters.
+         * @param birthdate            Birthdate of the user.
+         * @param gender               Gender of the user, &quot;male&quot; or &quot;female&quot;.
+         * @param countryCode          A two-letter ISO 3166-1 alpha-2 country code of the user's country.
          * @param residenceCountryCode A two-letter ISO 3166-1 alpha-2 country code of the user's residence country.
          */
         public PersonalDetails(String firstName, String middleName, String lastName, String nativeFirstName, String nativeMiddleName, String nativeLastName, Date birthdate, String gender, String countryCode, String residenceCountryCode) {
@@ -20493,7 +20603,7 @@ public class TdApi {
         /**
          * A personal document, containing some information about a user.
          *
-         * @param files List of files containing the pages of the document.
+         * @param files       List of files containing the pages of the document.
          * @param translation List of files containing a certified English translation of the document.
          */
         public PersonalDocument(DatedFile[] files, DatedFile[] translation) {
@@ -20538,7 +20648,7 @@ public class TdApi {
          * Describes a photo.
          *
          * @param hasStickers True, if stickers were added to the photo.
-         * @param sizes Available variants of the photo, in different sizes.
+         * @param sizes       Available variants of the photo, in different sizes.
          */
         public Photo(boolean hasStickers, PhotoSize[] sizes) {
             this.hasStickers = hasStickers;
@@ -20589,9 +20699,9 @@ public class TdApi {
         /**
          * Photo description.
          *
-         * @param type Thumbnail type (see https://core.telegram.org/constructor/photoSize).
-         * @param photo Information about the photo file.
-         * @param width Photo width.
+         * @param type   Thumbnail type (see https://core.telegram.org/constructor/photoSize).
+         * @param photo  Information about the photo file.
+         * @param width  Photo width.
          * @param height Photo height.
          */
         public PhotoSize(String type, File photo, int width, int height) {
@@ -20649,11 +20759,11 @@ public class TdApi {
         /**
          * Describes a poll.
          *
-         * @param id Unique poll identifier.
-         * @param question Poll question, 1-255 characters.
-         * @param options List of poll answer options.
+         * @param id              Unique poll identifier.
+         * @param question        Poll question, 1-255 characters.
+         * @param options         List of poll answer options.
          * @param totalVoterCount Total number of voters, participating in the poll.
-         * @param isClosed True, if the poll is closed.
+         * @param isClosed        True, if the poll is closed.
          */
         public Poll(long id, String question, PollOption[] options, int totalVoterCount, boolean isClosed) {
             this.id = id;
@@ -20711,11 +20821,11 @@ public class TdApi {
         /**
          * Describes one answer option of a poll.
          *
-         * @param text Option text, 1-100 characters.
-         * @param voterCount Number of voters for this option, available only for closed or voted polls.
+         * @param text           Option text, 1-100 characters.
+         * @param voterCount     Number of voters for this option, available only for closed or voted polls.
          * @param votePercentage The percentage of votes for this option, 0-100.
-         * @param isChosen True, if the option was chosen by the user.
-         * @param isBeingChosen True, if the option is being chosen by a pending setPollAnswer request.
+         * @param isChosen       True, if the option was chosen by the user.
+         * @param isBeingChosen  True, if the option is being chosen by a pending setPollAnswer request.
          */
         public PollOption(String text, int voterCount, int votePercentage, boolean isChosen, boolean isBeingChosen) {
             this.text = text;
@@ -20765,9 +20875,9 @@ public class TdApi {
         /**
          * Describes a user profile photo.
          *
-         * @param id Photo identifier; 0 for an empty photo. Can be used to find a photo in a list of userProfilePhotos.
+         * @param id    Photo identifier; 0 for an empty photo. Can be used to find a photo in a list of userProfilePhotos.
          * @param small A small (160x160) user profile photo.
-         * @param big A big (640x640) user profile photo.
+         * @param big   A big (640x640) user profile photo.
          */
         public ProfilePhoto(long id, File small, File big) {
             this.id = id;
@@ -20865,12 +20975,12 @@ public class TdApi {
         /**
          * Contains information about a proxy server.
          *
-         * @param id Unique identifier of the proxy.
-         * @param server Proxy server IP address.
-         * @param port Proxy server port.
+         * @param id           Unique identifier of the proxy.
+         * @param server       Proxy server IP address.
+         * @param port         Proxy server port.
          * @param lastUsedDate Point in time (Unix timestamp) when the proxy was last used; 0 if never.
-         * @param isEnabled True, if the proxy is enabled now.
-         * @param type Type of the proxy.
+         * @param isEnabled    True, if the proxy is enabled now.
+         * @param type         Type of the proxy.
          */
         public Proxy(int id, String server, int port, int lastUsedDate, boolean isEnabled, ProxyType type) {
             this.id = id;
@@ -20902,11 +21012,12 @@ public class TdApi {
     public abstract static class ProxyType extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            ProxyTypeSocks5.CONSTRUCTOR,
-            ProxyTypeHttp.CONSTRUCTOR,
-            ProxyTypeMtproto.CONSTRUCTOR
+                ProxyTypeSocks5.CONSTRUCTOR,
+                ProxyTypeHttp.CONSTRUCTOR,
+                ProxyTypeMtproto.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -21099,34 +21210,35 @@ public class TdApi {
     public abstract static class PushMessageContent extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            PushMessageContentHidden.CONSTRUCTOR,
-            PushMessageContentAnimation.CONSTRUCTOR,
-            PushMessageContentAudio.CONSTRUCTOR,
-            PushMessageContentContact.CONSTRUCTOR,
-            PushMessageContentContactRegistered.CONSTRUCTOR,
-            PushMessageContentDocument.CONSTRUCTOR,
-            PushMessageContentGame.CONSTRUCTOR,
-            PushMessageContentGameScore.CONSTRUCTOR,
-            PushMessageContentInvoice.CONSTRUCTOR,
-            PushMessageContentLocation.CONSTRUCTOR,
-            PushMessageContentPhoto.CONSTRUCTOR,
-            PushMessageContentPoll.CONSTRUCTOR,
-            PushMessageContentScreenshotTaken.CONSTRUCTOR,
-            PushMessageContentSticker.CONSTRUCTOR,
-            PushMessageContentText.CONSTRUCTOR,
-            PushMessageContentVideo.CONSTRUCTOR,
-            PushMessageContentVideoNote.CONSTRUCTOR,
-            PushMessageContentVoiceNote.CONSTRUCTOR,
-            PushMessageContentBasicGroupChatCreate.CONSTRUCTOR,
-            PushMessageContentChatAddMembers.CONSTRUCTOR,
-            PushMessageContentChatChangePhoto.CONSTRUCTOR,
-            PushMessageContentChatChangeTitle.CONSTRUCTOR,
-            PushMessageContentChatDeleteMember.CONSTRUCTOR,
-            PushMessageContentChatJoinByLink.CONSTRUCTOR,
-            PushMessageContentMessageForwards.CONSTRUCTOR,
-            PushMessageContentMediaAlbum.CONSTRUCTOR
+                PushMessageContentHidden.CONSTRUCTOR,
+                PushMessageContentAnimation.CONSTRUCTOR,
+                PushMessageContentAudio.CONSTRUCTOR,
+                PushMessageContentContact.CONSTRUCTOR,
+                PushMessageContentContactRegistered.CONSTRUCTOR,
+                PushMessageContentDocument.CONSTRUCTOR,
+                PushMessageContentGame.CONSTRUCTOR,
+                PushMessageContentGameScore.CONSTRUCTOR,
+                PushMessageContentInvoice.CONSTRUCTOR,
+                PushMessageContentLocation.CONSTRUCTOR,
+                PushMessageContentPhoto.CONSTRUCTOR,
+                PushMessageContentPoll.CONSTRUCTOR,
+                PushMessageContentScreenshotTaken.CONSTRUCTOR,
+                PushMessageContentSticker.CONSTRUCTOR,
+                PushMessageContentText.CONSTRUCTOR,
+                PushMessageContentVideo.CONSTRUCTOR,
+                PushMessageContentVideoNote.CONSTRUCTOR,
+                PushMessageContentVoiceNote.CONSTRUCTOR,
+                PushMessageContentBasicGroupChatCreate.CONSTRUCTOR,
+                PushMessageContentChatAddMembers.CONSTRUCTOR,
+                PushMessageContentChatChangePhoto.CONSTRUCTOR,
+                PushMessageContentChatChangeTitle.CONSTRUCTOR,
+                PushMessageContentChatDeleteMember.CONSTRUCTOR,
+                PushMessageContentChatJoinByLink.CONSTRUCTOR,
+                PushMessageContentMessageForwards.CONSTRUCTOR,
+                PushMessageContentMediaAlbum.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -21181,7 +21293,8 @@ public class TdApi {
         /**
          * Message content; may be null.
          */
-        @Nullable public Animation animation;
+        @Nullable
+        public Animation animation;
         /**
          * Animation caption.
          */
@@ -21201,8 +21314,8 @@ public class TdApi {
          * An animation message (GIF-style.)
          *
          * @param animation Message content; may be null.
-         * @param caption Animation caption.
-         * @param isPinned True, if the message is a pinned message with the specified content.
+         * @param caption   Animation caption.
+         * @param isPinned  True, if the message is a pinned message with the specified content.
          */
         public PushMessageContentAnimation(Animation animation, String caption, boolean isPinned) {
             this.animation = animation;
@@ -21231,7 +21344,8 @@ public class TdApi {
         /**
          * Message content; may be null.
          */
-        @Nullable public Audio audio;
+        @Nullable
+        public Audio audio;
         /**
          * True, if the message is a pinned message with the specified content.
          */
@@ -21246,7 +21360,7 @@ public class TdApi {
         /**
          * An audio message.
          *
-         * @param audio Message content; may be null.
+         * @param audio    Message content; may be null.
          * @param isPinned True, if the message is a pinned message with the specified content.
          */
         public PushMessageContentAudio(Audio audio, boolean isPinned) {
@@ -21290,7 +21404,7 @@ public class TdApi {
         /**
          * A message with a user contact.
          *
-         * @param name Contact's name.
+         * @param name     Contact's name.
          * @param isPinned True, if the message is a pinned message with the specified content.
          */
         public PushMessageContentContact(String name, boolean isPinned) {
@@ -21344,7 +21458,8 @@ public class TdApi {
         /**
          * Message content; may be null.
          */
-        @Nullable public Document document;
+        @Nullable
+        public Document document;
         /**
          * True, if the message is a pinned message with the specified content.
          */
@@ -21403,7 +21518,7 @@ public class TdApi {
         /**
          * A message with a game.
          *
-         * @param title Game title, empty for pinned game message.
+         * @param title    Game title, empty for pinned game message.
          * @param isPinned True, if the message is a pinned message with the specified content.
          */
         public PushMessageContentGame(String title, boolean isPinned) {
@@ -21451,8 +21566,8 @@ public class TdApi {
         /**
          * A new high score was achieved in a game.
          *
-         * @param title Game title, empty for pinned message.
-         * @param score New score, 0 for pinned message.
+         * @param title    Game title, empty for pinned message.
+         * @param score    New score, 0 for pinned message.
          * @param isPinned True, if the message is a pinned message with the specified content.
          */
         public PushMessageContentGameScore(String title, int score, boolean isPinned) {
@@ -21497,7 +21612,7 @@ public class TdApi {
         /**
          * A message with an invoice from a bot.
          *
-         * @param price Product price.
+         * @param price    Product price.
          * @param isPinned True, if the message is a pinned message with the specified content.
          */
         public PushMessageContentInvoice(String price, boolean isPinned) {
@@ -21541,7 +21656,7 @@ public class TdApi {
         /**
          * A message with a location.
          *
-         * @param isLive True, if the location is live.
+         * @param isLive   True, if the location is live.
          * @param isPinned True, if the message is a pinned message with the specified content.
          */
         public PushMessageContentLocation(boolean isLive, boolean isPinned) {
@@ -21570,7 +21685,8 @@ public class TdApi {
         /**
          * Message content; may be null.
          */
-        @Nullable public Photo photo;
+        @Nullable
+        public Photo photo;
         /**
          * Photo caption.
          */
@@ -21593,8 +21709,8 @@ public class TdApi {
         /**
          * A photo message.
          *
-         * @param photo Message content; may be null.
-         * @param caption Photo caption.
+         * @param photo    Message content; may be null.
+         * @param caption  Photo caption.
          * @param isSecret True, if the photo is secret.
          * @param isPinned True, if the message is a pinned message with the specified content.
          */
@@ -21695,7 +21811,8 @@ public class TdApi {
         /**
          * Message content; may be null.
          */
-        @Nullable public Sticker sticker;
+        @Nullable
+        public Sticker sticker;
         /**
          * Emoji corresponding to the sticker; may be empty.
          */
@@ -21714,8 +21831,8 @@ public class TdApi {
         /**
          * A message with a sticker.
          *
-         * @param sticker Message content; may be null.
-         * @param emoji Emoji corresponding to the sticker; may be empty.
+         * @param sticker  Message content; may be null.
+         * @param emoji    Emoji corresponding to the sticker; may be empty.
          * @param isPinned True, if the message is a pinned message with the specified content.
          */
         public PushMessageContentSticker(Sticker sticker, String emoji, boolean isPinned) {
@@ -21760,7 +21877,7 @@ public class TdApi {
         /**
          * A text message.
          *
-         * @param text Message text.
+         * @param text     Message text.
          * @param isPinned True, if the message is a pinned message with the specified content.
          */
         public PushMessageContentText(String text, boolean isPinned) {
@@ -21789,7 +21906,8 @@ public class TdApi {
         /**
          * Message content; may be null.
          */
-        @Nullable public Video video;
+        @Nullable
+        public Video video;
         /**
          * Video caption.
          */
@@ -21812,8 +21930,8 @@ public class TdApi {
         /**
          * A video message.
          *
-         * @param video Message content; may be null.
-         * @param caption Video caption.
+         * @param video    Message content; may be null.
+         * @param caption  Video caption.
          * @param isSecret True, if the video is secret.
          * @param isPinned True, if the message is a pinned message with the specified content.
          */
@@ -21845,7 +21963,8 @@ public class TdApi {
         /**
          * Message content; may be null.
          */
-        @Nullable public VideoNote videoNote;
+        @Nullable
+        public VideoNote videoNote;
         /**
          * True, if the message is a pinned message with the specified content.
          */
@@ -21861,7 +21980,7 @@ public class TdApi {
          * A video note message.
          *
          * @param videoNote Message content; may be null.
-         * @param isPinned True, if the message is a pinned message with the specified content.
+         * @param isPinned  True, if the message is a pinned message with the specified content.
          */
         public PushMessageContentVideoNote(VideoNote videoNote, boolean isPinned) {
             this.videoNote = videoNote;
@@ -21889,7 +22008,8 @@ public class TdApi {
         /**
          * Message content; may be null.
          */
-        @Nullable public VoiceNote voiceNote;
+        @Nullable
+        public VoiceNote voiceNote;
         /**
          * True, if the message is a pinned message with the specified content.
          */
@@ -21905,7 +22025,7 @@ public class TdApi {
          * A voice note message.
          *
          * @param voiceNote Message content; may be null.
-         * @param isPinned True, if the message is a pinned message with the specified content.
+         * @param isPinned  True, if the message is a pinned message with the specified content.
          */
         public PushMessageContentVoiceNote(VoiceNote voiceNote, boolean isPinned) {
             this.voiceNote = voiceNote;
@@ -21977,9 +22097,9 @@ public class TdApi {
         /**
          * New chat members were invited to a group.
          *
-         * @param memberName Name of the added member.
+         * @param memberName    Name of the added member.
          * @param isCurrentUser True, if the current user was added to the group.
-         * @param isReturned True, if the user has returned to the group himself.
+         * @param isReturned    True, if the user has returned to the group himself.
          */
         public PushMessageContentChatAddMembers(String memberName, boolean isCurrentUser, boolean isReturned) {
             this.memberName = memberName;
@@ -22090,9 +22210,9 @@ public class TdApi {
         /**
          * A chat member was deleted.
          *
-         * @param memberName Name of the deleted member.
+         * @param memberName    Name of the deleted member.
          * @param isCurrentUser True, if the current user was deleted from the group.
-         * @param isLeft True, if the user has left the group himself.
+         * @param isLeft        True, if the user has left the group himself.
          */
         public PushMessageContentChatDeleteMember(String memberName, boolean isCurrentUser, boolean isLeft) {
             this.memberName = memberName;
@@ -22204,8 +22324,8 @@ public class TdApi {
          * A media album.
          *
          * @param totalCount Number of messages in the album.
-         * @param hasPhotos True, if the album has at least one photo.
-         * @param hasVideos True, if the album has at least one video.
+         * @param hasPhotos  True, if the album has at least one photo.
+         * @param hasVideos  True, if the album has at least one video.
          */
         public PushMessageContentMediaAlbum(int totalCount, boolean hasPhotos, boolean hasVideos) {
             this.totalCount = totalCount;
@@ -22333,10 +22453,10 @@ public class TdApi {
         /**
          * Represents a remote file.
          *
-         * @param id Remote file identifier; may be empty. Can be used across application restarts or even from other devices for the current user. If the ID starts with &quot;http://&quot; or &quot;https://&quot;, it represents the HTTP URL of the file. TDLib is currently unable to download files if only their URL is known. If downloadFile is called on such a file or if it is sent to a secret chat, TDLib starts a file generation process by sending updateFileGenerationStart to the client with the HTTP URL in the originalPath and &quot;#url#&quot; as the conversion string. Clients should generate the file by downloading it to the specified location.
-         * @param isUploadingActive True, if the file is currently being uploaded (or a remote copy is being generated by some other means).
+         * @param id                   Remote file identifier; may be empty. Can be used across application restarts or even from other devices for the current user. If the ID starts with &quot;http://&quot; or &quot;https://&quot;, it represents the HTTP URL of the file. TDLib is currently unable to download files if only their URL is known. If downloadFile is called on such a file or if it is sent to a secret chat, TDLib starts a file generation process by sending updateFileGenerationStart to the client with the HTTP URL in the originalPath and &quot;#url#&quot; as the conversion string. Clients should generate the file by downloading it to the specified location.
+         * @param isUploadingActive    True, if the file is currently being uploaded (or a remote copy is being generated by some other means).
          * @param isUploadingCompleted True, if a remote copy is fully available.
-         * @param uploadedSize Size of the remote available part of the file; 0 if unknown.
+         * @param uploadedSize         Size of the remote available part of the file; 0 if unknown.
          */
         public RemoteFile(String id, boolean isUploadingActive, boolean isUploadingCompleted, int uploadedSize) {
             this.id = id;
@@ -22366,12 +22486,13 @@ public class TdApi {
     public abstract static class ReplyMarkup extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            ReplyMarkupRemoveKeyboard.CONSTRUCTOR,
-            ReplyMarkupForceReply.CONSTRUCTOR,
-            ReplyMarkupShowKeyboard.CONSTRUCTOR,
-            ReplyMarkupInlineKeyboard.CONSTRUCTOR
+                ReplyMarkupRemoveKeyboard.CONSTRUCTOR,
+                ReplyMarkupForceReply.CONSTRUCTOR,
+                ReplyMarkupShowKeyboard.CONSTRUCTOR,
+                ReplyMarkupInlineKeyboard.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -22487,10 +22608,10 @@ public class TdApi {
         /**
          * Contains a custom keyboard layout to quickly reply to bots.
          *
-         * @param rows A list of rows of bot keyboard buttons.
+         * @param rows           A list of rows of bot keyboard buttons.
          * @param resizeKeyboard True, if the client needs to resize the keyboard vertically.
-         * @param oneTime True, if the client needs to hide the keyboard after use.
-         * @param isPersonal True, if the keyboard must automatically be shown to the current user. For outgoing messages, specify true to show the keyboard only for the mentioned users and for the target user of a reply.
+         * @param oneTime        True, if the client needs to hide the keyboard after use.
+         * @param isPersonal     True, if the keyboard must automatically be shown to the current user. For outgoing messages, specify true to show the keyboard only for the mentioned users and for the target user of a reply.
          */
         public ReplyMarkupShowKeyboard(KeyboardButton[][] rows, boolean resizeKeyboard, boolean oneTime, boolean isPersonal) {
             this.rows = rows;
@@ -22558,23 +22679,24 @@ public class TdApi {
     public abstract static class RichText extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            RichTextPlain.CONSTRUCTOR,
-            RichTextBold.CONSTRUCTOR,
-            RichTextItalic.CONSTRUCTOR,
-            RichTextUnderline.CONSTRUCTOR,
-            RichTextStrikethrough.CONSTRUCTOR,
-            RichTextFixed.CONSTRUCTOR,
-            RichTextUrl.CONSTRUCTOR,
-            RichTextEmailAddress.CONSTRUCTOR,
-            RichTextSubscript.CONSTRUCTOR,
-            RichTextSuperscript.CONSTRUCTOR,
-            RichTextMarked.CONSTRUCTOR,
-            RichTextPhoneNumber.CONSTRUCTOR,
-            RichTextIcon.CONSTRUCTOR,
-            RichTextAnchor.CONSTRUCTOR,
-            RichTexts.CONSTRUCTOR
+                RichTextPlain.CONSTRUCTOR,
+                RichTextBold.CONSTRUCTOR,
+                RichTextItalic.CONSTRUCTOR,
+                RichTextUnderline.CONSTRUCTOR,
+                RichTextStrikethrough.CONSTRUCTOR,
+                RichTextFixed.CONSTRUCTOR,
+                RichTextUrl.CONSTRUCTOR,
+                RichTextEmailAddress.CONSTRUCTOR,
+                RichTextSubscript.CONSTRUCTOR,
+                RichTextSuperscript.CONSTRUCTOR,
+                RichTextMarked.CONSTRUCTOR,
+                RichTextPhoneNumber.CONSTRUCTOR,
+                RichTextIcon.CONSTRUCTOR,
+                RichTextAnchor.CONSTRUCTOR,
+                RichTexts.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -22835,7 +22957,7 @@ public class TdApi {
          * A rich text URL link.
          *
          * @param text Text.
-         * @param url URL.
+         * @param url  URL.
          */
         public RichTextUrl(RichText text, String url) {
             this.text = text;
@@ -22878,7 +23000,7 @@ public class TdApi {
         /**
          * A rich text email link.
          *
-         * @param text Text.
+         * @param text         Text.
          * @param emailAddress Email address.
          */
         public RichTextEmailAddress(RichText text, String emailAddress) {
@@ -23036,7 +23158,7 @@ public class TdApi {
         /**
          * A rich text phone number.
          *
-         * @param text Text.
+         * @param text        Text.
          * @param phoneNumber Phone number.
          */
         public RichTextPhoneNumber(RichText text, String phoneNumber) {
@@ -23085,8 +23207,8 @@ public class TdApi {
          * A small image inside the text.
          *
          * @param document The image represented as a document. The image can be in GIF, JPEG or PNG format.
-         * @param width Width of a bounding box in which the image should be shown, 0 if unknown.
-         * @param height Height of a bounding box in which the image should be shown, 0 if unknown.
+         * @param width    Width of a bounding box in which the image should be shown, 0 if unknown.
+         * @param height   Height of a bounding box in which the image should be shown, 0 if unknown.
          */
         public RichTextIcon(Document document, int width, int height) {
             this.document = document;
@@ -23212,7 +23334,7 @@ public class TdApi {
         /**
          * Contains information about saved card credentials.
          *
-         * @param id Unique identifier of the saved credentials.
+         * @param id    Unique identifier of the saved credentials.
          * @param title Title of the saved credentials.
          */
         public SavedCredentials(String id, String title) {
@@ -23268,11 +23390,11 @@ public class TdApi {
         /**
          * Contains information about notification settings for several chats.
          *
-         * @param muteFor Time left before notifications will be unmuted, in seconds.
-         * @param sound The name of an audio file to be used for notification sounds; only applies to iOS applications.
-         * @param showPreview True, if message content should be displayed in notifications.
+         * @param muteFor                           Time left before notifications will be unmuted, in seconds.
+         * @param sound                             The name of an audio file to be used for notification sounds; only applies to iOS applications.
+         * @param showPreview                       True, if message content should be displayed in notifications.
          * @param disablePinnedMessageNotifications True, if notifications for incoming pinned messages will be created as for an ordinary unread message.
-         * @param disableMentionNotifications True, if notifications for messages with mentions will be created as for an ordinary unread message.
+         * @param disableMentionNotifications       True, if notifications for messages with mentions will be created as for an ordinary unread message.
          */
         public ScopeNotificationSettings(int muteFor, String sound, boolean showPreview, boolean disablePinnedMessageNotifications, boolean disableMentionNotifications) {
             this.muteFor = muteFor;
@@ -23303,24 +23425,25 @@ public class TdApi {
     public abstract static class SearchMessagesFilter extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            SearchMessagesFilterEmpty.CONSTRUCTOR,
-            SearchMessagesFilterAnimation.CONSTRUCTOR,
-            SearchMessagesFilterAudio.CONSTRUCTOR,
-            SearchMessagesFilterDocument.CONSTRUCTOR,
-            SearchMessagesFilterPhoto.CONSTRUCTOR,
-            SearchMessagesFilterVideo.CONSTRUCTOR,
-            SearchMessagesFilterVoiceNote.CONSTRUCTOR,
-            SearchMessagesFilterPhotoAndVideo.CONSTRUCTOR,
-            SearchMessagesFilterUrl.CONSTRUCTOR,
-            SearchMessagesFilterChatPhoto.CONSTRUCTOR,
-            SearchMessagesFilterCall.CONSTRUCTOR,
-            SearchMessagesFilterMissedCall.CONSTRUCTOR,
-            SearchMessagesFilterVideoNote.CONSTRUCTOR,
-            SearchMessagesFilterVoiceAndVideoNote.CONSTRUCTOR,
-            SearchMessagesFilterMention.CONSTRUCTOR,
-            SearchMessagesFilterUnreadMention.CONSTRUCTOR
+                SearchMessagesFilterEmpty.CONSTRUCTOR,
+                SearchMessagesFilterAnimation.CONSTRUCTOR,
+                SearchMessagesFilterAudio.CONSTRUCTOR,
+                SearchMessagesFilterDocument.CONSTRUCTOR,
+                SearchMessagesFilterPhoto.CONSTRUCTOR,
+                SearchMessagesFilterVideo.CONSTRUCTOR,
+                SearchMessagesFilterVoiceNote.CONSTRUCTOR,
+                SearchMessagesFilterPhotoAndVideo.CONSTRUCTOR,
+                SearchMessagesFilterUrl.CONSTRUCTOR,
+                SearchMessagesFilterChatPhoto.CONSTRUCTOR,
+                SearchMessagesFilterCall.CONSTRUCTOR,
+                SearchMessagesFilterMissedCall.CONSTRUCTOR,
+                SearchMessagesFilterVideoNote.CONSTRUCTOR,
+                SearchMessagesFilterVoiceAndVideoNote.CONSTRUCTOR,
+                SearchMessagesFilterMention.CONSTRUCTOR,
+                SearchMessagesFilterUnreadMention.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -23810,13 +23933,13 @@ public class TdApi {
         /**
          * Represents a secret chat.
          *
-         * @param id Secret chat identifier.
-         * @param userId Identifier of the chat partner.
-         * @param state State of the secret chat.
+         * @param id         Secret chat identifier.
+         * @param userId     Identifier of the chat partner.
+         * @param state      State of the secret chat.
          * @param isOutbound True, if the chat was created by the current user; otherwise false.
-         * @param ttl Current message Time To Live setting (self-destruct timer) for the chat, in seconds.
-         * @param keyHash Hash of the currently used key for comparison with the hash of the chat partner's key. This is a string of 36 bytes, which must be used to make a 12x12 square image with a color depth of 4. The first 16 bytes should be used to make a central 8x8 square, while the remaining 20 bytes should be used to construct a 2-pixel-wide border around that square. Alternatively, the first 32 bytes of the hash can be converted to the hexadecimal format and printed as 32 2-digit hex numbers.
-         * @param layer Secret chat layer; determines features supported by the other client. Video notes are supported if the layer &gt;= 66.
+         * @param ttl        Current message Time To Live setting (self-destruct timer) for the chat, in seconds.
+         * @param keyHash    Hash of the currently used key for comparison with the hash of the chat partner's key. This is a string of 36 bytes, which must be used to make a 12x12 square image with a color depth of 4. The first 16 bytes should be used to make a central 8x8 square, while the remaining 20 bytes should be used to construct a 2-pixel-wide border around that square. Alternatively, the first 32 bytes of the hash can be converted to the hexadecimal format and printed as 32 2-digit hex numbers.
+         * @param layer      Secret chat layer; determines features supported by the other client. Video notes are supported if the layer &gt;= 66.
          */
         public SecretChat(int id, int userId, SecretChatState state, boolean isOutbound, int ttl, byte[] keyHash, int layer) {
             this.id = id;
@@ -23849,11 +23972,12 @@ public class TdApi {
     public abstract static class SecretChatState extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            SecretChatStatePending.CONSTRUCTOR,
-            SecretChatStateReady.CONSTRUCTOR,
-            SecretChatStateClosed.CONSTRUCTOR
+                SecretChatStatePending.CONSTRUCTOR,
+                SecretChatStateReady.CONSTRUCTOR,
+                SecretChatStateClosed.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -24012,21 +24136,21 @@ public class TdApi {
         /**
          * Contains information about one session in a Telegram application used by the current user. Sessions should be shown to the user in the returned order.
          *
-         * @param id Session identifier.
-         * @param isCurrent True, if this session is the current session.
-         * @param isPasswordPending True, if a password is needed to complete authorization of the session.
-         * @param apiId Telegram API identifier, as provided by the application.
-         * @param applicationName Name of the application, as provided by the application.
-         * @param applicationVersion The version of the application, as provided by the application.
+         * @param id                    Session identifier.
+         * @param isCurrent             True, if this session is the current session.
+         * @param isPasswordPending     True, if a password is needed to complete authorization of the session.
+         * @param apiId                 Telegram API identifier, as provided by the application.
+         * @param applicationName       Name of the application, as provided by the application.
+         * @param applicationVersion    The version of the application, as provided by the application.
          * @param isOfficialApplication True, if the application is an official application or uses the apiId of an official application.
-         * @param deviceModel Model of the device the application has been run or is running on, as provided by the application.
-         * @param platform Operating system the application has been run or is running on, as provided by the application.
-         * @param systemVersion Version of the operating system the application has been run or is running on, as provided by the application.
-         * @param logInDate Point in time (Unix timestamp) when the user has logged in.
-         * @param lastActiveDate Point in time (Unix timestamp) when the session was last used.
-         * @param ip IP address from which the session was created, in human-readable format.
-         * @param country A two-letter country code for the country from which the session was created, based on the IP address.
-         * @param region Region code from which the session was created, based on the IP address.
+         * @param deviceModel           Model of the device the application has been run or is running on, as provided by the application.
+         * @param platform              Operating system the application has been run or is running on, as provided by the application.
+         * @param systemVersion         Version of the operating system the application has been run or is running on, as provided by the application.
+         * @param logInDate             Point in time (Unix timestamp) when the user has logged in.
+         * @param lastActiveDate        Point in time (Unix timestamp) when the session was last used.
+         * @param ip                    IP address from which the session was created, in human-readable format.
+         * @param country               A two-letter country code for the country from which the session was created, based on the IP address.
+         * @param region                Region code from which the session was created, based on the IP address.
          */
         public Session(long id, boolean isCurrent, boolean isPasswordPending, int apiId, String applicationName, String applicationVersion, boolean isOfficialApplication, String deviceModel, String platform, String systemVersion, int logInDate, int lastActiveDate, String ip, String country, String region) {
             this.id = id;
@@ -24124,8 +24248,8 @@ public class TdApi {
         /**
          * One shipping option.
          *
-         * @param id Shipping option identifier.
-         * @param title Option title.
+         * @param id         Shipping option identifier.
+         * @param title      Option title.
          * @param priceParts A list of objects used to calculate the total shipping costs.
          */
         public ShippingOption(String id, String title, LabeledPricePart[] priceParts) {
@@ -24175,11 +24299,13 @@ public class TdApi {
         /**
          * Position where the mask should be placed; may be null.
          */
-        @Nullable public MaskPosition maskPosition;
+        @Nullable
+        public MaskPosition maskPosition;
         /**
          * Sticker thumbnail in WEBP or JPEG format; may be null.
          */
-        @Nullable public PhotoSize thumbnail;
+        @Nullable
+        public PhotoSize thumbnail;
         /**
          * File containing the sticker.
          */
@@ -24194,14 +24320,14 @@ public class TdApi {
         /**
          * Describes a sticker.
          *
-         * @param setId The identifier of the sticker set to which the sticker belongs; 0 if none.
-         * @param width Sticker width; as defined by the sender.
-         * @param height Sticker height; as defined by the sender.
-         * @param emoji Emoji corresponding to the sticker.
-         * @param isMask True, if the sticker is a mask.
+         * @param setId        The identifier of the sticker set to which the sticker belongs; 0 if none.
+         * @param width        Sticker width; as defined by the sender.
+         * @param height       Sticker height; as defined by the sender.
+         * @param emoji        Emoji corresponding to the sticker.
+         * @param isMask       True, if the sticker is a mask.
          * @param maskPosition Position where the mask should be placed; may be null.
-         * @param thumbnail Sticker thumbnail in WEBP or JPEG format; may be null.
-         * @param sticker File containing the sticker.
+         * @param thumbnail    Sticker thumbnail in WEBP or JPEG format; may be null.
+         * @param sticker      File containing the sticker.
          */
         public Sticker(long setId, int width, int height, String emoji, boolean isMask, MaskPosition maskPosition, PhotoSize thumbnail, File sticker) {
             this.setId = setId;
@@ -24320,16 +24446,16 @@ public class TdApi {
         /**
          * Represents a sticker set.
          *
-         * @param id Identifier of the sticker set.
-         * @param title Title of the sticker set.
-         * @param name Name of the sticker set.
+         * @param id          Identifier of the sticker set.
+         * @param title       Title of the sticker set.
+         * @param name        Name of the sticker set.
          * @param isInstalled True, if the sticker set has been installed by the current user.
-         * @param isArchived True, if the sticker set has been archived. A sticker set can't be installed and archived simultaneously.
-         * @param isOfficial True, if the sticker set is official.
-         * @param isMasks True, if the stickers in the set are masks.
-         * @param isViewed True for already viewed trending sticker sets.
-         * @param stickers List of stickers in this set.
-         * @param emojis A list of emoji corresponding to the stickers in the same order.
+         * @param isArchived  True, if the sticker set has been archived. A sticker set can't be installed and archived simultaneously.
+         * @param isOfficial  True, if the sticker set is official.
+         * @param isMasks     True, if the stickers in the set are masks.
+         * @param isViewed    True for already viewed trending sticker sets.
+         * @param stickers    List of stickers in this set.
+         * @param emojis      A list of emoji corresponding to the stickers in the same order.
          */
         public StickerSet(long id, String title, String name, boolean isInstalled, boolean isArchived, boolean isOfficial, boolean isMasks, boolean isViewed, Sticker[] stickers, StickerEmojis[] emojis) {
             this.id = id;
@@ -24412,16 +24538,16 @@ public class TdApi {
         /**
          * Represents short information about a sticker set.
          *
-         * @param id Identifier of the sticker set.
-         * @param title Title of the sticker set.
-         * @param name Name of the sticker set.
+         * @param id          Identifier of the sticker set.
+         * @param title       Title of the sticker set.
+         * @param name        Name of the sticker set.
          * @param isInstalled True, if the sticker set has been installed by current user.
-         * @param isArchived True, if the sticker set has been archived. A sticker set can't be installed and archived simultaneously.
-         * @param isOfficial True, if the sticker set is official.
-         * @param isMasks True, if the stickers in the set are masks.
-         * @param isViewed True for already viewed trending sticker sets.
-         * @param size Total number of stickers in the set.
-         * @param covers Contains up to the first 5 stickers from the set, depending on the context. If the client needs more stickers the full set should be requested.
+         * @param isArchived  True, if the sticker set has been archived. A sticker set can't be installed and archived simultaneously.
+         * @param isOfficial  True, if the sticker set is official.
+         * @param isMasks     True, if the stickers in the set are masks.
+         * @param isViewed    True for already viewed trending sticker sets.
+         * @param size        Total number of stickers in the set.
+         * @param covers      Contains up to the first 5 stickers from the set, depending on the context. If the client needs more stickers the full set should be requested.
          */
         public StickerSetInfo(long id, String title, String name, boolean isInstalled, boolean isArchived, boolean isOfficial, boolean isMasks, boolean isViewed, int size, Sticker[] covers) {
             this.id = id;
@@ -24473,7 +24599,7 @@ public class TdApi {
          * Represents a list of sticker sets.
          *
          * @param totalCount Approximate total number of sticker sets found.
-         * @param sets List of sticker sets.
+         * @param sets       List of sticker sets.
          */
         public StickerSets(int totalCount, StickerSetInfo[] sets) {
             this.totalCount = totalCount;
@@ -24558,8 +24684,8 @@ public class TdApi {
         /**
          * Contains the exact storage usage statistics split by chats and file type.
          *
-         * @param size Total size of files.
-         * @param count Total number of files.
+         * @param size   Total size of files.
+         * @param count  Total number of files.
          * @param byChat Statistics split by chats.
          */
         public StorageStatistics(long size, int count, StorageStatisticsByChat[] byChat) {
@@ -24612,9 +24738,9 @@ public class TdApi {
         /**
          * Contains the storage usage statistics for a specific chat.
          *
-         * @param chatId Chat identifier; 0 if none.
-         * @param size Total size of the files in the chat.
-         * @param count Total number of files in the chat.
+         * @param chatId     Chat identifier; 0 if none.
+         * @param size       Total size of the files in the chat.
+         * @param count      Total number of files in the chat.
          * @param byFileType Statistics split by file types.
          */
         public StorageStatisticsByChat(long chatId, long size, int count, StorageStatisticsByFileType[] byFileType) {
@@ -24665,8 +24791,8 @@ public class TdApi {
          * Contains the storage usage statistics for a specific file type.
          *
          * @param fileType File type.
-         * @param size Total size of the files.
-         * @param count Total number of files.
+         * @param size     Total size of the files.
+         * @param count    Total number of files.
          */
         public StorageStatisticsByFileType(FileType fileType, long size, int count) {
             this.fileType = fileType;
@@ -24722,11 +24848,11 @@ public class TdApi {
         /**
          * Contains approximate storage usage statistics, excluding files of unknown file type.
          *
-         * @param filesSize Approximate total size of files.
-         * @param fileCount Approximate number of files.
-         * @param databaseSize Size of the database.
+         * @param filesSize                Approximate total size of files.
+         * @param fileCount                Approximate number of files.
+         * @param databaseSize             Size of the database.
          * @param languagePackDatabaseSize Size of the language pack database.
-         * @param logSize Size of the TDLib internal log.
+         * @param logSize                  Size of the TDLib internal log.
          */
         public StorageStatisticsFast(long filesSize, int fileCount, long databaseSize, long languagePackDatabaseSize, long logSize) {
             this.filesSize = filesSize;
@@ -24804,15 +24930,15 @@ public class TdApi {
         /**
          * Represents a supergroup or channel with zero or more members (subscribers in the case of channels). From the point of view of the system, a channel is a special kind of a supergroup: only administrators can post and see the list of members, and posts from all administrators use the name and photo of the channel instead of individual names and profile photos. Unlike supergroups, channels can have an unlimited number of subscribers.
          *
-         * @param id Supergroup or channel identifier.
-         * @param username Username of the supergroup or channel; empty for private supergroups or channels.
-         * @param date Point in time (Unix timestamp) when the current user joined, or the point in time when the supergroup or channel was created, in case the user is not a member.
-         * @param status Status of the current user in the supergroup or channel.
-         * @param memberCount Member count; 0 if unknown. Currently it is guaranteed to be known only if the supergroup or channel was found through SearchPublicChats.
-         * @param anyoneCanInvite True, if any member of the supergroup can invite other members. This field has no meaning for channels.
-         * @param signMessages True, if messages sent to the channel should contain information about the sender. This field is only applicable to channels.
-         * @param isChannel True, if the supergroup is a channel.
-         * @param isVerified True, if the supergroup or channel is verified.
+         * @param id                Supergroup or channel identifier.
+         * @param username          Username of the supergroup or channel; empty for private supergroups or channels.
+         * @param date              Point in time (Unix timestamp) when the current user joined, or the point in time when the supergroup or channel was created, in case the user is not a member.
+         * @param status            Status of the current user in the supergroup or channel.
+         * @param memberCount       Member count; 0 if unknown. Currently it is guaranteed to be known only if the supergroup or channel was found through SearchPublicChats.
+         * @param anyoneCanInvite   True, if any member of the supergroup can invite other members. This field has no meaning for channels.
+         * @param signMessages      True, if messages sent to the channel should contain information about the sender. This field is only applicable to channels.
+         * @param isChannel         True, if the supergroup is a channel.
+         * @param isVerified        True, if the supergroup or channel is verified.
          * @param restrictionReason If non-empty, contains the reason why access to this supergroup or channel must be restricted. Format of the string is &quot;{type}: {description}&quot;. {type} Contains the type of the restriction and at least one of the suffixes &quot;-all&quot;, &quot;-ios&quot;, &quot;-android&quot;, or &quot;-wp&quot;, which describe the platforms on which access should be restricted. (For example, &quot;terms-ios-android&quot;. {description} contains a human-readable description of the restriction, which can be shown to the user.)
          */
         public Supergroup(int id, String username, int date, ChatMemberStatus status, int memberCount, boolean anyoneCanInvite, boolean signMessages, boolean isChannel, boolean isVerified, String restrictionReason) {
@@ -24912,18 +25038,18 @@ public class TdApi {
         /**
          * Contains full information about a supergroup or channel.
          *
-         * @param description Supergroup or channel description.
-         * @param memberCount Number of members in the supergroup or channel; 0 if unknown.
-         * @param administratorCount Number of privileged users in the supergroup or channel; 0 if unknown.
-         * @param restrictedCount Number of restricted users in the supergroup; 0 if unknown.
-         * @param bannedCount Number of users banned from chat; 0 if unknown.
-         * @param canGetMembers True, if members of the chat can be retrieved.
-         * @param canSetUsername True, if the chat can be made public.
-         * @param canSetStickerSet True, if the supergroup sticker set can be changed.
-         * @param canViewStatistics True, if the channel statistics is available through getChatStatisticsUrl.
-         * @param isAllHistoryAvailable True, if new chat members will have access to old messages. In public supergroups and both public and private channels, old messages are always available, so this option affects only private supergroups. The value of this field is only available for chat administrators.
-         * @param stickerSetId Identifier of the supergroup sticker set; 0 if none.
-         * @param inviteLink Invite link for this chat.
+         * @param description              Supergroup or channel description.
+         * @param memberCount              Number of members in the supergroup or channel; 0 if unknown.
+         * @param administratorCount       Number of privileged users in the supergroup or channel; 0 if unknown.
+         * @param restrictedCount          Number of restricted users in the supergroup; 0 if unknown.
+         * @param bannedCount              Number of users banned from chat; 0 if unknown.
+         * @param canGetMembers            True, if members of the chat can be retrieved.
+         * @param canSetUsername           True, if the chat can be made public.
+         * @param canSetStickerSet         True, if the supergroup sticker set can be changed.
+         * @param canViewStatistics        True, if the channel statistics is available through getChatStatisticsUrl.
+         * @param isAllHistoryAvailable    True, if new chat members will have access to old messages. In public supergroups and both public and private channels, old messages are always available, so this option affects only private supergroups. The value of this field is only available for chat administrators.
+         * @param stickerSetId             Identifier of the supergroup sticker set; 0 if none.
+         * @param inviteLink               Invite link for this chat.
          * @param upgradedFromBasicGroupId Identifier of the basic group from which supergroup was upgraded; 0 if none.
          * @param upgradedFromMaxMessageId Identifier of the last message in the basic group from which supergroup was upgraded; 0 if none.
          */
@@ -24965,14 +25091,15 @@ public class TdApi {
     public abstract static class SupergroupMembersFilter extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            SupergroupMembersFilterRecent.CONSTRUCTOR,
-            SupergroupMembersFilterAdministrators.CONSTRUCTOR,
-            SupergroupMembersFilterSearch.CONSTRUCTOR,
-            SupergroupMembersFilterRestricted.CONSTRUCTOR,
-            SupergroupMembersFilterBanned.CONSTRUCTOR,
-            SupergroupMembersFilterBots.CONSTRUCTOR
+                SupergroupMembersFilterRecent.CONSTRUCTOR,
+                SupergroupMembersFilterAdministrators.CONSTRUCTOR,
+                SupergroupMembersFilterSearch.CONSTRUCTOR,
+                SupergroupMembersFilterRestricted.CONSTRUCTOR,
+                SupergroupMembersFilterBanned.CONSTRUCTOR,
+                SupergroupMembersFilterBots.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -25193,7 +25320,7 @@ public class TdApi {
         /**
          * Represents a URL linking to an internal Telegram entity.
          *
-         * @param url URL.
+         * @param url  URL.
          * @param type Type of the URL.
          */
         public TMeUrl(String url, TMeUrlType type) {
@@ -25222,12 +25349,13 @@ public class TdApi {
     public abstract static class TMeUrlType extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            TMeUrlTypeUser.CONSTRUCTOR,
-            TMeUrlTypeSupergroup.CONSTRUCTOR,
-            TMeUrlTypeChatInvite.CONSTRUCTOR,
-            TMeUrlTypeStickerSet.CONSTRUCTOR
+                TMeUrlTypeUser.CONSTRUCTOR,
+                TMeUrlTypeSupergroup.CONSTRUCTOR,
+                TMeUrlTypeChatInvite.CONSTRUCTOR,
+                TMeUrlTypeStickerSet.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -25501,21 +25629,21 @@ public class TdApi {
         /**
          * Contains parameters for TDLib initialization.
          *
-         * @param useTestDc If set to true, the Telegram test environment will be used instead of the production environment.
-         * @param databaseDirectory The path to the directory for the persistent database; if empty, the current working directory will be used.
-         * @param filesDirectory The path to the directory for storing files; if empty, databaseDirectory will be used.
-         * @param useFileDatabase If set to true, information about downloaded and uploaded files will be saved between application restarts.
-         * @param useChatInfoDatabase If set to true, the library will maintain a cache of users, basic groups, supergroups, channels and secret chats. Implies useFileDatabase.
-         * @param useMessageDatabase If set to true, the library will maintain a cache of chats and messages. Implies useChatInfoDatabase.
-         * @param useSecretChats If set to true, support for secret chats will be enabled.
-         * @param apiId Application identifier for Telegram API access, which can be obtained at https://my.telegram.org.
-         * @param apiHash Application identifier hash for Telegram API access, which can be obtained at https://my.telegram.org.
-         * @param systemLanguageCode IETF language tag of the user's operating system language; must be non-empty.
-         * @param deviceModel Model of the device the application is being run on; must be non-empty.
-         * @param systemVersion Version of the operating system the application is being run on; must be non-empty.
-         * @param applicationVersion Application version; must be non-empty.
+         * @param useTestDc              If set to true, the Telegram test environment will be used instead of the production environment.
+         * @param databaseDirectory      The path to the directory for the persistent database; if empty, the current working directory will be used.
+         * @param filesDirectory         The path to the directory for storing files; if empty, databaseDirectory will be used.
+         * @param useFileDatabase        If set to true, information about downloaded and uploaded files will be saved between application restarts.
+         * @param useChatInfoDatabase    If set to true, the library will maintain a cache of users, basic groups, supergroups, channels and secret chats. Implies useFileDatabase.
+         * @param useMessageDatabase     If set to true, the library will maintain a cache of chats and messages. Implies useChatInfoDatabase.
+         * @param useSecretChats         If set to true, support for secret chats will be enabled.
+         * @param apiId                  Application identifier for Telegram API access, which can be obtained at https://my.telegram.org.
+         * @param apiHash                Application identifier hash for Telegram API access, which can be obtained at https://my.telegram.org.
+         * @param systemLanguageCode     IETF language tag of the user's operating system language; must be non-empty.
+         * @param deviceModel            Model of the device the application is being run on; must be non-empty.
+         * @param systemVersion          Version of the operating system the application is being run on; must be non-empty.
+         * @param applicationVersion     Application version; must be non-empty.
          * @param enableStorageOptimizer If set to true, old files will automatically be deleted.
-         * @param ignoreFileNames If set to true, original file names will be ignored. Otherwise, downloaded files will be saved under names as close as possible to the original name.
+         * @param ignoreFileNames        If set to true, original file names will be ignored. Otherwise, downloaded files will be saved under names as close as possible to the original name.
          */
         public TdlibParameters(boolean useTestDc, String databaseDirectory, String filesDirectory, boolean useFileDatabase, boolean useChatInfoDatabase, boolean useMessageDatabase, boolean useSecretChats, int apiId, String apiHash, String systemLanguageCode, String deviceModel, String systemVersion, String applicationVersion, boolean enableStorageOptimizer, boolean ignoreFileNames) {
             this.useTestDc = useTestDc;
@@ -25572,7 +25700,7 @@ public class TdApi {
          * Returns information about the availability of a temporary password, which can be used for payments.
          *
          * @param hasPassword True, if a temporary password is available.
-         * @param validFor Time left before the temporary password expires, in seconds.
+         * @param validFor    Time left before the temporary password expires, in seconds.
          */
         public TemporaryPasswordState(boolean hasPassword, int validFor) {
             this.hasPassword = hasPassword;
@@ -25619,9 +25747,9 @@ public class TdApi {
         /**
          * Contains Telegram terms of service.
          *
-         * @param text Text of the terms of service.
+         * @param text       Text of the terms of service.
          * @param minUserAge Mininum age of a user to be able to accept the terms; 0 if any.
-         * @param showPopup True, if a blocking popup with terms of service must be shown to the user.
+         * @param showPopup  True, if a blocking popup with terms of service must be shown to the user.
          */
         public TermsOfService(FormattedText text, int minUserAge, boolean showPopup) {
             this.text = text;
@@ -26013,7 +26141,7 @@ public class TdApi {
          *
          * @param offset Offset of the entity in UTF-16 code points.
          * @param length Length of the entity, in UTF-16 code points.
-         * @param type Type of the entity.
+         * @param type   Type of the entity.
          */
         public TextEntity(int offset, int length, TextEntityType type) {
             this.offset = offset;
@@ -26042,22 +26170,23 @@ public class TdApi {
     public abstract static class TextEntityType extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            TextEntityTypeMention.CONSTRUCTOR,
-            TextEntityTypeHashtag.CONSTRUCTOR,
-            TextEntityTypeCashtag.CONSTRUCTOR,
-            TextEntityTypeBotCommand.CONSTRUCTOR,
-            TextEntityTypeUrl.CONSTRUCTOR,
-            TextEntityTypeEmailAddress.CONSTRUCTOR,
-            TextEntityTypeBold.CONSTRUCTOR,
-            TextEntityTypeItalic.CONSTRUCTOR,
-            TextEntityTypeCode.CONSTRUCTOR,
-            TextEntityTypePre.CONSTRUCTOR,
-            TextEntityTypePreCode.CONSTRUCTOR,
-            TextEntityTypeTextUrl.CONSTRUCTOR,
-            TextEntityTypeMentionName.CONSTRUCTOR,
-            TextEntityTypePhoneNumber.CONSTRUCTOR
+                TextEntityTypeMention.CONSTRUCTOR,
+                TextEntityTypeHashtag.CONSTRUCTOR,
+                TextEntityTypeCashtag.CONSTRUCTOR,
+                TextEntityTypeBotCommand.CONSTRUCTOR,
+                TextEntityTypeUrl.CONSTRUCTOR,
+                TextEntityTypeEmailAddress.CONSTRUCTOR,
+                TextEntityTypeBold.CONSTRUCTOR,
+                TextEntityTypeItalic.CONSTRUCTOR,
+                TextEntityTypeCode.CONSTRUCTOR,
+                TextEntityTypePre.CONSTRUCTOR,
+                TextEntityTypePreCode.CONSTRUCTOR,
+                TextEntityTypeTextUrl.CONSTRUCTOR,
+                TextEntityTypeMentionName.CONSTRUCTOR,
+                TextEntityTypePhoneNumber.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -26463,10 +26592,11 @@ public class TdApi {
     public abstract static class TextParseMode extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            TextParseModeMarkdown.CONSTRUCTOR,
-            TextParseModeHTML.CONSTRUCTOR
+                TextParseModeMarkdown.CONSTRUCTOR,
+                TextParseModeHTML.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -26533,14 +26663,15 @@ public class TdApi {
     public abstract static class TopChatCategory extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            TopChatCategoryUsers.CONSTRUCTOR,
-            TopChatCategoryBots.CONSTRUCTOR,
-            TopChatCategoryGroups.CONSTRUCTOR,
-            TopChatCategoryChannels.CONSTRUCTOR,
-            TopChatCategoryInlineBots.CONSTRUCTOR,
-            TopChatCategoryCalls.CONSTRUCTOR
+                TopChatCategoryUsers.CONSTRUCTOR,
+                TopChatCategoryBots.CONSTRUCTOR,
+                TopChatCategoryGroups.CONSTRUCTOR,
+                TopChatCategoryChannels.CONSTRUCTOR,
+                TopChatCategoryInlineBots.CONSTRUCTOR,
+                TopChatCategoryCalls.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -26707,76 +26838,77 @@ public class TdApi {
     public abstract static class Update extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            UpdateAuthorizationState.CONSTRUCTOR,
-            UpdateNewMessage.CONSTRUCTOR,
-            UpdateMessageSendAcknowledged.CONSTRUCTOR,
-            UpdateMessageSendSucceeded.CONSTRUCTOR,
-            UpdateMessageSendFailed.CONSTRUCTOR,
-            UpdateMessageContent.CONSTRUCTOR,
-            UpdateMessageEdited.CONSTRUCTOR,
-            UpdateMessageViews.CONSTRUCTOR,
-            UpdateMessageContentOpened.CONSTRUCTOR,
-            UpdateMessageMentionRead.CONSTRUCTOR,
-            UpdateNewChat.CONSTRUCTOR,
-            UpdateChatTitle.CONSTRUCTOR,
-            UpdateChatPhoto.CONSTRUCTOR,
-            UpdateChatLastMessage.CONSTRUCTOR,
-            UpdateChatOrder.CONSTRUCTOR,
-            UpdateChatIsPinned.CONSTRUCTOR,
-            UpdateChatIsMarkedAsUnread.CONSTRUCTOR,
-            UpdateChatIsSponsored.CONSTRUCTOR,
-            UpdateChatDefaultDisableNotification.CONSTRUCTOR,
-            UpdateChatReadInbox.CONSTRUCTOR,
-            UpdateChatReadOutbox.CONSTRUCTOR,
-            UpdateChatUnreadMentionCount.CONSTRUCTOR,
-            UpdateChatNotificationSettings.CONSTRUCTOR,
-            UpdateScopeNotificationSettings.CONSTRUCTOR,
-            UpdateChatPinnedMessage.CONSTRUCTOR,
-            UpdateChatReplyMarkup.CONSTRUCTOR,
-            UpdateChatDraftMessage.CONSTRUCTOR,
-            UpdateChatOnlineMemberCount.CONSTRUCTOR,
-            UpdateNotification.CONSTRUCTOR,
-            UpdateNotificationGroup.CONSTRUCTOR,
-            UpdateActiveNotifications.CONSTRUCTOR,
-            UpdateHavePendingNotifications.CONSTRUCTOR,
-            UpdateDeleteMessages.CONSTRUCTOR,
-            UpdateUserChatAction.CONSTRUCTOR,
-            UpdateUserStatus.CONSTRUCTOR,
-            UpdateUser.CONSTRUCTOR,
-            UpdateBasicGroup.CONSTRUCTOR,
-            UpdateSupergroup.CONSTRUCTOR,
-            UpdateSecretChat.CONSTRUCTOR,
-            UpdateUserFullInfo.CONSTRUCTOR,
-            UpdateBasicGroupFullInfo.CONSTRUCTOR,
-            UpdateSupergroupFullInfo.CONSTRUCTOR,
-            UpdateServiceNotification.CONSTRUCTOR,
-            UpdateFile.CONSTRUCTOR,
-            UpdateFileGenerationStart.CONSTRUCTOR,
-            UpdateFileGenerationStop.CONSTRUCTOR,
-            UpdateCall.CONSTRUCTOR,
-            UpdateUserPrivacySettingRules.CONSTRUCTOR,
-            UpdateUnreadMessageCount.CONSTRUCTOR,
-            UpdateUnreadChatCount.CONSTRUCTOR,
-            UpdateOption.CONSTRUCTOR,
-            UpdateInstalledStickerSets.CONSTRUCTOR,
-            UpdateTrendingStickerSets.CONSTRUCTOR,
-            UpdateRecentStickers.CONSTRUCTOR,
-            UpdateFavoriteStickers.CONSTRUCTOR,
-            UpdateSavedAnimations.CONSTRUCTOR,
-            UpdateLanguagePackStrings.CONSTRUCTOR,
-            UpdateConnectionState.CONSTRUCTOR,
-            UpdateTermsOfService.CONSTRUCTOR,
-            UpdateNewInlineQuery.CONSTRUCTOR,
-            UpdateNewChosenInlineResult.CONSTRUCTOR,
-            UpdateNewCallbackQuery.CONSTRUCTOR,
-            UpdateNewInlineCallbackQuery.CONSTRUCTOR,
-            UpdateNewShippingQuery.CONSTRUCTOR,
-            UpdateNewPreCheckoutQuery.CONSTRUCTOR,
-            UpdateNewCustomEvent.CONSTRUCTOR,
-            UpdateNewCustomQuery.CONSTRUCTOR,
-            UpdatePoll.CONSTRUCTOR
+                UpdateAuthorizationState.CONSTRUCTOR,
+                UpdateNewMessage.CONSTRUCTOR,
+                UpdateMessageSendAcknowledged.CONSTRUCTOR,
+                UpdateMessageSendSucceeded.CONSTRUCTOR,
+                UpdateMessageSendFailed.CONSTRUCTOR,
+                UpdateMessageContent.CONSTRUCTOR,
+                UpdateMessageEdited.CONSTRUCTOR,
+                UpdateMessageViews.CONSTRUCTOR,
+                UpdateMessageContentOpened.CONSTRUCTOR,
+                UpdateMessageMentionRead.CONSTRUCTOR,
+                UpdateNewChat.CONSTRUCTOR,
+                UpdateChatTitle.CONSTRUCTOR,
+                UpdateChatPhoto.CONSTRUCTOR,
+                UpdateChatLastMessage.CONSTRUCTOR,
+                UpdateChatOrder.CONSTRUCTOR,
+                UpdateChatIsPinned.CONSTRUCTOR,
+                UpdateChatIsMarkedAsUnread.CONSTRUCTOR,
+                UpdateChatIsSponsored.CONSTRUCTOR,
+                UpdateChatDefaultDisableNotification.CONSTRUCTOR,
+                UpdateChatReadInbox.CONSTRUCTOR,
+                UpdateChatReadOutbox.CONSTRUCTOR,
+                UpdateChatUnreadMentionCount.CONSTRUCTOR,
+                UpdateChatNotificationSettings.CONSTRUCTOR,
+                UpdateScopeNotificationSettings.CONSTRUCTOR,
+                UpdateChatPinnedMessage.CONSTRUCTOR,
+                UpdateChatReplyMarkup.CONSTRUCTOR,
+                UpdateChatDraftMessage.CONSTRUCTOR,
+                UpdateChatOnlineMemberCount.CONSTRUCTOR,
+                UpdateNotification.CONSTRUCTOR,
+                UpdateNotificationGroup.CONSTRUCTOR,
+                UpdateActiveNotifications.CONSTRUCTOR,
+                UpdateHavePendingNotifications.CONSTRUCTOR,
+                UpdateDeleteMessages.CONSTRUCTOR,
+                UpdateUserChatAction.CONSTRUCTOR,
+                UpdateUserStatus.CONSTRUCTOR,
+                UpdateUser.CONSTRUCTOR,
+                UpdateBasicGroup.CONSTRUCTOR,
+                UpdateSupergroup.CONSTRUCTOR,
+                UpdateSecretChat.CONSTRUCTOR,
+                UpdateUserFullInfo.CONSTRUCTOR,
+                UpdateBasicGroupFullInfo.CONSTRUCTOR,
+                UpdateSupergroupFullInfo.CONSTRUCTOR,
+                UpdateServiceNotification.CONSTRUCTOR,
+                UpdateFile.CONSTRUCTOR,
+                UpdateFileGenerationStart.CONSTRUCTOR,
+                UpdateFileGenerationStop.CONSTRUCTOR,
+                UpdateCall.CONSTRUCTOR,
+                UpdateUserPrivacySettingRules.CONSTRUCTOR,
+                UpdateUnreadMessageCount.CONSTRUCTOR,
+                UpdateUnreadChatCount.CONSTRUCTOR,
+                UpdateOption.CONSTRUCTOR,
+                UpdateInstalledStickerSets.CONSTRUCTOR,
+                UpdateTrendingStickerSets.CONSTRUCTOR,
+                UpdateRecentStickers.CONSTRUCTOR,
+                UpdateFavoriteStickers.CONSTRUCTOR,
+                UpdateSavedAnimations.CONSTRUCTOR,
+                UpdateLanguagePackStrings.CONSTRUCTOR,
+                UpdateConnectionState.CONSTRUCTOR,
+                UpdateTermsOfService.CONSTRUCTOR,
+                UpdateNewInlineQuery.CONSTRUCTOR,
+                UpdateNewChosenInlineResult.CONSTRUCTOR,
+                UpdateNewCallbackQuery.CONSTRUCTOR,
+                UpdateNewInlineCallbackQuery.CONSTRUCTOR,
+                UpdateNewShippingQuery.CONSTRUCTOR,
+                UpdateNewPreCheckoutQuery.CONSTRUCTOR,
+                UpdateNewCustomEvent.CONSTRUCTOR,
+                UpdateNewCustomQuery.CONSTRUCTOR,
+                UpdatePoll.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -26884,7 +27016,7 @@ public class TdApi {
         /**
          * A request to send a message has reached the Telegram server. This doesn't mean that the message will be sent successfully or even that the send message request will be processed. This update will be sent only if the option &quot;use_quick_ack&quot; is set to true. This update may be sent multiple times for the same message.
          *
-         * @param chatId The chat identifier of the sent message.
+         * @param chatId    The chat identifier of the sent message.
          * @param messageId A temporary message identifier.
          */
         public UpdateMessageSendAcknowledged(long chatId, long messageId) {
@@ -26928,7 +27060,7 @@ public class TdApi {
         /**
          * A message has been successfully sent.
          *
-         * @param message Information about the sent message. Usually only the message identifier, date, and content are changed, but almost all other fields can also change.
+         * @param message      Information about the sent message. Usually only the message identifier, date, and content are changed, but almost all other fields can also change.
          * @param oldMessageId The previous temporary message identifier.
          */
         public UpdateMessageSendSucceeded(Message message, long oldMessageId) {
@@ -26980,9 +27112,9 @@ public class TdApi {
         /**
          * A message failed to send. Be aware that some messages being sent can be irrecoverably deleted, in which case updateDeleteMessages will be received instead of this update.
          *
-         * @param message Contains information about the message that failed to send.
+         * @param message      Contains information about the message that failed to send.
          * @param oldMessageId The previous temporary message identifier.
-         * @param errorCode An error code.
+         * @param errorCode    An error code.
          * @param errorMessage Error message.
          */
         public UpdateMessageSendFailed(Message message, long oldMessageId, int errorCode, String errorMessage) {
@@ -27032,8 +27164,8 @@ public class TdApi {
         /**
          * The message content has changed.
          *
-         * @param chatId Chat identifier.
-         * @param messageId Message identifier.
+         * @param chatId     Chat identifier.
+         * @param messageId  Message identifier.
          * @param newContent New message content.
          */
         public UpdateMessageContent(long chatId, long messageId, MessageContent newContent) {
@@ -27075,7 +27207,8 @@ public class TdApi {
         /**
          * New message reply markup; may be null.
          */
-        @Nullable public ReplyMarkup replyMarkup;
+        @Nullable
+        public ReplyMarkup replyMarkup;
 
         /**
          * A message was edited. Changes in the message content will come in a separate updateMessageContent.
@@ -27086,9 +27219,9 @@ public class TdApi {
         /**
          * A message was edited. Changes in the message content will come in a separate updateMessageContent.
          *
-         * @param chatId Chat identifier.
-         * @param messageId Message identifier.
-         * @param editDate Point in time (Unix timestamp) when the message was edited.
+         * @param chatId      Chat identifier.
+         * @param messageId   Message identifier.
+         * @param editDate    Point in time (Unix timestamp) when the message was edited.
          * @param replyMarkup New message reply markup; may be null.
          */
         public UpdateMessageEdited(long chatId, long messageId, int editDate, ReplyMarkup replyMarkup) {
@@ -27138,9 +27271,9 @@ public class TdApi {
         /**
          * The view count of the message has changed.
          *
-         * @param chatId Chat identifier.
+         * @param chatId    Chat identifier.
          * @param messageId Message identifier.
-         * @param views New value of the view count.
+         * @param views     New value of the view count.
          */
         public UpdateMessageViews(long chatId, long messageId, int views) {
             this.chatId = chatId;
@@ -27184,7 +27317,7 @@ public class TdApi {
         /**
          * The message content was opened. Updates voice note messages to &quot;listened&quot;, video note messages to &quot;viewed&quot; and starts the TTL timer for self-destructing messages.
          *
-         * @param chatId Chat identifier.
+         * @param chatId    Chat identifier.
          * @param messageId Message identifier.
          */
         public UpdateMessageContentOpened(long chatId, long messageId) {
@@ -27232,8 +27365,8 @@ public class TdApi {
         /**
          * A message with an unread mention was read.
          *
-         * @param chatId Chat identifier.
-         * @param messageId Message identifier.
+         * @param chatId             Chat identifier.
+         * @param messageId          Message identifier.
          * @param unreadMentionCount The new number of unread mention messages left in the chat.
          */
         public UpdateMessageMentionRead(long chatId, long messageId, int unreadMentionCount) {
@@ -27317,7 +27450,7 @@ public class TdApi {
          * The title of a chat was changed.
          *
          * @param chatId Chat identifier.
-         * @param title The new chat title.
+         * @param title  The new chat title.
          */
         public UpdateChatTitle(long chatId, String title) {
             this.chatId = chatId;
@@ -27349,7 +27482,8 @@ public class TdApi {
         /**
          * The new chat photo; may be null.
          */
-        @Nullable public ChatPhoto photo;
+        @Nullable
+        public ChatPhoto photo;
 
         /**
          * A chat photo was changed.
@@ -27361,7 +27495,7 @@ public class TdApi {
          * A chat photo was changed.
          *
          * @param chatId Chat identifier.
-         * @param photo The new chat photo; may be null.
+         * @param photo  The new chat photo; may be null.
          */
         public UpdateChatPhoto(long chatId, ChatPhoto photo) {
             this.chatId = chatId;
@@ -27393,7 +27527,8 @@ public class TdApi {
         /**
          * The new last message in the chat; may be null.
          */
-        @Nullable public Message lastMessage;
+        @Nullable
+        public Message lastMessage;
         /**
          * New value of the chat order.
          */
@@ -27408,9 +27543,9 @@ public class TdApi {
         /**
          * The last message of a chat was changed. If lastMessage is null then the last message in the chat became unknown. Some new unknown messages might be added to the chat in this case.
          *
-         * @param chatId Chat identifier.
+         * @param chatId      Chat identifier.
          * @param lastMessage The new last message in the chat; may be null.
-         * @param order New value of the chat order.
+         * @param order       New value of the chat order.
          */
         public UpdateChatLastMessage(long chatId, Message lastMessage, long order) {
             this.chatId = chatId;
@@ -27455,7 +27590,7 @@ public class TdApi {
          * The order of the chat in the chat list has changed. Instead of this update updateChatLastMessage, updateChatIsPinned or updateChatDraftMessage might be sent.
          *
          * @param chatId Chat identifier.
-         * @param order New value of the order.
+         * @param order  New value of the order.
          */
         public UpdateChatOrder(long chatId, long order) {
             this.chatId = chatId;
@@ -27502,9 +27637,9 @@ public class TdApi {
         /**
          * A chat was pinned or unpinned.
          *
-         * @param chatId Chat identifier.
+         * @param chatId   Chat identifier.
          * @param isPinned New value of isPinned.
-         * @param order New value of the chat order.
+         * @param order    New value of the chat order.
          */
         public UpdateChatIsPinned(long chatId, boolean isPinned, long order) {
             this.chatId = chatId;
@@ -27548,7 +27683,7 @@ public class TdApi {
         /**
          * A chat was marked as unread or was read.
          *
-         * @param chatId Chat identifier.
+         * @param chatId           Chat identifier.
          * @param isMarkedAsUnread New value of isMarkedAsUnread.
          */
         public UpdateChatIsMarkedAsUnread(long chatId, boolean isMarkedAsUnread) {
@@ -27596,9 +27731,9 @@ public class TdApi {
         /**
          * A chat's isSponsored field has changed.
          *
-         * @param chatId Chat identifier.
+         * @param chatId      Chat identifier.
          * @param isSponsored New value of isSponsored.
-         * @param order New value of chat order.
+         * @param order       New value of chat order.
          */
         public UpdateChatIsSponsored(long chatId, boolean isSponsored, long order) {
             this.chatId = chatId;
@@ -27642,7 +27777,7 @@ public class TdApi {
         /**
          * The value of the default disableNotification parameter, used when a message is sent to the chat, was changed.
          *
-         * @param chatId Chat identifier.
+         * @param chatId                     Chat identifier.
          * @param defaultDisableNotification The new defaultDisableNotification value.
          */
         public UpdateChatDefaultDisableNotification(long chatId, boolean defaultDisableNotification) {
@@ -27690,9 +27825,9 @@ public class TdApi {
         /**
          * Incoming messages were read or number of unread messages has been changed.
          *
-         * @param chatId Chat identifier.
+         * @param chatId                 Chat identifier.
          * @param lastReadInboxMessageId Identifier of the last read incoming message.
-         * @param unreadCount The number of unread messages left in the chat.
+         * @param unreadCount            The number of unread messages left in the chat.
          */
         public UpdateChatReadInbox(long chatId, long lastReadInboxMessageId, int unreadCount) {
             this.chatId = chatId;
@@ -27736,7 +27871,7 @@ public class TdApi {
         /**
          * Outgoing messages were read.
          *
-         * @param chatId Chat identifier.
+         * @param chatId                  Chat identifier.
          * @param lastReadOutboxMessageId Identifier of last read outgoing message.
          */
         public UpdateChatReadOutbox(long chatId, long lastReadOutboxMessageId) {
@@ -27780,7 +27915,7 @@ public class TdApi {
         /**
          * The chat unreadMentionCount has changed.
          *
-         * @param chatId Chat identifier.
+         * @param chatId             Chat identifier.
          * @param unreadMentionCount The number of unread mention messages left in the chat.
          */
         public UpdateChatUnreadMentionCount(long chatId, int unreadMentionCount) {
@@ -27824,7 +27959,7 @@ public class TdApi {
         /**
          * Notification settings for a chat were changed.
          *
-         * @param chatId Chat identifier.
+         * @param chatId               Chat identifier.
          * @param notificationSettings The new notification settings.
          */
         public UpdateChatNotificationSettings(long chatId, ChatNotificationSettings notificationSettings) {
@@ -27868,7 +28003,7 @@ public class TdApi {
         /**
          * Notification settings for some type of chats were updated.
          *
-         * @param scope Types of chats for which notification settings were updated.
+         * @param scope                Types of chats for which notification settings were updated.
          * @param notificationSettings The new notification settings.
          */
         public UpdateScopeNotificationSettings(NotificationSettingsScope scope, ScopeNotificationSettings notificationSettings) {
@@ -27912,7 +28047,7 @@ public class TdApi {
         /**
          * The chat pinned message was changed.
          *
-         * @param chatId Chat identifier.
+         * @param chatId          Chat identifier.
          * @param pinnedMessageId The new identifier of the pinned message; 0 if there is no pinned message in the chat.
          */
         public UpdateChatPinnedMessage(long chatId, long pinnedMessageId) {
@@ -27956,7 +28091,7 @@ public class TdApi {
         /**
          * The default chat reply markup was changed. Can occur because new messages with reply markup were received or because an old reply markup was hidden by the user.
          *
-         * @param chatId Chat identifier.
+         * @param chatId               Chat identifier.
          * @param replyMarkupMessageId Identifier of the message from which reply markup needs to be used; 0 if there is no default custom reply markup in the chat.
          */
         public UpdateChatReplyMarkup(long chatId, long replyMarkupMessageId) {
@@ -27989,7 +28124,8 @@ public class TdApi {
         /**
          * The new draft message; may be null.
          */
-        @Nullable public DraftMessage draftMessage;
+        @Nullable
+        public DraftMessage draftMessage;
         /**
          * New value of the chat order.
          */
@@ -28004,9 +28140,9 @@ public class TdApi {
         /**
          * A chat draft has changed. Be aware that the update may come in the currently opened chat but with old content of the draft. If the user has changed the content of the draft, this update shouldn't be applied.
          *
-         * @param chatId Chat identifier.
+         * @param chatId       Chat identifier.
          * @param draftMessage The new draft message; may be null.
-         * @param order New value of the chat order.
+         * @param order        New value of the chat order.
          */
         public UpdateChatDraftMessage(long chatId, DraftMessage draftMessage, long order) {
             this.chatId = chatId;
@@ -28050,7 +28186,7 @@ public class TdApi {
         /**
          * The number of online group members has changed. This update with non-zero count is sent only for currently opened chats. There is no guarantee that it will be sent just after the count has changed.
          *
-         * @param chatId Identifier of the chat.
+         * @param chatId            Identifier of the chat.
          * @param onlineMemberCount New number of online members in the chat, or 0 if unknown.
          */
         public UpdateChatOnlineMemberCount(long chatId, int onlineMemberCount) {
@@ -28095,7 +28231,7 @@ public class TdApi {
          * A notification was changed.
          *
          * @param notificationGroupId Unique notification group identifier.
-         * @param notification Changed notification.
+         * @param notification        Changed notification.
          */
         public UpdateNotification(int notificationGroupId, Notification notification) {
             this.notificationGroupId = notificationGroupId;
@@ -28162,14 +28298,14 @@ public class TdApi {
         /**
          * A list of active notifications in a notification group has changed.
          *
-         * @param notificationGroupId Unique notification group identifier.
-         * @param type New type of the notification group.
-         * @param chatId Identifier of a chat to which all notifications in the group belong.
+         * @param notificationGroupId        Unique notification group identifier.
+         * @param type                       New type of the notification group.
+         * @param chatId                     Identifier of a chat to which all notifications in the group belong.
          * @param notificationSettingsChatId Chat identifier, which notification settings must be applied to the added notifications.
-         * @param isSilent True, if the notifications should be shown without sound.
-         * @param totalCount Total number of unread notifications in the group, can be bigger than number of active notifications.
-         * @param addedNotifications List of added group notifications, sorted by notification ID.
-         * @param removedNotificationIds Identifiers of removed group notifications, sorted by notification ID.
+         * @param isSilent                   True, if the notifications should be shown without sound.
+         * @param totalCount                 Total number of unread notifications in the group, can be bigger than number of active notifications.
+         * @param addedNotifications         List of added group notifications, sorted by notification ID.
+         * @param removedNotificationIds     Identifiers of removed group notifications, sorted by notification ID.
          */
         public UpdateNotificationGroup(int notificationGroupId, NotificationGroupType type, long chatId, long notificationSettingsChatId, boolean isSilent, int totalCount, Notification[] addedNotifications, int[] removedNotificationIds) {
             this.notificationGroupId = notificationGroupId;
@@ -28256,7 +28392,7 @@ public class TdApi {
         /**
          * Describes, whether there are some pending notification updates. Can be used to prevent application from killing, while there are some pending notifications.
          *
-         * @param haveDelayedNotifications True, if there are some delayed notification updates, which will be sent soon.
+         * @param haveDelayedNotifications    True, if there are some delayed notification updates, which will be sent soon.
          * @param haveUnreceivedNotifications True, if there can be some yet unreceived notifications, which are being fetched from the server.
          */
         public UpdateHavePendingNotifications(boolean haveDelayedNotifications, boolean haveUnreceivedNotifications) {
@@ -28308,10 +28444,10 @@ public class TdApi {
         /**
          * Some messages were deleted.
          *
-         * @param chatId Chat identifier.
-         * @param messageIds Identifiers of the deleted messages.
+         * @param chatId      Chat identifier.
+         * @param messageIds  Identifiers of the deleted messages.
          * @param isPermanent True, if the messages are permanently deleted by a user (as opposed to just becoming inaccessible).
-         * @param fromCache True, if the messages are deleted only from the cache and can possibly be retrieved again in the future.
+         * @param fromCache   True, if the messages are deleted only from the cache and can possibly be retrieved again in the future.
          */
         public UpdateDeleteMessages(long chatId, long[] messageIds, boolean isPermanent, boolean fromCache) {
             this.chatId = chatId;
@@ -28602,7 +28738,7 @@ public class TdApi {
         /**
          * Some data from userFullInfo has been changed.
          *
-         * @param userId User identifier.
+         * @param userId       User identifier.
          * @param userFullInfo New full information about the user.
          */
         public UpdateUserFullInfo(int userId, UserFullInfo userFullInfo) {
@@ -28646,7 +28782,7 @@ public class TdApi {
         /**
          * Some data from basicGroupFullInfo has been changed.
          *
-         * @param basicGroupId Identifier of a basic group.
+         * @param basicGroupId       Identifier of a basic group.
          * @param basicGroupFullInfo New full information about the group.
          */
         public UpdateBasicGroupFullInfo(int basicGroupId, BasicGroupFullInfo basicGroupFullInfo) {
@@ -28690,7 +28826,7 @@ public class TdApi {
         /**
          * Some data from supergroupFullInfo has been changed.
          *
-         * @param supergroupId Identifier of the supergroup or channel.
+         * @param supergroupId       Identifier of the supergroup or channel.
          * @param supergroupFullInfo New full information about the supergroup.
          */
         public UpdateSupergroupFullInfo(int supergroupId, SupergroupFullInfo supergroupFullInfo) {
@@ -28734,7 +28870,7 @@ public class TdApi {
         /**
          * Service notification from the server. Upon receiving this the client must show a popup with the content of the notification.
          *
-         * @param type Notification type. If type begins with &quot;AUTH_KEY_DROP_&quot;, then two buttons &quot;Cancel&quot; and &quot;Log out&quot; should be shown under notification; if user presses the second, all local data should be destroyed using Destroy method.
+         * @param type    Notification type. If type begins with &quot;AUTH_KEY_DROP_&quot;, then two buttons &quot;Cancel&quot; and &quot;Log out&quot; should be shown under notification; if user presses the second, all local data should be destroyed using Destroy method.
          * @param content Notification content.
          */
         public UpdateServiceNotification(String type, MessageContent content) {
@@ -28824,10 +28960,10 @@ public class TdApi {
         /**
          * The file generation process needs to be started by the client.
          *
-         * @param generationId Unique identifier for the generation process.
-         * @param originalPath The path to a file from which a new file is generated; may be empty.
+         * @param generationId    Unique identifier for the generation process.
+         * @param originalPath    The path to a file from which a new file is generated; may be empty.
          * @param destinationPath The path to a file that should be created and where the new file should be generated.
-         * @param conversion String specifying the conversion applied to the original file. If conversion is &quot;#url#&quot; than originalPath contains an HTTP/HTTPS URL of a file, which should be downloaded by the client.
+         * @param conversion      String specifying the conversion applied to the original file. If conversion is &quot;#url#&quot; than originalPath contains an HTTP/HTTPS URL of a file, which should be downloaded by the client.
          */
         public UpdateFileGenerationStart(long generationId, String originalPath, String destinationPath, String conversion) {
             this.generationId = generationId;
@@ -28949,7 +29085,7 @@ public class TdApi {
          * Some privacy setting rules have been changed.
          *
          * @param setting The privacy setting.
-         * @param rules New privacy rules.
+         * @param rules   New privacy rules.
          */
         public UpdateUserPrivacySettingRules(UserPrivacySetting setting, UserPrivacySettingRules rules) {
             this.setting = setting;
@@ -28992,7 +29128,7 @@ public class TdApi {
         /**
          * Number of unread messages has changed. This update is sent only if a message database is used.
          *
-         * @param unreadCount Total number of unread messages.
+         * @param unreadCount        Total number of unread messages.
          * @param unreadUnmutedCount Total number of unread messages in unmuted chats.
          */
         public UpdateUnreadMessageCount(int unreadCount, int unreadUnmutedCount) {
@@ -29044,9 +29180,9 @@ public class TdApi {
         /**
          * Number of unread chats, i.e. with unread messages or marked as unread, has changed. This update is sent only if a message database is used.
          *
-         * @param unreadCount Total number of unread chats.
-         * @param unreadUnmutedCount Total number of unread unmuted chats.
-         * @param markedAsUnreadCount Total number of chats marked as unread.
+         * @param unreadCount                Total number of unread chats.
+         * @param unreadUnmutedCount         Total number of unread unmuted chats.
+         * @param markedAsUnreadCount        Total number of chats marked as unread.
          * @param markedAsUnreadUnmutedCount Total number of unmuted chats marked as unread.
          */
         public UpdateUnreadChatCount(int unreadCount, int unreadUnmutedCount, int markedAsUnreadCount, int markedAsUnreadUnmutedCount) {
@@ -29092,7 +29228,7 @@ public class TdApi {
         /**
          * An option changed its value.
          *
-         * @param name The option name.
+         * @param name  The option name.
          * @param value The new option value.
          */
         public UpdateOption(String name, OptionValue value) {
@@ -29136,7 +29272,7 @@ public class TdApi {
         /**
          * The list of installed sticker sets was updated.
          *
-         * @param isMasks True, if the list of installed mask sticker sets was updated.
+         * @param isMasks       True, if the list of installed mask sticker sets was updated.
          * @param stickerSetIds The new list of installed ordinary sticker sets.
          */
         public UpdateInstalledStickerSets(boolean isMasks, long[] stickerSetIds) {
@@ -29343,8 +29479,8 @@ public class TdApi {
          * Some language pack strings have been updated.
          *
          * @param localizationTarget Localization target to which the language pack belongs.
-         * @param languagePackId Identifier of the updated language pack.
-         * @param strings List of changed language pack strings.
+         * @param languagePackId     Identifier of the updated language pack.
+         * @param strings            List of changed language pack strings.
          */
         public UpdateLanguagePackStrings(String localizationTarget, String languagePackId, LanguagePackString[] strings) {
             this.localizationTarget = localizationTarget;
@@ -29427,7 +29563,7 @@ public class TdApi {
          * New terms of service must be accepted by the user. If the terms of service are declined, then the deleteAccount method should be called with the reason &quot;Decline ToS update&quot;.
          *
          * @param termsOfServiceId Identifier of the terms of service.
-         * @param termsOfService The new terms of service.
+         * @param termsOfService   The new terms of service.
          */
         public UpdateTermsOfService(String termsOfServiceId, TermsOfService termsOfService) {
             this.termsOfServiceId = termsOfServiceId;
@@ -29463,7 +29599,8 @@ public class TdApi {
         /**
          * User location, provided by the client; may be null.
          */
-        @Nullable public Location userLocation;
+        @Nullable
+        public Location userLocation;
         /**
          * Text of the query.
          */
@@ -29482,11 +29619,11 @@ public class TdApi {
         /**
          * A new incoming inline query; for bots only.
          *
-         * @param id Unique query identifier.
+         * @param id           Unique query identifier.
          * @param senderUserId Identifier of the user who sent the query.
          * @param userLocation User location, provided by the client; may be null.
-         * @param query Text of the query.
-         * @param offset Offset of the first entry to return.
+         * @param query        Text of the query.
+         * @param offset       Offset of the first entry to return.
          */
         public UpdateNewInlineQuery(long id, int senderUserId, Location userLocation, String query, String offset) {
             this.id = id;
@@ -29521,7 +29658,8 @@ public class TdApi {
         /**
          * User location, provided by the client; may be null.
          */
-        @Nullable public Location userLocation;
+        @Nullable
+        public Location userLocation;
         /**
          * Text of the query.
          */
@@ -29544,10 +29682,10 @@ public class TdApi {
         /**
          * The user has chosen a result of an inline query; for bots only.
          *
-         * @param senderUserId Identifier of the user who sent the query.
-         * @param userLocation User location, provided by the client; may be null.
-         * @param query Text of the query.
-         * @param resultId Identifier of the chosen result.
+         * @param senderUserId    Identifier of the user who sent the query.
+         * @param userLocation    User location, provided by the client; may be null.
+         * @param query           Text of the query.
+         * @param resultId        Identifier of the chosen result.
          * @param inlineMessageId Identifier of the sent inline message, if known.
          */
         public UpdateNewChosenInlineResult(int senderUserId, Location userLocation, String query, String resultId, String inlineMessageId) {
@@ -29610,12 +29748,12 @@ public class TdApi {
         /**
          * A new incoming callback query; for bots only.
          *
-         * @param id Unique query identifier.
+         * @param id           Unique query identifier.
          * @param senderUserId Identifier of the user who sent the query.
-         * @param chatId Identifier of the chat, in which the query was sent.
-         * @param messageId Identifier of the message, from which the query originated.
+         * @param chatId       Identifier of the chat, in which the query was sent.
+         * @param messageId    Identifier of the message, from which the query originated.
          * @param chatInstance Identifier that uniquely corresponds to the chat to which the message was sent.
-         * @param payload Query payload.
+         * @param payload      Query payload.
          */
         public UpdateNewCallbackQuery(long id, int senderUserId, long chatId, long messageId, long chatInstance, CallbackQueryPayload payload) {
             this.id = id;
@@ -29674,11 +29812,11 @@ public class TdApi {
         /**
          * A new incoming callback query from a message sent via a bot; for bots only.
          *
-         * @param id Unique query identifier.
-         * @param senderUserId Identifier of the user who sent the query.
+         * @param id              Unique query identifier.
+         * @param senderUserId    Identifier of the user who sent the query.
          * @param inlineMessageId Identifier of the inline message, from which the query originated.
-         * @param chatInstance An identifier uniquely corresponding to the chat a message was sent to.
-         * @param payload Query payload.
+         * @param chatInstance    An identifier uniquely corresponding to the chat a message was sent to.
+         * @param payload         Query payload.
          */
         public UpdateNewInlineCallbackQuery(long id, int senderUserId, String inlineMessageId, long chatInstance, CallbackQueryPayload payload) {
             this.id = id;
@@ -29732,9 +29870,9 @@ public class TdApi {
         /**
          * A new incoming shipping query; for bots only. Only for invoices with flexible price.
          *
-         * @param id Unique query identifier.
-         * @param senderUserId Identifier of the user who sent the query.
-         * @param invoicePayload Invoice payload.
+         * @param id              Unique query identifier.
+         * @param senderUserId    Identifier of the user who sent the query.
+         * @param invoicePayload  Invoice payload.
          * @param shippingAddress User shipping address.
          */
         public UpdateNewShippingQuery(long id, int senderUserId, String invoicePayload, Address shippingAddress) {
@@ -29789,7 +29927,8 @@ public class TdApi {
         /**
          * Information about the order; may be null.
          */
-        @Nullable public OrderInfo orderInfo;
+        @Nullable
+        public OrderInfo orderInfo;
 
         /**
          * A new incoming pre-checkout query; for bots only. Contains full information about a checkout.
@@ -29800,13 +29939,13 @@ public class TdApi {
         /**
          * A new incoming pre-checkout query; for bots only. Contains full information about a checkout.
          *
-         * @param id Unique query identifier.
-         * @param senderUserId Identifier of the user who sent the query.
-         * @param currency Currency for the product price.
-         * @param totalAmount Total price for the product, in the minimal quantity of the currency.
-         * @param invoicePayload Invoice payload.
+         * @param id               Unique query identifier.
+         * @param senderUserId     Identifier of the user who sent the query.
+         * @param currency         Currency for the product price.
+         * @param totalAmount      Total price for the product, in the minimal quantity of the currency.
+         * @param invoicePayload   Invoice payload.
          * @param shippingOptionId Identifier of a shipping option chosen by the user; may be empty if not applicable.
-         * @param orderInfo Information about the order; may be null.
+         * @param orderInfo        Information about the order; may be null.
          */
         public UpdateNewPreCheckoutQuery(long id, int senderUserId, String currency, long totalAmount, byte[] invoicePayload, String shippingOptionId, OrderInfo orderInfo) {
             this.id = id;
@@ -29896,8 +30035,8 @@ public class TdApi {
         /**
          * A new incoming query; for bots only.
          *
-         * @param id The query identifier.
-         * @param data JSON-serialized query data.
+         * @param id      The query identifier.
+         * @param data    JSON-serialized query data.
          * @param timeout Query timeout.
          */
         public UpdateNewCustomQuery(long id, String data, int timeout) {
@@ -30027,7 +30166,8 @@ public class TdApi {
         /**
          * Profile photo of the user; may be null.
          */
-        @Nullable public ProfilePhoto profilePhoto;
+        @Nullable
+        public ProfilePhoto profilePhoto;
         /**
          * Relationship from the current user to the other user.
          */
@@ -30070,21 +30210,21 @@ public class TdApi {
         /**
          * Represents a user.
          *
-         * @param id User identifier.
-         * @param firstName First name of the user.
-         * @param lastName Last name of the user.
-         * @param username Username of the user.
-         * @param phoneNumber Phone number of the user.
-         * @param status Current online status of the user.
-         * @param profilePhoto Profile photo of the user; may be null.
-         * @param outgoingLink Relationship from the current user to the other user.
-         * @param incomingLink Relationship from the other user to the current user.
-         * @param isVerified True, if the user is verified.
-         * @param isSupport True, if the user is Telegram support account.
+         * @param id                User identifier.
+         * @param firstName         First name of the user.
+         * @param lastName          Last name of the user.
+         * @param username          Username of the user.
+         * @param phoneNumber       Phone number of the user.
+         * @param status            Current online status of the user.
+         * @param profilePhoto      Profile photo of the user; may be null.
+         * @param outgoingLink      Relationship from the current user to the other user.
+         * @param incomingLink      Relationship from the other user to the current user.
+         * @param isVerified        True, if the user is verified.
+         * @param isSupport         True, if the user is Telegram support account.
          * @param restrictionReason If non-empty, it contains the reason why access to this user must be restricted. The format of the string is &quot;{type}: {description}&quot;. {type} contains the type of the restriction and at least one of the suffixes &quot;-all&quot;, &quot;-ios&quot;, &quot;-android&quot;, or &quot;-wp&quot;, which describe the platforms on which access should be restricted. (For example, &quot;terms-ios-android&quot;. {description} contains a human-readable description of the restriction, which can be shown to the user.)
-         * @param haveAccess If false, the user is inaccessible, and the only information known about the user is inside this class. It can't be passed to any method except GetUser.
-         * @param type Type of the user.
-         * @param languageCode IETF language tag of the user's language; only available to bots.
+         * @param haveAccess        If false, the user is inaccessible, and the only information known about the user is inside this class. It can't be passed to any method except GetUser.
+         * @param type              Type of the user.
+         * @param languageCode      IETF language tag of the user's language; only available to bots.
          */
         public User(int id, String firstName, String lastName, String username, String phoneNumber, UserStatus status, ProfilePhoto profilePhoto, LinkState outgoingLink, LinkState incomingLink, boolean isVerified, boolean isSupport, String restrictionReason, boolean haveAccess, UserType type, String languageCode) {
             this.id = id;
@@ -30149,7 +30289,8 @@ public class TdApi {
         /**
          * If the user is a bot, information about the bot; may be null.
          */
-        @Nullable public BotInfo botInfo;
+        @Nullable
+        public BotInfo botInfo;
 
         /**
          * Contains full information about a user (except the full list of profile photos).
@@ -30160,13 +30301,13 @@ public class TdApi {
         /**
          * Contains full information about a user (except the full list of profile photos).
          *
-         * @param isBlocked True, if the user is blacklisted by the current user.
-         * @param canBeCalled True, if the user can be called.
-         * @param hasPrivateCalls True, if the user can't be called due to their privacy settings.
-         * @param bio A short user bio.
-         * @param shareText For bots, the text that is included with the link when users share the bot.
+         * @param isBlocked          True, if the user is blacklisted by the current user.
+         * @param canBeCalled        True, if the user can be called.
+         * @param hasPrivateCalls    True, if the user can't be called due to their privacy settings.
+         * @param bio                A short user bio.
+         * @param shareText          For bots, the text that is included with the link when users share the bot.
          * @param groupInCommonCount Number of group chats where both the other user and the current user are a member; 0 for the current user.
-         * @param botInfo If the user is a bot, information about the bot; may be null.
+         * @param botInfo            If the user is a bot, information about the bot; may be null.
          */
         public UserFullInfo(boolean isBlocked, boolean canBeCalled, boolean hasPrivateCalls, String bio, String shareText, int groupInCommonCount, BotInfo botInfo) {
             this.isBlocked = isBlocked;
@@ -30199,12 +30340,13 @@ public class TdApi {
     public abstract static class UserPrivacySetting extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            UserPrivacySettingShowStatus.CONSTRUCTOR,
-            UserPrivacySettingAllowChatInvites.CONSTRUCTOR,
-            UserPrivacySettingAllowCalls.CONSTRUCTOR,
-            UserPrivacySettingAllowPeerToPeerCalls.CONSTRUCTOR
+                UserPrivacySettingShowStatus.CONSTRUCTOR,
+                UserPrivacySettingAllowChatInvites.CONSTRUCTOR,
+                UserPrivacySettingAllowCalls.CONSTRUCTOR,
+                UserPrivacySettingAllowPeerToPeerCalls.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -30321,14 +30463,15 @@ public class TdApi {
     public abstract static class UserPrivacySettingRule extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            UserPrivacySettingRuleAllowAll.CONSTRUCTOR,
-            UserPrivacySettingRuleAllowContacts.CONSTRUCTOR,
-            UserPrivacySettingRuleAllowUsers.CONSTRUCTOR,
-            UserPrivacySettingRuleRestrictAll.CONSTRUCTOR,
-            UserPrivacySettingRuleRestrictContacts.CONSTRUCTOR,
-            UserPrivacySettingRuleRestrictUsers.CONSTRUCTOR
+                UserPrivacySettingRuleAllowAll.CONSTRUCTOR,
+                UserPrivacySettingRuleAllowContacts.CONSTRUCTOR,
+                UserPrivacySettingRuleAllowUsers.CONSTRUCTOR,
+                UserPrivacySettingRuleRestrictAll.CONSTRUCTOR,
+                UserPrivacySettingRuleRestrictContacts.CONSTRUCTOR,
+                UserPrivacySettingRuleRestrictUsers.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -30578,9 +30721,9 @@ public class TdApi {
         /**
          * Contains full information about a user profile photo.
          *
-         * @param id Unique user profile photo identifier.
+         * @param id        Unique user profile photo identifier.
          * @param addedDate Point in time (Unix timestamp) when the photo has been added.
-         * @param sizes Available variants of the user photo, in different sizes.
+         * @param sizes     Available variants of the user photo, in different sizes.
          */
         public UserProfilePhoto(long id, int addedDate, PhotoSize[] sizes) {
             this.id = id;
@@ -30625,7 +30768,7 @@ public class TdApi {
          * Contains part of the list of user photos.
          *
          * @param totalCount Total number of user profile photos.
-         * @param photos A list of photos.
+         * @param photos     A list of photos.
          */
         public UserProfilePhotos(int totalCount, UserProfilePhoto[] photos) {
             this.totalCount = totalCount;
@@ -30653,14 +30796,15 @@ public class TdApi {
     public abstract static class UserStatus extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            UserStatusEmpty.CONSTRUCTOR,
-            UserStatusOnline.CONSTRUCTOR,
-            UserStatusOffline.CONSTRUCTOR,
-            UserStatusRecently.CONSTRUCTOR,
-            UserStatusLastWeek.CONSTRUCTOR,
-            UserStatusLastMonth.CONSTRUCTOR
+                UserStatusEmpty.CONSTRUCTOR,
+                UserStatusOnline.CONSTRUCTOR,
+                UserStatusOffline.CONSTRUCTOR,
+                UserStatusRecently.CONSTRUCTOR,
+                UserStatusLastWeek.CONSTRUCTOR,
+                UserStatusLastMonth.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -30853,12 +30997,13 @@ public class TdApi {
     public abstract static class UserType extends Object {
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({
-            UserTypeRegular.CONSTRUCTOR,
-            UserTypeDeleted.CONSTRUCTOR,
-            UserTypeBot.CONSTRUCTOR,
-            UserTypeUnknown.CONSTRUCTOR
+                UserTypeRegular.CONSTRUCTOR,
+                UserTypeDeleted.CONSTRUCTOR,
+                UserTypeBot.CONSTRUCTOR,
+                UserTypeUnknown.CONSTRUCTOR
         })
-        public @interface Constructors {}
+        public @interface Constructors {
+        }
 
         /**
          * @return identifier uniquely determining type of the object.
@@ -30952,11 +31097,11 @@ public class TdApi {
         /**
          * A bot (see https://core.telegram.org/bots).
          *
-         * @param canJoinGroups True, if the bot can be invited to basic group and supergroup chats.
+         * @param canJoinGroups           True, if the bot can be invited to basic group and supergroup chats.
          * @param canReadAllGroupMessages True, if the bot can read all messages in basic group or supergroup chats and not just those addressed to the bot. In private and channel chats a bot can always read all messages.
-         * @param isInline True, if the bot supports inline queries.
-         * @param inlineQueryPlaceholder Placeholder for inline queries (displayed on the client input field).
-         * @param needLocation True, if the location of the user should be sent with every inline query to this bot.
+         * @param isInline                True, if the bot supports inline queries.
+         * @param inlineQueryPlaceholder  Placeholder for inline queries (displayed on the client input field).
+         * @param needLocation            True, if the location of the user should be sent with every inline query to this bot.
          */
         public UserTypeBot(boolean canJoinGroups, boolean canReadAllGroupMessages, boolean isInline, String inlineQueryPlaceholder, boolean needLocation) {
             this.canJoinGroups = canJoinGroups;
@@ -31028,7 +31173,7 @@ public class TdApi {
          * Represents a list of users.
          *
          * @param totalCount Approximate total count of users found.
-         * @param userIds A list of user identifiers.
+         * @param userIds    A list of user identifiers.
          */
         public Users(int totalCount, int[] userIds) {
             this.totalCount = totalCount;
@@ -31071,7 +31216,7 @@ public class TdApi {
         /**
          * Contains a temporary identifier of validated order information, which is stored for one hour. Also contains the available shipping options.
          *
-         * @param orderInfoId Temporary identifier of the order information.
+         * @param orderInfoId     Temporary identifier of the order information.
          * @param shippingOptions Available shipping options.
          */
         public ValidatedOrderInfo(String orderInfoId, ShippingOption[] shippingOptions) {
@@ -31132,11 +31277,11 @@ public class TdApi {
          * Describes a venue.
          *
          * @param location Venue location; as defined by the sender.
-         * @param title Venue name; as defined by the sender.
-         * @param address Venue address; as defined by the sender.
+         * @param title    Venue name; as defined by the sender.
+         * @param address  Venue address; as defined by the sender.
          * @param provider Provider of the venue database; as defined by the sender. Currently only &quot;foursquare&quot; needs to be supported.
-         * @param id Identifier of the venue in the provider database; as defined by the sender.
-         * @param type Type of the venue in the provider database; as defined by the sender.
+         * @param id       Identifier of the venue in the provider database; as defined by the sender.
+         * @param type     Type of the venue in the provider database; as defined by the sender.
          */
         public Venue(Location location, String title, String address, String provider, String id, String type) {
             this.location = location;
@@ -31196,7 +31341,8 @@ public class TdApi {
         /**
          * Video thumbnail; as defined by the sender; may be null.
          */
-        @Nullable public PhotoSize thumbnail;
+        @Nullable
+        public PhotoSize thumbnail;
         /**
          * File containing the video.
          */
@@ -31211,15 +31357,15 @@ public class TdApi {
         /**
          * Describes a video file.
          *
-         * @param duration Duration of the video, in seconds; as defined by the sender.
-         * @param width Video width; as defined by the sender.
-         * @param height Video height; as defined by the sender.
-         * @param fileName Original name of the file; as defined by the sender.
-         * @param mimeType MIME type of the file; as defined by the sender.
-         * @param hasStickers True, if stickers were added to the photo.
+         * @param duration          Duration of the video, in seconds; as defined by the sender.
+         * @param width             Video width; as defined by the sender.
+         * @param height            Video height; as defined by the sender.
+         * @param fileName          Original name of the file; as defined by the sender.
+         * @param mimeType          MIME type of the file; as defined by the sender.
+         * @param hasStickers       True, if stickers were added to the photo.
          * @param supportsStreaming True, if the video should be tried to be streamed.
-         * @param thumbnail Video thumbnail; as defined by the sender; may be null.
-         * @param video File containing the video.
+         * @param thumbnail         Video thumbnail; as defined by the sender; may be null.
+         * @param video             File containing the video.
          */
         public Video(int duration, int width, int height, String fileName, String mimeType, boolean hasStickers, boolean supportsStreaming, PhotoSize thumbnail, File video) {
             this.duration = duration;
@@ -31262,7 +31408,8 @@ public class TdApi {
         /**
          * Video thumbnail; as defined by the sender; may be null.
          */
-        @Nullable public PhotoSize thumbnail;
+        @Nullable
+        public PhotoSize thumbnail;
         /**
          * File containing the video.
          */
@@ -31277,10 +31424,10 @@ public class TdApi {
         /**
          * Describes a video note. The video must be equal in width and height, cropped to a circle, and stored in MPEG4 format.
          *
-         * @param duration Duration of the video, in seconds; as defined by the sender.
-         * @param length Video width and height; as defined by the sender.
+         * @param duration  Duration of the video, in seconds; as defined by the sender.
+         * @param length    Video width and height; as defined by the sender.
          * @param thumbnail Video thumbnail; as defined by the sender; may be null.
-         * @param video File containing the video.
+         * @param video     File containing the video.
          */
         public VideoNote(int duration, int length, PhotoSize thumbnail, File video) {
             this.duration = duration;
@@ -31336,7 +31483,7 @@ public class TdApi {
          * @param duration Duration of the voice note, in seconds; as defined by the sender.
          * @param waveform A waveform representation of the voice note in 5-bit format.
          * @param mimeType MIME type of the file; as defined by the sender.
-         * @param voice File containing the voice note.
+         * @param voice    File containing the voice note.
          */
         public VoiceNote(int duration, byte[] waveform, String mimeType, File voice) {
             this.duration = duration;
@@ -31385,7 +31532,7 @@ public class TdApi {
         /**
          * Contains information about a wallpaper.
          *
-         * @param id Unique persistent wallpaper identifier.
+         * @param id    Unique persistent wallpaper identifier.
          * @param sizes Available variants of the wallpaper in different sizes. These photos can only be downloaded; they can't be sent in a message.
          * @param color Main color of the wallpaper in RGB24 format; should be treated as background color if no photos are specified.
          */
@@ -31478,7 +31625,8 @@ public class TdApi {
         /**
          * Image representing the content; may be null.
          */
-        @Nullable public Photo photo;
+        @Nullable
+        public Photo photo;
         /**
          * URL to show in the embedded preview.
          */
@@ -31506,31 +31654,38 @@ public class TdApi {
         /**
          * Preview of the content as an animation, if available; may be null.
          */
-        @Nullable public Animation animation;
+        @Nullable
+        public Animation animation;
         /**
          * Preview of the content as an audio file, if available; may be null.
          */
-        @Nullable public Audio audio;
+        @Nullable
+        public Audio audio;
         /**
          * Preview of the content as a document, if available (currently only available for small PDF files and ZIP archives); may be null.
          */
-        @Nullable public Document document;
+        @Nullable
+        public Document document;
         /**
          * Preview of the content as a sticker for small WEBP files, if available; may be null.
          */
-        @Nullable public Sticker sticker;
+        @Nullable
+        public Sticker sticker;
         /**
          * Preview of the content as a video, if available; may be null.
          */
-        @Nullable public Video video;
+        @Nullable
+        public Video video;
         /**
          * Preview of the content as a video note, if available; may be null.
          */
-        @Nullable public VideoNote videoNote;
+        @Nullable
+        public VideoNote videoNote;
         /**
          * Preview of the content as a voice note, if available; may be null.
          */
-        @Nullable public VoiceNote voiceNote;
+        @Nullable
+        public VoiceNote voiceNote;
         /**
          * Version of instant view, available for the web page (currently can be 1 or 2), 0 if none.
          */
@@ -31545,26 +31700,26 @@ public class TdApi {
         /**
          * Describes a web page preview.
          *
-         * @param url Original URL of the link.
-         * @param displayUrl URL to display.
-         * @param type Type of the web page. Can be: article, photo, audio, video, document, profile, app, or something else.
-         * @param siteName Short name of the site (e.g., Google Docs, App Store).
-         * @param title Title of the content.
-         * @param description Description of the content.
-         * @param photo Image representing the content; may be null.
-         * @param embedUrl URL to show in the embedded preview.
-         * @param embedType MIME type of the embedded preview, (e.g., text/html or video/mp4).
-         * @param embedWidth Width of the embedded preview.
-         * @param embedHeight Height of the embedded preview.
-         * @param duration Duration of the content, in seconds.
-         * @param author Author of the content.
-         * @param animation Preview of the content as an animation, if available; may be null.
-         * @param audio Preview of the content as an audio file, if available; may be null.
-         * @param document Preview of the content as a document, if available (currently only available for small PDF files and ZIP archives); may be null.
-         * @param sticker Preview of the content as a sticker for small WEBP files, if available; may be null.
-         * @param video Preview of the content as a video, if available; may be null.
-         * @param videoNote Preview of the content as a video note, if available; may be null.
-         * @param voiceNote Preview of the content as a voice note, if available; may be null.
+         * @param url                Original URL of the link.
+         * @param displayUrl         URL to display.
+         * @param type               Type of the web page. Can be: article, photo, audio, video, document, profile, app, or something else.
+         * @param siteName           Short name of the site (e.g., Google Docs, App Store).
+         * @param title              Title of the content.
+         * @param description        Description of the content.
+         * @param photo              Image representing the content; may be null.
+         * @param embedUrl           URL to show in the embedded preview.
+         * @param embedType          MIME type of the embedded preview, (e.g., text/html or video/mp4).
+         * @param embedWidth         Width of the embedded preview.
+         * @param embedHeight        Height of the embedded preview.
+         * @param duration           Duration of the content, in seconds.
+         * @param author             Author of the content.
+         * @param animation          Preview of the content as an animation, if available; may be null.
+         * @param audio              Preview of the content as an audio file, if available; may be null.
+         * @param document           Preview of the content as a document, if available (currently only available for small PDF files and ZIP archives); may be null.
+         * @param sticker            Preview of the content as a sticker for small WEBP files, if available; may be null.
+         * @param video              Preview of the content as a video, if available; may be null.
+         * @param videoNote          Preview of the content as a video note, if available; may be null.
+         * @param voiceNote          Preview of the content as a voice note, if available; may be null.
          * @param instantViewVersion Version of instant view, available for the web page (currently can be 1 or 2), 0 if none.
          */
         public WebPage(String url, String displayUrl, String type, String siteName, String title, String description, Photo photo, String embedUrl, String embedType, int embedWidth, int embedHeight, int duration, String author, Animation animation, Audio audio, Document document, Sticker sticker, Video video, VideoNote videoNote, VoiceNote voiceNote, int instantViewVersion) {
@@ -31640,10 +31795,10 @@ public class TdApi {
          * Describes an instant view page for a web page.
          *
          * @param pageBlocks Content of the web page.
-         * @param version Version of the instant view, currently can be 1 or 2.
-         * @param url Instant view URL; may be different from WebPage.url and must be used for the correct anchors handling.
-         * @param isRtl True, if the instant view must be shown from right to left.
-         * @param isFull True, if the instant view contains the full page. A network request might be needed to get the full web page instant view.
+         * @param version    Version of the instant view, currently can be 1 or 2.
+         * @param url        Instant view URL; may be different from WebPage.url and must be used for the correct anchors handling.
+         * @param isRtl      True, if the instant view must be shown from right to left.
+         * @param isFull     True, if the instant view contains the full page. A network request might be needed to get the full web page instant view.
          */
         public WebPageInstantView(PageBlock[] pageBlocks, int version, String url, boolean isRtl, boolean isFull) {
             this.pageBlocks = pageBlocks;
@@ -31695,7 +31850,7 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param callId Call identifier.
+         * @param callId   Call identifier.
          * @param protocol Description of the call protocols supported by the client.
          */
         public AcceptCall(int callId, CallProtocol protocol) {
@@ -31793,8 +31948,8 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param chatId Chat identifier.
-         * @param userId Identifier of the user.
+         * @param chatId       Chat identifier.
+         * @param userId       Identifier of the user.
          * @param forwardLimit The number of earlier messages from the chat to be forwarded to the new member; up to 100. Ignored for supergroups and channels.
          */
         public AddChatMember(long chatId, int userId, int forwardLimit) {
@@ -31845,7 +32000,7 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param chatId Chat identifier.
+         * @param chatId  Chat identifier.
          * @param userIds Identifiers of the users to be added to the chat.
          */
         public AddChatMembers(long chatId, int[] userIds) {
@@ -31995,9 +32150,9 @@ public class TdApi {
          *
          * <p> Returns {@link Message Message} </p>
          *
-         * @param chatId Target chat.
-         * @param senderUserId Identifier of the user who will be shown as the sender of the message; may be 0 for channel posts.
-         * @param replyToMessageId Identifier of the message to reply to or 0.
+         * @param chatId              Target chat.
+         * @param senderUserId        Identifier of the user who will be shown as the sender of the message; may be 0 for channel posts.
+         * @param replyToMessageId    Identifier of the message to reply to or 0.
          * @param disableNotification Pass true to disable notification for the message.
          * @param inputMessageContent The content of the message to be added.
          */
@@ -32052,7 +32207,7 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param verbosityLevel Minimum verbosity level needed for the message to be logged, 0-1023.
-         * @param text Text of a message to log.
+         * @param text           Text of a message to log.
          */
         public AddLogMessage(int verbosityLevel, String text) {
             this.verbosityLevel = verbosityLevel;
@@ -32154,9 +32309,9 @@ public class TdApi {
          * <p> Returns {@link Proxy Proxy} </p>
          *
          * @param server Proxy server IP address.
-         * @param port Proxy server port.
+         * @param port   Proxy server port.
          * @param enable True, if the proxy should be enabled.
-         * @param type Proxy type.
+         * @param type   Proxy type.
          */
         public AddProxy(String server, int port, boolean enable, ProxyType type) {
             this.server = server;
@@ -32208,7 +32363,7 @@ public class TdApi {
          * <p> Returns {@link Stickers Stickers} </p>
          *
          * @param isAttached Pass true to add the sticker to the list of stickers recently attached to photo or video files; pass false to add the sticker to the list of recently sent stickers.
-         * @param sticker Sticker file to add.
+         * @param sticker    Sticker file to add.
          */
         public AddRecentSticker(boolean isAttached, InputFile sticker) {
             this.isAttached = isAttached;
@@ -32349,8 +32504,8 @@ public class TdApi {
          *
          * <p> Returns {@link StickerSet StickerSet} </p>
          *
-         * @param userId Sticker set owner.
-         * @param name Sticker set name.
+         * @param userId  Sticker set owner.
+         * @param name    Sticker set name.
          * @param sticker Sticker to add to the set.
          */
         public AddStickerToSet(int userId, String name, InputSticker sticker) {
@@ -32414,10 +32569,10 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param callbackQueryId Identifier of the callback query.
-         * @param text Text of the answer.
-         * @param showAlert If true, an alert should be shown to the user instead of a toast notification.
-         * @param url URL to be opened.
-         * @param cacheTime Time during which the result of the query can be cached, in seconds.
+         * @param text            Text of the answer.
+         * @param showAlert       If true, an alert should be shown to the user instead of a toast notification.
+         * @param url             URL to be opened.
+         * @param cacheTime       Time during which the result of the query can be cached, in seconds.
          */
         public AnswerCallbackQuery(long callbackQueryId, String text, boolean showAlert, String url, int cacheTime) {
             this.callbackQueryId = callbackQueryId;
@@ -32470,7 +32625,7 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param customQueryId Identifier of a custom query.
-         * @param data JSON-serialized answer to the query.
+         * @param data          JSON-serialized answer to the query.
          */
         public AnswerCustomQuery(long customQueryId, String data) {
             this.customQueryId = customQueryId;
@@ -32539,12 +32694,12 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param inlineQueryId Identifier of the inline query.
-         * @param isPersonal True, if the result of the query can be cached for the specified user.
-         * @param results The results of the query.
-         * @param cacheTime Allowed time to cache the results of the query, in seconds.
-         * @param nextOffset Offset for the next inline query; pass an empty string if there are no more results.
-         * @param switchPmText If non-empty, this text should be shown on the button that opens a private chat with the bot and sends a start message to the bot with the parameter switchPmParameter.
+         * @param inlineQueryId     Identifier of the inline query.
+         * @param isPersonal        True, if the result of the query can be cached for the specified user.
+         * @param results           The results of the query.
+         * @param cacheTime         Allowed time to cache the results of the query, in seconds.
+         * @param nextOffset        Offset for the next inline query; pass an empty string if there are no more results.
+         * @param switchPmText      If non-empty, this text should be shown on the button that opens a private chat with the bot and sends a start message to the bot with the parameter switchPmParameter.
          * @param switchPmParameter The parameter for the bot start message.
          */
         public AnswerInlineQuery(long inlineQueryId, boolean isPersonal, InputInlineQueryResult[] results, int cacheTime, String nextOffset, String switchPmText, String switchPmParameter) {
@@ -32600,7 +32755,7 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param preCheckoutQueryId Identifier of the pre-checkout query.
-         * @param errorMessage An error message, empty on success.
+         * @param errorMessage       An error message, empty on success.
          */
         public AnswerPreCheckoutQuery(long preCheckoutQueryId, String errorMessage) {
             this.preCheckoutQueryId = preCheckoutQueryId;
@@ -32655,7 +32810,7 @@ public class TdApi {
          *
          * @param shippingQueryId Identifier of the shipping query.
          * @param shippingOptions Available shipping options.
-         * @param errorMessage An error message, empty on success.
+         * @param errorMessage    An error message, empty on success.
          */
         public AnswerShippingQuery(long shippingQueryId, ShippingOption[] shippingOptions, String errorMessage) {
             this.shippingQueryId = shippingQueryId;
@@ -32749,7 +32904,7 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param fileId Identifier of a file to stop downloading.
+         * @param fileId        Identifier of a file to stop downloading.
          * @param onlyIfPending Pass true to stop downloading only if it hasn't been started, i.e. request hasn't been sent to server.
          */
         public CancelDownloadFile(int fileId, boolean onlyIfPending) {
@@ -32843,7 +32998,7 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param chatId Chat identifier.
+         * @param chatId     Chat identifier.
          * @param isSpamChat If true, the chat will be reported as spam; otherwise it will be marked as not spam.
          */
         public ChangeChatReportSpamState(long chatId, boolean isSpamChat) {
@@ -32941,8 +33096,8 @@ public class TdApi {
          *
          * <p> Returns {@link AuthenticationCodeInfo AuthenticationCodeInfo} </p>
          *
-         * @param phoneNumber The new phone number of the user in international format.
-         * @param allowFlashCall Pass true if the code can be sent via flash call to the specified phone number.
+         * @param phoneNumber          The new phone number of the user in international format.
+         * @param allowFlashCall       Pass true if the code can be sent via flash call to the specified phone number.
          * @param isCurrentPhoneNumber Pass true if the phone number is used on the current device. Ignored if allowFlashCall is false.
          */
         public ChangePhoneNumber(String phoneNumber, boolean allowFlashCall, boolean isCurrentPhoneNumber) {
@@ -32997,9 +33152,9 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param setId Identifier of the sticker set.
+         * @param setId       Identifier of the sticker set.
          * @param isInstalled The new value of isInstalled.
-         * @param isArchived The new value of isArchived. A sticker set can't be installed and archived simultaneously.
+         * @param isArchived  The new value of isArchived. A sticker set can't be installed and archived simultaneously.
          */
         public ChangeStickerSet(long setId, boolean isInstalled, boolean isArchived) {
             this.setId = setId;
@@ -33097,9 +33252,9 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param code The verification code received via SMS, Telegram message, phone call, or flash call.
+         * @param code      The verification code received via SMS, Telegram message, phone call, or flash call.
          * @param firstName If the user is not yet registered, the first name of the user; 1-64 characters. You can also pass an empty string for unregistered user there to check verification code validness. In the latter case PHONENUMBERUNOCCUPIED error will be returned for a valid code.
-         * @param lastName If the user is not yet registered; the last name of the user; optional; 0-64 characters.
+         * @param lastName  If the user is not yet registered; the last name of the user; optional; 0-64 characters.
          */
         public CheckAuthenticationCode(String code, String firstName, String lastName) {
             this.code = code;
@@ -33281,7 +33436,7 @@ public class TdApi {
          *
          * <p> Returns {@link CheckChatUsernameResult CheckChatUsernameResult} </p>
          *
-         * @param chatId Chat identifier; should be identifier of a supergroup chat, or a channel chat, or a private chat with self, or zero if chat is being created.
+         * @param chatId   Chat identifier; should be identifier of a supergroup chat, or a channel chat, or a private chat with self, or zero if chat is being created.
          * @param username Username to be checked.
          */
         public CheckChatUsername(long chatId, String username) {
@@ -33859,7 +34014,7 @@ public class TdApi {
          * <p> Returns {@link Chat Chat} </p>
          *
          * @param basicGroupId Basic group identifier.
-         * @param force If true, the chat will be created without network request. In this case all information about the chat except its type, title and photo can be incorrect.
+         * @param force        If true, the chat will be created without network request. In this case all information about the chat except its type, title and photo can be incorrect.
          */
         public CreateBasicGroupChat(int basicGroupId, boolean force) {
             this.basicGroupId = basicGroupId;
@@ -33908,7 +34063,7 @@ public class TdApi {
          *
          * <p> Returns {@link CallId CallId} </p>
          *
-         * @param userId Identifier of the user to be called.
+         * @param userId   Identifier of the user to be called.
          * @param protocol Description of the call protocols supported by the client.
          */
         public CreateCall(int userId, CallProtocol protocol) {
@@ -33959,7 +34114,7 @@ public class TdApi {
          * <p> Returns {@link Chat Chat} </p>
          *
          * @param userIds Identifiers of users to be added to the basic group.
-         * @param title Title of the new basic group; 1-128 characters.
+         * @param title   Title of the new basic group; 1-128 characters.
          */
         public CreateNewBasicGroupChat(int[] userIds, String title) {
             this.userIds = userIds;
@@ -34064,10 +34219,10 @@ public class TdApi {
          *
          * <p> Returns {@link StickerSet StickerSet} </p>
          *
-         * @param userId Sticker set owner.
-         * @param title Sticker set title; 1-64 characters.
-         * @param name Sticker set name. Can contain only English letters, digits and underscores. Must end with *&quot;_by_&lt;bot username&gt;&quot;* (*&lt;botUsername&gt;* is case insensitive); 1-64 characters.
-         * @param isMasks True, if stickers are masks.
+         * @param userId   Sticker set owner.
+         * @param title    Sticker set title; 1-64 characters.
+         * @param name     Sticker set name. Can contain only English letters, digits and underscores. Must end with *&quot;_by_&lt;bot username&gt;&quot;* (*&lt;botUsername&gt;* is case insensitive); 1-64 characters.
+         * @param isMasks  True, if stickers are masks.
          * @param stickers List of stickers to be added to the set.
          */
         public CreateNewStickerSet(int userId, String title, String name, boolean isMasks, InputSticker[] stickers) {
@@ -34124,8 +34279,8 @@ public class TdApi {
          *
          * <p> Returns {@link Chat Chat} </p>
          *
-         * @param title Title of the new chat; 1-128 characters.
-         * @param isChannel True, if a channel chat should be created.
+         * @param title       Title of the new chat; 1-128 characters.
+         * @param isChannel   True, if a channel chat should be created.
          * @param description Chat description; 0-255 characters.
          */
         public CreateNewSupergroupChat(String title, boolean isChannel, String description) {
@@ -34177,7 +34332,7 @@ public class TdApi {
          * <p> Returns {@link Chat Chat} </p>
          *
          * @param userId User identifier.
-         * @param force If true, the chat will be created without network request. In this case all information about the chat except its type, title and photo can be incorrect.
+         * @param force  If true, the chat will be created without network request. In this case all information about the chat except its type, title and photo can be incorrect.
          */
         public CreatePrivateChat(int userId, boolean force) {
             this.userId = userId;
@@ -34271,7 +34426,7 @@ public class TdApi {
          * <p> Returns {@link Chat Chat} </p>
          *
          * @param supergroupId Supergroup or channel identifier.
-         * @param force If true, the chat will be created without network request. In this case all information about the chat except its type, title and photo can be incorrect.
+         * @param force        If true, the chat will be created without network request. In this case all information about the chat except its type, title and photo can be incorrect.
          */
         public CreateSupergroupChat(int supergroupId, boolean force) {
             this.supergroupId = supergroupId;
@@ -34418,9 +34573,9 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param chatId Chat identifier.
+         * @param chatId             Chat identifier.
          * @param removeFromChatList Pass true if the chat should be removed from the chat list.
-         * @param revoke Pass true to try to delete chat history for all users.
+         * @param revoke             Pass true to try to delete chat history for all users.
          */
         public DeleteChatHistory(long chatId, boolean removeFromChatList, boolean revoke) {
             this.chatId = chatId;
@@ -34520,7 +34675,7 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param chatId Chat identifier.
+         * @param chatId    Chat identifier.
          * @param messageId The message identifier of the used keyboard.
          */
         public DeleteChatReplyMarkup(long chatId, long messageId) {
@@ -34662,9 +34817,9 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param chatId Chat identifier.
+         * @param chatId     Chat identifier.
          * @param messageIds Identifiers of the messages to be deleted.
-         * @param revoke Pass true to try to delete messages for all chat members. Always true for supergroups, channels and secret chats.
+         * @param revoke     Pass true to try to delete messages for all chat members. Always true for supergroups, channels and secret chats.
          */
         public DeleteMessages(long chatId, long[] messageIds, boolean revoke) {
             this.chatId = chatId;
@@ -34970,10 +35125,10 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param callId Call identifier.
+         * @param callId         Call identifier.
          * @param isDisconnected True, if the user was disconnected.
-         * @param duration The call duration, in seconds.
-         * @param connectionId Identifier of the connection used during the call.
+         * @param duration       The call duration, in seconds.
+         * @param connectionId   Identifier of the connection used during the call.
          */
         public DiscardCall(int callId, boolean isDisconnected, int duration, long connectionId) {
             this.callId = callId;
@@ -35109,10 +35264,10 @@ public class TdApi {
          *
          * <p> Returns {@link File File} </p>
          *
-         * @param fileId Identifier of the file to download.
-         * @param priority Priority of the download (1-32). The higher the priority, the earlier the file will be downloaded. If the priorities of two files are equal, then the last one for which downloadFile was called will be downloaded first.
-         * @param offset The starting position from which the file should be downloaded.
-         * @param limit Number of bytes which should be downloaded starting from the &quot;offset&quot; position before the download will be automatically cancelled; use 0 to download without a limit.
+         * @param fileId      Identifier of the file to download.
+         * @param priority    Priority of the download (1-32). The higher the priority, the earlier the file will be downloaded. If the priorities of two files are equal, then the last one for which downloadFile was called will be downloaded first.
+         * @param offset      The starting position from which the file should be downloaded.
+         * @param limit       Number of bytes which should be downloaded starting from the &quot;offset&quot; position before the download will be automatically cancelled; use 0 to download without a limit.
          * @param synchronous If false, this request returns file state just after the download has been started. If true, this request returns file state only after the download has succeeded, has failed, has been cancelled or a new downloadFile request with different offset/limit parameters was sent.
          */
         public DownloadFile(int fileId, int priority, int offset, int limit, boolean synchronous) {
@@ -35214,8 +35369,8 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param inlineMessageId Inline message identifier.
-         * @param replyMarkup The new message reply markup.
-         * @param caption New message content caption; 0-GetOption(&quot;message_caption_length_max&quot;) characters.
+         * @param replyMarkup     The new message reply markup.
+         * @param caption         New message content caption; 0-GetOption(&quot;message_caption_length_max&quot;) characters.
          */
         public EditInlineMessageCaption(String inlineMessageId, ReplyMarkup replyMarkup, FormattedText caption) {
             this.inlineMessageId = inlineMessageId;
@@ -35254,7 +35409,8 @@ public class TdApi {
         /**
          * New location content of the message; may be null. Pass null to stop sharing the live location.
          */
-        @Nullable public Location location;
+        @Nullable
+        public Location location;
 
         /**
          * Default constructor for a function, which edits the content of a live location in an inline message sent via a bot; for bots only.
@@ -35270,8 +35426,8 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param inlineMessageId Inline message identifier.
-         * @param replyMarkup The new message reply markup.
-         * @param location New location content of the message; may be null. Pass null to stop sharing the live location.
+         * @param replyMarkup     The new message reply markup.
+         * @param location        New location content of the message; may be null. Pass null to stop sharing the live location.
          */
         public EditInlineMessageLiveLocation(String inlineMessageId, ReplyMarkup replyMarkup, Location location) {
             this.inlineMessageId = inlineMessageId;
@@ -35325,8 +35481,8 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param inlineMessageId Inline message identifier.
-         * @param replyMarkup The new message reply markup; for bots only.
+         * @param inlineMessageId     Inline message identifier.
+         * @param replyMarkup         The new message reply markup; for bots only.
          * @param inputMessageContent New content of the message. Must be one of the following types: InputMessageAnimation, InputMessageAudio, InputMessageDocument, InputMessagePhoto or InputMessageVideo.
          */
         public EditInlineMessageMedia(String inlineMessageId, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
@@ -35378,7 +35534,7 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param inlineMessageId Inline message identifier.
-         * @param replyMarkup The new message reply markup.
+         * @param replyMarkup     The new message reply markup.
          */
         public EditInlineMessageReplyMarkup(String inlineMessageId, ReplyMarkup replyMarkup) {
             this.inlineMessageId = inlineMessageId;
@@ -35431,8 +35587,8 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param inlineMessageId Inline message identifier.
-         * @param replyMarkup The new message reply markup.
+         * @param inlineMessageId     Inline message identifier.
+         * @param replyMarkup         The new message reply markup.
          * @param inputMessageContent New text content of the message. Should be of type InputMessageText.
          */
         public EditInlineMessageText(String inlineMessageId, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
@@ -35491,10 +35647,10 @@ public class TdApi {
          *
          * <p> Returns {@link Message Message} </p>
          *
-         * @param chatId The chat the message belongs to.
-         * @param messageId Identifier of the message.
+         * @param chatId      The chat the message belongs to.
+         * @param messageId   Identifier of the message.
          * @param replyMarkup The new message reply markup; for bots only.
-         * @param caption New message content caption; 0-GetOption(&quot;message_caption_length_max&quot;) characters.
+         * @param caption     New message content caption; 0-GetOption(&quot;message_caption_length_max&quot;) characters.
          */
         public EditMessageCaption(long chatId, long messageId, ReplyMarkup replyMarkup, FormattedText caption) {
             this.chatId = chatId;
@@ -35538,7 +35694,8 @@ public class TdApi {
         /**
          * New location content of the message; may be null. Pass null to stop sharing the live location.
          */
-        @Nullable public Location location;
+        @Nullable
+        public Location location;
 
         /**
          * Default constructor for a function, which edits the message content of a live location. Messages can be edited for a limited period of time specified in the live location. Returns the edited message after the edit is completed on the server side.
@@ -35553,10 +35710,10 @@ public class TdApi {
          *
          * <p> Returns {@link Message Message} </p>
          *
-         * @param chatId The chat the message belongs to.
-         * @param messageId Identifier of the message.
+         * @param chatId      The chat the message belongs to.
+         * @param messageId   Identifier of the message.
          * @param replyMarkup The new message reply markup; for bots only.
-         * @param location New location content of the message; may be null. Pass null to stop sharing the live location.
+         * @param location    New location content of the message; may be null. Pass null to stop sharing the live location.
          */
         public EditMessageLiveLocation(long chatId, long messageId, ReplyMarkup replyMarkup, Location location) {
             this.chatId = chatId;
@@ -35615,9 +35772,9 @@ public class TdApi {
          *
          * <p> Returns {@link Message Message} </p>
          *
-         * @param chatId The chat the message belongs to.
-         * @param messageId Identifier of the message.
-         * @param replyMarkup The new message reply markup; for bots only.
+         * @param chatId              The chat the message belongs to.
+         * @param messageId           Identifier of the message.
+         * @param replyMarkup         The new message reply markup; for bots only.
          * @param inputMessageContent New content of the message. Must be one of the following types: InputMessageAnimation, InputMessageAudio, InputMessageDocument, InputMessagePhoto or InputMessageVideo.
          */
         public EditMessageMedia(long chatId, long messageId, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
@@ -35673,8 +35830,8 @@ public class TdApi {
          *
          * <p> Returns {@link Message Message} </p>
          *
-         * @param chatId The chat the message belongs to.
-         * @param messageId Identifier of the message.
+         * @param chatId      The chat the message belongs to.
+         * @param messageId   Identifier of the message.
          * @param replyMarkup The new message reply markup.
          */
         public EditMessageReplyMarkup(long chatId, long messageId, ReplyMarkup replyMarkup) {
@@ -35733,9 +35890,9 @@ public class TdApi {
          *
          * <p> Returns {@link Message Message} </p>
          *
-         * @param chatId The chat the message belongs to.
-         * @param messageId Identifier of the message.
-         * @param replyMarkup The new message reply markup; for bots only.
+         * @param chatId              The chat the message belongs to.
+         * @param messageId           Identifier of the message.
+         * @param replyMarkup         The new message reply markup; for bots only.
          * @param inputMessageContent New text content of the message. Should be of type InputMessageText.
          */
         public EditMessageText(long chatId, long messageId, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
@@ -35800,10 +35957,10 @@ public class TdApi {
          * <p> Returns {@link Proxy Proxy} </p>
          *
          * @param proxyId Proxy identifier.
-         * @param server Proxy server IP address.
-         * @param port Proxy server port.
-         * @param enable True, if the proxy should be enabled.
-         * @param type Proxy type.
+         * @param server  Proxy server IP address.
+         * @param port    Proxy server port.
+         * @param enable  True, if the proxy should be enabled.
+         * @param type    Proxy type.
          */
         public EditProxy(int proxyId, String server, int port, boolean enable, ProxyType type) {
             this.proxyId = proxyId;
@@ -35900,7 +36057,7 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param generationId The identifier of the generation process.
-         * @param error If set, means that file generation has failed and should be terminated.
+         * @param error        If set, means that file generation has failed and should be terminated.
          */
         public FinishFileGeneration(long generationId, Error error) {
             this.generationId = generationId;
@@ -35965,12 +36122,12 @@ public class TdApi {
          *
          * <p> Returns {@link Messages Messages} </p>
          *
-         * @param chatId Identifier of the chat to which to forward messages.
-         * @param fromChatId Identifier of the chat from which to forward messages.
-         * @param messageIds Identifiers of the messages to forward.
+         * @param chatId              Identifier of the chat to which to forward messages.
+         * @param fromChatId          Identifier of the chat from which to forward messages.
+         * @param messageIds          Identifiers of the messages to forward.
          * @param disableNotification Pass true to disable notification for the message, doesn't work if messages are forwarded to a secret chat.
-         * @param fromBackground Pass true if the message is sent from the background.
-         * @param asAlbum True, if the messages should be grouped into an album after forwarding. For this to work, no more than 10 messages may be forwarded, and all of them must be photo or video messages.
+         * @param fromBackground      Pass true if the message is sent from the background.
+         * @param asAlbum             True, if the messages should be grouped into an album after forwarding. For this to work, no more than 10 messages may be forwarded, and all of them must be photo or video messages.
          */
         public ForwardMessages(long chatId, long fromChatId, long[] messageIds, boolean disableNotification, boolean fromBackground, boolean asAlbum) {
             this.chatId = chatId;
@@ -36231,9 +36388,9 @@ public class TdApi {
          *
          * <p> Returns {@link StickerSets StickerSets} </p>
          *
-         * @param isMasks Pass true to return mask stickers sets; pass false to return ordinary sticker sets.
+         * @param isMasks            Pass true to return mask stickers sets; pass false to return ordinary sticker sets.
          * @param offsetStickerSetId Identifier of the sticker set from which to return the result.
-         * @param limit Maximum number of sticker sets to return.
+         * @param limit              Maximum number of sticker sets to return.
          */
         public GetArchivedStickerSets(boolean isMasks, long offsetStickerSetId, int limit) {
             this.isMasks = isMasks;
@@ -36445,7 +36602,7 @@ public class TdApi {
          * <p> Returns {@link Users Users} </p>
          *
          * @param offset Number of users to skip in the result; must be non-negative.
-         * @param limit Maximum number of users to return; up to 100.
+         * @param limit  Maximum number of users to return; up to 100.
          */
         public GetBlockedUsers(int offset, int limit) {
             this.offset = offset;
@@ -36498,9 +36655,9 @@ public class TdApi {
          *
          * <p> Returns {@link CallbackQueryAnswer CallbackQueryAnswer} </p>
          *
-         * @param chatId Identifier of the chat with the message.
+         * @param chatId    Identifier of the chat with the message.
          * @param messageId Identifier of the message from which the query originated.
-         * @param payload Query payload.
+         * @param payload   Query payload.
          */
         public GetCallbackQueryAnswer(long chatId, long messageId, CallbackQueryPayload payload) {
             this.chatId = chatId;
@@ -36654,12 +36811,12 @@ public class TdApi {
          *
          * <p> Returns {@link ChatEvents ChatEvents} </p>
          *
-         * @param chatId Chat identifier.
-         * @param query Search query by which to filter events.
+         * @param chatId      Chat identifier.
+         * @param query       Search query by which to filter events.
          * @param fromEventId Identifier of an event from which to return results. Use 0 to get results from the latest events.
-         * @param limit Maximum number of events to return; up to 100.
-         * @param filters The types of events to return. By default, all types will be returned.
-         * @param userIds User identifiers by which to filter events. By default, events relating to all users will be returned.
+         * @param limit       Maximum number of events to return; up to 100.
+         * @param filters     The types of events to return. By default, all types will be returned.
+         * @param userIds     User identifiers by which to filter events. By default, events relating to all users will be returned.
          */
         public GetChatEventLog(long chatId, String query, long fromEventId, int limit, ChatEventLogFilters filters, int[] userIds) {
             this.chatId = chatId;
@@ -36724,11 +36881,11 @@ public class TdApi {
          *
          * <p> Returns {@link Messages Messages} </p>
          *
-         * @param chatId Chat identifier.
+         * @param chatId        Chat identifier.
          * @param fromMessageId Identifier of the message starting from which history must be fetched; use 0 to get results from the last message.
-         * @param offset Specify 0 to get results from exactly the fromMessageId or a negative offset up to 99 to get additionally some newer messages.
-         * @param limit The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, the limit must be greater or equal to -offset. Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached.
-         * @param onlyLocal If true, returns only messages that are available locally without sending network requests.
+         * @param offset        Specify 0 to get results from exactly the fromMessageId or a negative offset up to 99 to get additionally some newer messages.
+         * @param limit         The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, the limit must be greater or equal to -offset. Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached.
+         * @param onlyLocal     If true, returns only messages that are available locally without sending network requests.
          */
         public GetChatHistory(long chatId, long fromMessageId, int offset, int limit, boolean onlyLocal) {
             this.chatId = chatId;
@@ -36831,7 +36988,7 @@ public class TdApi {
          * <p> Returns {@link Message Message} </p>
          *
          * @param chatId Chat identifier.
-         * @param date Point in time (Unix timestamp) relative to which to search for messages.
+         * @param date   Point in time (Unix timestamp) relative to which to search for messages.
          */
         public GetChatMessageByDate(long chatId, int date) {
             this.chatId = chatId;
@@ -36884,8 +37041,8 @@ public class TdApi {
          *
          * <p> Returns {@link Count Count} </p>
          *
-         * @param chatId Identifier of the chat in which to count messages.
-         * @param filter Filter for message content; searchMessagesFilterEmpty is unsupported in this function.
+         * @param chatId      Identifier of the chat in which to count messages.
+         * @param filter      Filter for message content; searchMessagesFilterEmpty is unsupported in this function.
          * @param returnLocal If true, returns count that is available locally without sending network requests, returning -1 if the number of messages is unknown.
          */
         public GetChatMessageCount(long chatId, SearchMessagesFilter filter, boolean returnLocal) {
@@ -36936,7 +37093,7 @@ public class TdApi {
          *
          * <p> Returns {@link Chats Chats} </p>
          *
-         * @param scope If specified, only chats from the specified scope will be returned.
+         * @param scope        If specified, only chats from the specified scope will be returned.
          * @param compareSound If true, also chats with non-default sound will be returned.
          */
         public GetChatNotificationSettingsExceptions(NotificationSettingsScope scope, boolean compareSound) {
@@ -37078,9 +37235,9 @@ public class TdApi {
          *
          * <p> Returns {@link HttpUrl HttpUrl} </p>
          *
-         * @param chatId Chat identifier.
+         * @param chatId     Chat identifier.
          * @param parameters Parameters from &quot;tg://statsrefresh?params=******&quot; link.
-         * @param isDark Pass true if a URL with the dark theme must be returned.
+         * @param isDark     Pass true if a URL with the dark theme must be returned.
          */
         public GetChatStatisticsUrl(long chatId, String parameters, boolean isDark) {
             this.chatId = chatId;
@@ -37134,9 +37291,9 @@ public class TdApi {
          *
          * <p> Returns {@link Chats Chats} </p>
          *
-         * @param offsetOrder Chat order to return chats from.
+         * @param offsetOrder  Chat order to return chats from.
          * @param offsetChatId Chat identifier to return chats from.
-         * @param limit The maximum number of chats to be returned. It is possible that fewer chats than the limit are returned even if the end of the list is not reached.
+         * @param limit        The maximum number of chats to be returned. It is possible that fewer chats than the limit are returned even if the end of the list is not reached.
          */
         public GetChats(long offsetOrder, long offsetChatId, int limit) {
             this.offsetOrder = offsetOrder;
@@ -37619,9 +37776,9 @@ public class TdApi {
          *
          * <p> Returns {@link GameHighScores GameHighScores} </p>
          *
-         * @param chatId The chat that contains the message with the game.
+         * @param chatId    The chat that contains the message with the game.
          * @param messageId Identifier of the message.
-         * @param userId User identifier.
+         * @param userId    User identifier.
          */
         public GetGameHighScores(long chatId, long messageId, int userId) {
             this.chatId = chatId;
@@ -37675,9 +37832,9 @@ public class TdApi {
          *
          * <p> Returns {@link Chats Chats} </p>
          *
-         * @param userId User identifier.
+         * @param userId       User identifier.
          * @param offsetChatId Chat identifier starting from which to return chats; use 0 for the first request.
-         * @param limit Maximum number of chats to be returned; up to 100.
+         * @param limit        Maximum number of chats to be returned; up to 100.
          */
         public GetGroupsInCommon(int userId, long offsetChatId, int limit) {
             this.userId = userId;
@@ -37757,7 +37914,7 @@ public class TdApi {
          * <p> Returns {@link GameHighScores GameHighScores} </p>
          *
          * @param inlineMessageId Inline message identifier.
-         * @param userId User identifier.
+         * @param userId          User identifier.
          */
         public GetInlineGameHighScores(String inlineMessageId, int userId) {
             this.inlineMessageId = inlineMessageId;
@@ -37818,11 +37975,11 @@ public class TdApi {
          *
          * <p> Returns {@link InlineQueryResults InlineQueryResults} </p>
          *
-         * @param botUserId The identifier of the target bot.
-         * @param chatId Identifier of the chat, where the query was sent.
+         * @param botUserId    The identifier of the target bot.
+         * @param chatId       Identifier of the chat, where the query was sent.
          * @param userLocation Location of the user, only if needed.
-         * @param query Text of the query.
-         * @param offset Offset of the first entry to return.
+         * @param query        Text of the query.
+         * @param offset       Offset of the first entry to return.
          */
         public GetInlineQueryResults(int botUserId, long chatId, Location userLocation, String query, String offset) {
             this.botUserId = botUserId;
@@ -38088,9 +38245,9 @@ public class TdApi {
          * <p> Returns {@link LanguagePackStringValue LanguagePackStringValue} </p>
          *
          * @param languagePackDatabasePath Path to the language pack database in which strings are stored.
-         * @param localizationTarget Localization target to which the language pack belongs.
-         * @param languagePackId Language pack identifier.
-         * @param key Language pack key of the string to be returned.
+         * @param localizationTarget       Localization target to which the language pack belongs.
+         * @param languagePackId           Language pack identifier.
+         * @param key                      Language pack key of the string to be returned.
          */
         public GetLanguagePackString(String languagePackDatabasePath, String localizationTarget, String languagePackId, String key) {
             this.languagePackDatabasePath = languagePackDatabasePath;
@@ -38142,7 +38299,7 @@ public class TdApi {
          * <p> Returns {@link LanguagePackStrings LanguagePackStrings} </p>
          *
          * @param languagePackId Language pack identifier of the strings to be returned.
-         * @param keys Language pack keys of the strings to be returned; leave empty to request all available strings.
+         * @param keys           Language pack keys of the strings to be returned; leave empty to request all available strings.
          */
         public GetLanguagePackStrings(String languagePackId, String[] keys) {
             this.languagePackId = languagePackId;
@@ -38383,11 +38540,11 @@ public class TdApi {
          * <p> Returns {@link File File} </p>
          *
          * @param location Location of the map center.
-         * @param zoom Map zoom level; 13-20.
-         * @param width Map width in pixels before applying scale; 16-1024.
-         * @param height Map height in pixels before applying scale; 16-1024.
-         * @param scale Map scale; 1-3.
-         * @param chatId Identifier of a chat, in which the thumbnail will be shown. Use 0 if unknown.
+         * @param zoom     Map zoom level; 13-20.
+         * @param width    Map width in pixels before applying scale; 16-1024.
+         * @param height   Map height in pixels before applying scale; 16-1024.
+         * @param scale    Map scale; 1-3.
+         * @param chatId   Identifier of a chat, in which the thumbnail will be shown. Use 0 if unknown.
          */
         public GetMapThumbnailFile(Location location, int zoom, int width, int height, int scale, long chatId) {
             this.location = location;
@@ -38469,7 +38626,7 @@ public class TdApi {
          *
          * <p> Returns {@link Message Message} </p>
          *
-         * @param chatId Identifier of the chat the message belongs to.
+         * @param chatId    Identifier of the chat the message belongs to.
          * @param messageId Identifier of the message to get.
          */
         public GetMessage(long chatId, long messageId) {
@@ -38519,7 +38676,7 @@ public class TdApi {
          *
          * <p> Returns {@link HttpUrl HttpUrl} </p>
          *
-         * @param chatId Identifier of the chat to which the message belongs.
+         * @param chatId    Identifier of the chat to which the message belongs.
          * @param messageId Identifier of the message.
          */
         public GetMessageLink(long chatId, long messageId) {
@@ -38569,7 +38726,7 @@ public class TdApi {
          *
          * <p> Returns {@link Message Message} </p>
          *
-         * @param chatId Identifier of the chat the message belongs to.
+         * @param chatId    Identifier of the chat the message belongs to.
          * @param messageId Identifier of the message to get.
          */
         public GetMessageLocally(long chatId, long messageId) {
@@ -38619,7 +38776,7 @@ public class TdApi {
          *
          * <p> Returns {@link Messages Messages} </p>
          *
-         * @param chatId Identifier of the chat the messages belong to.
+         * @param chatId     Identifier of the chat the messages belong to.
          * @param messageIds Identifiers of the messages to get.
          */
         public GetMessages(long chatId, long[] messageIds) {
@@ -38766,9 +38923,9 @@ public class TdApi {
          * <p> Returns {@link PassportAuthorizationForm PassportAuthorizationForm} </p>
          *
          * @param botUserId User identifier of the service's bot.
-         * @param scope Telegram Passport element types requested by the service.
+         * @param scope     Telegram Passport element types requested by the service.
          * @param publicKey Service's publicKey.
-         * @param nonce Authorization form nonce provided by the service.
+         * @param nonce     Authorization form nonce provided by the service.
          */
         public GetPassportAuthorizationForm(int botUserId, String scope, String publicKey, String nonce) {
             this.botUserId = botUserId;
@@ -38820,7 +38977,7 @@ public class TdApi {
          * <p> Returns {@link PassportElementsWithErrors PassportElementsWithErrors} </p>
          *
          * @param autorizationFormId Authorization form identifier.
-         * @param password Password of the current user.
+         * @param password           Password of the current user.
          */
         public GetPassportAuthorizationFormAvailableElements(int autorizationFormId, String password) {
             this.autorizationFormId = autorizationFormId;
@@ -38869,7 +39026,7 @@ public class TdApi {
          *
          * <p> Returns {@link PassportElement PassportElement} </p>
          *
-         * @param type Telegram Passport element type.
+         * @param type     Telegram Passport element type.
          * @param password Password of the current user.
          */
         public GetPassportElement(PassportElementType type, String password) {
@@ -38948,7 +39105,7 @@ public class TdApi {
          *
          * <p> Returns {@link PaymentForm PaymentForm} </p>
          *
-         * @param chatId Chat identifier of the Invoice message.
+         * @param chatId    Chat identifier of the Invoice message.
          * @param messageId Message identifier.
          */
         public GetPaymentForm(long chatId, long messageId) {
@@ -38998,7 +39155,7 @@ public class TdApi {
          *
          * <p> Returns {@link PaymentReceipt PaymentReceipt} </p>
          *
-         * @param chatId Chat identifier of the PaymentSuccessful message.
+         * @param chatId    Chat identifier of the PaymentSuccessful message.
          * @param messageId Message identifier.
          */
         public GetPaymentReceipt(long chatId, long messageId) {
@@ -39169,9 +39326,9 @@ public class TdApi {
          *
          * <p> Returns {@link PublicMessageLink PublicMessageLink} </p>
          *
-         * @param chatId Identifier of the chat to which the message belongs.
+         * @param chatId    Identifier of the chat to which the message belongs.
          * @param messageId Identifier of the message.
-         * @param forAlbum Pass true if a link for a whole media album should be returned.
+         * @param forAlbum  Pass true if a link for a whole media album should be returned.
          */
         public GetPublicMessageLink(long chatId, long messageId, boolean forAlbum) {
             this.chatId = chatId;
@@ -39427,7 +39584,7 @@ public class TdApi {
          * <p> Returns {@link File File} </p>
          *
          * @param remoteFileId Remote identifier of the file to get.
-         * @param fileType File type, if known.
+         * @param fileType     File type, if known.
          */
         public GetRemoteFile(String remoteFileId, FileType fileType) {
             this.remoteFileId = remoteFileId;
@@ -39476,7 +39633,7 @@ public class TdApi {
          *
          * <p> Returns {@link Message Message} </p>
          *
-         * @param chatId Identifier of the chat the message belongs to.
+         * @param chatId    Identifier of the chat the message belongs to.
          * @param messageId Identifier of the message reply to which get.
          */
         public GetRepliedMessage(long chatId, long messageId) {
@@ -39980,9 +40137,9 @@ public class TdApi {
          * <p> Returns {@link ChatMembers ChatMembers} </p>
          *
          * @param supergroupId Identifier of the supergroup or channel.
-         * @param filter The type of users to return. By default, supergroupMembersRecent.
-         * @param offset Number of users to skip.
-         * @param limit The maximum number of users be returned; up to 200.
+         * @param filter       The type of users to return. By default, supergroupMembersRecent.
+         * @param offset       Number of users to skip.
+         * @param limit        The maximum number of users be returned; up to 200.
          */
         public GetSupergroupMembers(int supergroupId, SupergroupMembersFilter filter, int offset, int limit) {
             this.supergroupId = supergroupId;
@@ -40136,7 +40293,7 @@ public class TdApi {
          * <p> Returns {@link Chats Chats} </p>
          *
          * @param category Category of chats to be returned.
-         * @param limit Maximum number of chats to be returned; up to 30.
+         * @param limit    Maximum number of chats to be returned; up to 30.
          */
         public GetTopChats(TopChatCategory category, int limit) {
             this.category = category;
@@ -40352,7 +40509,7 @@ public class TdApi {
          *
          * @param userId User identifier.
          * @param offset The number of photos to skip; must be non-negative.
-         * @param limit Maximum number of photos to be returned; up to 100.
+         * @param limit  Maximum number of photos to be returned; up to 100.
          */
         public GetUserProfilePhotos(int userId, int offset, int limit) {
             this.userId = userId;
@@ -40431,7 +40588,7 @@ public class TdApi {
          *
          * <p> Returns {@link WebPageInstantView WebPageInstantView} </p>
          *
-         * @param url The web page URL.
+         * @param url       The web page URL.
          * @param forceFull If true, the full instant view for the web page will be returned.
          */
         public GetWebPageInstantView(String url, boolean forceFull) {
@@ -40774,7 +40931,7 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param chatId Chat identifier of the message.
+         * @param chatId    Chat identifier of the message.
          * @param messageId Identifier of the message with the opened content.
          */
         public OpenMessageContent(long chatId, long messageId) {
@@ -40848,14 +41005,14 @@ public class TdApi {
          *
          * <p> Returns {@link StorageStatistics StorageStatistics} </p>
          *
-         * @param size Limit on the total size of files after deletion. Pass -1 to use the default limit.
-         * @param ttl Limit on the time that has passed since the last time a file was accessed (or creation time for some filesystems). Pass -1 to use the default limit.
-         * @param count Limit on the total count of files after deletion. Pass -1 to use the default limit.
-         * @param immunityDelay The amount of time after the creation of a file during which it can't be deleted, in seconds. Pass -1 to use the default value.
-         * @param fileTypes If not empty, only files with the given type(s) are considered. By default, all types except thumbnails, profile photos, stickers and wallpapers are deleted.
-         * @param chatIds If not empty, only files from the given chats are considered. Use 0 as chat identifier to delete files not belonging to any chat (e.g., profile photos).
+         * @param size           Limit on the total size of files after deletion. Pass -1 to use the default limit.
+         * @param ttl            Limit on the time that has passed since the last time a file was accessed (or creation time for some filesystems). Pass -1 to use the default limit.
+         * @param count          Limit on the total count of files after deletion. Pass -1 to use the default limit.
+         * @param immunityDelay  The amount of time after the creation of a file during which it can't be deleted, in seconds. Pass -1 to use the default value.
+         * @param fileTypes      If not empty, only files with the given type(s) are considered. By default, all types except thumbnails, profile photos, stickers and wallpapers are deleted.
+         * @param chatIds        If not empty, only files from the given chats are considered. Use 0 as chat identifier to delete files not belonging to any chat (e.g., profile photos).
          * @param excludeChatIds If not empty, files from the given chats are excluded. Use 0 as chat identifier to exclude all files not belonging to any chat (e.g., profile photos).
-         * @param chatLimit Same as in getStorageStatistics. Affects only returned statistics.
+         * @param chatLimit      Same as in getStorageStatistics. Affects only returned statistics.
          */
         public OptimizeStorage(long size, int ttl, int count, int immunityDelay, FileType[] fileTypes, long[] chatIds, long[] excludeChatIds, int chatLimit) {
             this.size = size;
@@ -40910,7 +41067,7 @@ public class TdApi {
          *
          * <p> Returns {@link FormattedText FormattedText} </p>
          *
-         * @param text The text which should be parsed.
+         * @param text      The text which should be parsed.
          * @param parseMode Text parse mode.
          */
         public ParseTextEntities(String text, TextParseMode parseMode) {
@@ -40964,8 +41121,8 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param chatId Identifier of the chat.
-         * @param messageId Identifier of the new pinned message.
+         * @param chatId              Identifier of the chat.
+         * @param messageId           Identifier of the new pinned message.
          * @param disableNotification True, if there should be no notification about the pinned message.
          */
         public PinChatMessage(long chatId, long messageId, boolean disableNotification) {
@@ -41154,7 +41311,7 @@ public class TdApi {
          *
          * @param fileId Identifier of the file. The file must be located in the TDLib file cache.
          * @param offset The offset from which to read the file.
-         * @param count Number of bytes to read. An error will be returned if there are not enough bytes available in the file from the specified position. Pass 0 to read all available data from the specified position.
+         * @param count  Number of bytes to read. An error will be returned if there are not enough bytes available in the file from the specified position. Pass 0 to read all available data from the specified position.
          */
         public ReadFilePart(int fileId, int offset, int count) {
             this.fileId = fileId;
@@ -41292,7 +41449,7 @@ public class TdApi {
          *
          * <p> Returns {@link PushReceiverId PushReceiverId} </p>
          *
-         * @param deviceToken Device token.
+         * @param deviceToken  Device token.
          * @param otherUserIds List of user identifiers of other users currently using the client.
          */
         public RegisterDevice(DeviceToken deviceToken, int[] otherUserIds) {
@@ -41431,7 +41588,7 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param notificationGroupId Identifier of notification group to which the notification belongs.
-         * @param notificationId Identifier of removed notification.
+         * @param notificationId      Identifier of removed notification.
          */
         public RemoveNotification(int notificationGroupId, int notificationId) {
             this.notificationGroupId = notificationGroupId;
@@ -41481,7 +41638,7 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param notificationGroupId Notification group identifier.
-         * @param maxNotificationId Maximum identifier of removed notifications.
+         * @param maxNotificationId   Maximum identifier of removed notifications.
          */
         public RemoveNotificationGroup(int notificationGroupId, int maxNotificationId) {
             this.notificationGroupId = notificationGroupId;
@@ -41619,7 +41776,7 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param isAttached Pass true to remove the sticker from the list of stickers recently attached to photo or video files; pass false to remove the sticker from the list of recently sent stickers.
-         * @param sticker Sticker file to delete.
+         * @param sticker    Sticker file to delete.
          */
         public RemoveRecentSticker(boolean isAttached, InputFile sticker) {
             this.isAttached = isAttached;
@@ -41801,7 +41958,7 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param category Category of frequently used chats.
-         * @param chatId Chat identifier.
+         * @param chatId   Chat identifier.
          */
         public RemoveTopChat(TopChatCategory category, long chatId) {
             this.category = category;
@@ -41850,7 +42007,7 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param isMasks Pass true to change the order of mask sticker sets; pass false to change the order of ordinary sticker sets.
+         * @param isMasks       Pass true to change the order of mask sticker sets; pass false to change the order of ordinary sticker sets.
          * @param stickerSetIds Identifiers of installed sticker sets in the new correct order.
          */
         public ReorderInstalledStickerSets(boolean isMasks, long[] stickerSetIds) {
@@ -41904,8 +42061,8 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param chatId Chat identifier.
-         * @param reason The reason for reporting the chat.
+         * @param chatId     Chat identifier.
+         * @param reason     The reason for reporting the chat.
          * @param messageIds Identifiers of reported messages, if any.
          */
         public ReportChat(long chatId, ChatReportReason reason, long[] messageIds) {
@@ -41961,8 +42118,8 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param supergroupId Supergroup identifier.
-         * @param userId User identifier.
-         * @param messageIds Identifiers of messages sent in the supergroup by the user. This list must be non-empty.
+         * @param userId       User identifier.
+         * @param messageIds   Identifiers of messages sent in the supergroup by the user. This list must be non-empty.
          */
         public ReportSupergroupSpam(int supergroupId, int userId, long[] messageIds) {
             this.supergroupId = supergroupId;
@@ -42306,9 +42463,9 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param type Event type.
+         * @param type   Event type.
          * @param chatId Optional chat identifier, associated with the event.
-         * @param data The log event data.
+         * @param data   The log event data.
          */
         public SaveApplicationLogEvent(String type, long chatId, JsonValue data) {
             this.type = type;
@@ -42363,8 +42520,8 @@ public class TdApi {
          * <p> Returns {@link Messages Messages} </p>
          *
          * @param fromMessageId Identifier of the message from which to search; use 0 to get results from the last message.
-         * @param limit The maximum number of messages to be returned; up to 100. Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached.
-         * @param onlyMissed If true, returns only messages with missed calls.
+         * @param limit         The maximum number of messages to be returned; up to 100. Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached.
+         * @param onlyMissed    If true, returns only messages with missed calls.
          */
         public SearchCallMessages(long fromMessageId, int limit, boolean onlyMissed) {
             this.fromMessageId = fromMessageId;
@@ -42423,8 +42580,8 @@ public class TdApi {
          * <p> Returns {@link ChatMembers ChatMembers} </p>
          *
          * @param chatId Chat identifier.
-         * @param query Query to search for.
-         * @param limit The maximum number of users to be returned.
+         * @param query  Query to search for.
+         * @param limit  The maximum number of users to be returned.
          * @param filter The type of users to return. By default, chatMembersFilterMembers.
          */
         public SearchChatMembers(long chatId, String query, int limit, ChatMembersFilter filter) {
@@ -42496,13 +42653,13 @@ public class TdApi {
          *
          * <p> Returns {@link Messages Messages} </p>
          *
-         * @param chatId Identifier of the chat in which to search messages.
-         * @param query Query to search for.
-         * @param senderUserId If not 0, only messages sent by the specified user will be returned. Not supported in secret chats.
+         * @param chatId        Identifier of the chat in which to search messages.
+         * @param query         Query to search for.
+         * @param senderUserId  If not 0, only messages sent by the specified user will be returned. Not supported in secret chats.
          * @param fromMessageId Identifier of the message starting from which history must be fetched; use 0 to get results from the last message.
-         * @param offset Specify 0 to get results from exactly the fromMessageId or a negative offset to get the specified message and some newer messages.
-         * @param limit The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, the limit must be greater than -offset. Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached.
-         * @param filter Filter for message content in the search results.
+         * @param offset        Specify 0 to get results from exactly the fromMessageId or a negative offset to get the specified message and some newer messages.
+         * @param limit         The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, the limit must be greater than -offset. Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached.
+         * @param filter        Filter for message content in the search results.
          */
         public SearchChatMessages(long chatId, String query, int senderUserId, long fromMessageId, int offset, int limit, SearchMessagesFilter filter) {
             this.chatId = chatId;
@@ -42557,7 +42714,7 @@ public class TdApi {
          * <p> Returns {@link Messages Messages} </p>
          *
          * @param chatId Chat identifier.
-         * @param limit Maximum number of messages to be returned.
+         * @param limit  Maximum number of messages to be returned.
          */
         public SearchChatRecentLocationMessages(long chatId, int limit) {
             this.chatId = chatId;
@@ -42757,7 +42914,7 @@ public class TdApi {
          * <p> Returns {@link Hashtags Hashtags} </p>
          *
          * @param prefix Hashtag prefix to search for.
-         * @param limit Maximum number of hashtags to be returned.
+         * @param limit  Maximum number of hashtags to be returned.
          */
         public SearchHashtags(String prefix, int limit) {
             this.prefix = prefix;
@@ -42811,8 +42968,8 @@ public class TdApi {
          * <p> Returns {@link StickerSets StickerSets} </p>
          *
          * @param isMasks Pass true to return mask sticker sets; pass false to return ordinary sticker sets.
-         * @param query Query to search for.
-         * @param limit Maximum number of sticker sets to return.
+         * @param query   Query to search for.
+         * @param limit   Maximum number of sticker sets to return.
          */
         public SearchInstalledStickerSets(boolean isMasks, String query, int limit) {
             this.isMasks = isMasks;
@@ -42874,11 +43031,11 @@ public class TdApi {
          *
          * <p> Returns {@link Messages Messages} </p>
          *
-         * @param query Query to search for.
-         * @param offsetDate The date of the message starting from which the results should be fetched. Use 0 or any date in the future to get results from the last message.
-         * @param offsetChatId The chat identifier of the last found message, or 0 for the first request.
+         * @param query           Query to search for.
+         * @param offsetDate      The date of the message starting from which the results should be fetched. Use 0 or any date in the future to get results from the last message.
+         * @param offsetChatId    The chat identifier of the last found message, or 0 for the first request.
          * @param offsetMessageId The message identifier of the last found message, or 0 for the first request.
-         * @param limit The maximum number of messages to be returned, up to 100. Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached.
+         * @param limit           The maximum number of messages to be returned, up to 100. Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached.
          */
         public SearchMessages(String query, int offsetDate, long offsetChatId, long offsetMessageId, int limit) {
             this.query = query;
@@ -43030,11 +43187,11 @@ public class TdApi {
          *
          * <p> Returns {@link FoundMessages FoundMessages} </p>
          *
-         * @param chatId Identifier of the chat in which to search. Specify 0 to search in all secret chats.
-         * @param query Query to search for. If empty, searchChatMessages should be used instead.
+         * @param chatId       Identifier of the chat in which to search. Specify 0 to search in all secret chats.
+         * @param query        Query to search for. If empty, searchChatMessages should be used instead.
          * @param fromSearchId The identifier from the result of a previous request, use 0 to get results from the last message.
-         * @param limit Maximum number of messages to be returned; up to 100. Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached.
-         * @param filter A filter for the content of messages in the search results.
+         * @param limit        Maximum number of messages to be returned; up to 100. Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached.
+         * @param filter       A filter for the content of messages in the search results.
          */
         public SearchSecretMessages(long chatId, String query, long fromSearchId, int limit, SearchMessagesFilter filter) {
             this.chatId = chatId;
@@ -43229,7 +43386,7 @@ public class TdApi {
          * <p> Returns {@link Message Message} </p>
          *
          * @param botUserId Identifier of the bot.
-         * @param chatId Identifier of the target chat.
+         * @param chatId    Identifier of the target chat.
          * @param parameter A hidden parameter sent to the bot for deep linking purposes (https://api.telegram.org/bots#deep-linking).
          */
         public SendBotStartMessage(int botUserId, long chatId, String parameter) {
@@ -43280,7 +43437,7 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param callId Call identifier.
+         * @param callId           Call identifier.
          * @param debugInformation Debug information in application-specific format.
          */
         public SendCallDebugInformation(int callId, String debugInformation) {
@@ -43334,8 +43491,8 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param callId Call identifier.
-         * @param rating Call rating; 1-5.
+         * @param callId  Call identifier.
+         * @param rating  Call rating; 1-5.
          * @param comment An optional user comment if the rating is less than 5.
          */
         public SendCallRating(int callId, int rating, String comment) {
@@ -43481,7 +43638,7 @@ public class TdApi {
          * <p> Returns {@link Message Message} </p>
          *
          * @param chatId Chat identifier.
-         * @param ttl New TTL value, in seconds.
+         * @param ttl    New TTL value, in seconds.
          */
         public SendChatSetTtlMessage(long chatId, int ttl) {
             this.chatId = chatId;
@@ -43530,7 +43687,7 @@ public class TdApi {
          *
          * <p> Returns {@link CustomRequestResult CustomRequestResult} </p>
          *
-         * @param method The method name.
+         * @param method     The method name.
          * @param parameters JSON-serialized method parameters.
          */
         public SendCustomRequest(String method, String parameters) {
@@ -43644,13 +43801,13 @@ public class TdApi {
          *
          * <p> Returns {@link Message Message} </p>
          *
-         * @param chatId Target chat.
-         * @param replyToMessageId Identifier of a message to reply to or 0.
+         * @param chatId              Target chat.
+         * @param replyToMessageId    Identifier of a message to reply to or 0.
          * @param disableNotification Pass true to disable notification for the message. Not supported in secret chats.
-         * @param fromBackground Pass true if the message is sent from background.
-         * @param queryId Identifier of the inline query.
-         * @param resultId Identifier of the inline result.
-         * @param hideViaBot If true, there will be no mention of a bot, via which the message is sent. Can be used only for bots GetOption(&quot;animation_search_bot_username&quot;), GetOption(&quot;photo_search_bot_username&quot;) and GetOption(&quot;venue_search_bot_username&quot;).
+         * @param fromBackground      Pass true if the message is sent from background.
+         * @param queryId             Identifier of the inline query.
+         * @param resultId            Identifier of the inline result.
+         * @param hideViaBot          If true, there will be no mention of a bot, via which the message is sent. Can be used only for bots GetOption(&quot;animation_search_bot_username&quot;), GetOption(&quot;photo_search_bot_username&quot;) and GetOption(&quot;venue_search_bot_username&quot;).
          */
         public SendInlineQueryResultMessage(long chatId, long replyToMessageId, boolean disableNotification, boolean fromBackground, long queryId, String resultId, boolean hideViaBot) {
             this.chatId = chatId;
@@ -43720,11 +43877,11 @@ public class TdApi {
          *
          * <p> Returns {@link Message Message} </p>
          *
-         * @param chatId Target chat.
-         * @param replyToMessageId Identifier of the message to reply to or 0.
+         * @param chatId              Target chat.
+         * @param replyToMessageId    Identifier of the message to reply to or 0.
          * @param disableNotification Pass true to disable notification for the message. Not supported in secret chats.
-         * @param fromBackground Pass true if the message is sent from the background.
-         * @param replyMarkup Markup for replying to the message; for bots only.
+         * @param fromBackground      Pass true if the message is sent from the background.
+         * @param replyMarkup         Markup for replying to the message; for bots only.
          * @param inputMessageContent The content of the message to be sent.
          */
         public SendMessage(long chatId, long replyToMessageId, boolean disableNotification, boolean fromBackground, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
@@ -43790,10 +43947,10 @@ public class TdApi {
          *
          * <p> Returns {@link Messages Messages} </p>
          *
-         * @param chatId Target chat.
-         * @param replyToMessageId Identifier of a message to reply to or 0.
-         * @param disableNotification Pass true to disable notification for the messages. Not supported in secret chats.
-         * @param fromBackground Pass true if the messages are sent from the background.
+         * @param chatId               Target chat.
+         * @param replyToMessageId     Identifier of a message to reply to or 0.
+         * @param disableNotification  Pass true to disable notification for the messages. Not supported in secret chats.
+         * @param fromBackground       Pass true if the messages are sent from the background.
          * @param inputMessageContents Contents of messages to be sent.
          */
         public SendMessageAlbum(long chatId, long replyToMessageId, boolean disableNotification, boolean fromBackground, InputMessageContent[] inputMessageContents) {
@@ -43847,7 +44004,7 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param autorizationFormId Authorization form identifier.
-         * @param types Types of Telegram Passport elements chosen by user to complete the authorization form.
+         * @param types              Types of Telegram Passport elements chosen by user to complete the authorization form.
          */
         public SendPassportAuthorizationForm(int autorizationFormId, PassportElementType[] types) {
             this.autorizationFormId = autorizationFormId;
@@ -43908,11 +44065,11 @@ public class TdApi {
          *
          * <p> Returns {@link PaymentResult PaymentResult} </p>
          *
-         * @param chatId Chat identifier of the Invoice message.
-         * @param messageId Message identifier.
-         * @param orderInfoId Identifier returned by ValidateOrderInfo, or an empty string.
+         * @param chatId           Chat identifier of the Invoice message.
+         * @param messageId        Message identifier.
+         * @param orderInfoId      Identifier returned by ValidateOrderInfo, or an empty string.
          * @param shippingOptionId Identifier of a chosen shipping option, if applicable.
-         * @param credentials The credentials chosen by user for payment.
+         * @param credentials      The credentials chosen by user for payment.
          */
         public SendPaymentForm(long chatId, long messageId, String orderInfoId, String shippingOptionId, InputCredentials credentials) {
             this.chatId = chatId;
@@ -43972,9 +44129,9 @@ public class TdApi {
          *
          * <p> Returns {@link AuthenticationCodeInfo AuthenticationCodeInfo} </p>
          *
-         * @param hash Value of the &quot;hash&quot; parameter from the link.
-         * @param phoneNumber Value of the &quot;phone&quot; parameter from the link.
-         * @param allowFlashCall Pass true if the authentication code may be sent via flash call to the specified phone number.
+         * @param hash                 Value of the &quot;hash&quot; parameter from the link.
+         * @param phoneNumber          Value of the &quot;phone&quot; parameter from the link.
+         * @param allowFlashCall       Pass true if the authentication code may be sent via flash call to the specified phone number.
          * @param isCurrentPhoneNumber Pass true if the phone number is used on the current device. Ignored if allowFlashCall is false.
          */
         public SendPhoneNumberConfirmationCode(String hash, String phoneNumber, boolean allowFlashCall, boolean isCurrentPhoneNumber) {
@@ -44030,8 +44187,8 @@ public class TdApi {
          *
          * <p> Returns {@link AuthenticationCodeInfo AuthenticationCodeInfo} </p>
          *
-         * @param phoneNumber The phone number of the user, in international format.
-         * @param allowFlashCall Pass true if the authentication code may be sent via flash call to the specified phone number.
+         * @param phoneNumber          The phone number of the user, in international format.
+         * @param allowFlashCall       Pass true if the authentication code may be sent via flash call to the specified phone number.
          * @param isCurrentPhoneNumber Pass true if the phone number is used on the current device. Ignored if allowFlashCall is false.
          */
         public SendPhoneNumberVerificationCode(String phoneNumber, boolean allowFlashCall, boolean isCurrentPhoneNumber) {
@@ -44174,8 +44331,8 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param phoneNumber The phone number of the user, in international format.
-         * @param allowFlashCall Pass true if the authentication code may be sent via flash call to the specified phone number.
+         * @param phoneNumber          The phone number of the user, in international format.
+         * @param allowFlashCall       Pass true if the authentication code may be sent via flash call to the specified phone number.
          * @param isCurrentPhoneNumber Pass true if the phone number is used on the current device. Ignored if allowFlashCall is false.
          */
         public SetAuthenticationPhoneNumber(String phoneNumber, boolean allowFlashCall, boolean isCurrentPhoneNumber) {
@@ -44271,7 +44428,7 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param pendingUpdateCount The number of pending updates.
-         * @param errorMessage The last error message.
+         * @param errorMessage       The last error message.
          */
         public SetBotUpdatesStatus(int pendingUpdateCount, String errorMessage) {
             this.pendingUpdateCount = pendingUpdateCount;
@@ -44320,7 +44477,7 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param chatId Chat identifier.
+         * @param chatId     Chat identifier.
          * @param clientData New value of clientData.
          */
         public SetChatClientData(long chatId, String clientData) {
@@ -44355,7 +44512,8 @@ public class TdApi {
         /**
          * New draft message; may be null.
          */
-        @Nullable public DraftMessage draftMessage;
+        @Nullable
+        public DraftMessage draftMessage;
 
         /**
          * Default constructor for a function, which changes the draft message in a chat.
@@ -44370,7 +44528,7 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param chatId Chat identifier.
+         * @param chatId       Chat identifier.
          * @param draftMessage New draft message; may be null.
          */
         public SetChatDraftMessage(long chatId, DraftMessage draftMessage) {
@@ -44476,7 +44634,7 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param chatId Chat identifier.
+         * @param chatId               Chat identifier.
          * @param notificationSettings New notification settings for the chat.
          */
         public SetChatNotificationSettings(long chatId, ChatNotificationSettings notificationSettings) {
@@ -44527,7 +44685,7 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param chatId Chat identifier.
-         * @param photo New chat photo. You can use a zero InputFileId to delete the chat photo. Files that are accessible only by HTTP URL are not acceptable.
+         * @param photo  New chat photo. You can use a zero InputFileId to delete the chat photo. Files that are accessible only by HTTP URL are not acceptable.
          */
         public SetChatPhoto(long chatId, InputFile photo) {
             this.chatId = chatId;
@@ -44577,7 +44735,7 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param chatId Chat identifier.
-         * @param title New title of the chat; 1-128 characters.
+         * @param title  New title of the chat; 1-128 characters.
          */
         public SetChatTitle(long chatId, String title) {
             this.chatId = chatId;
@@ -44626,7 +44784,7 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param info Information about the language pack. Language pack ID must start with 'X', consist only of English letters, digits and hyphens, and must not exceed 64 characters. Can be called before authorization.
+         * @param info    Information about the language pack. Language pack ID must start with 'X', consist only of English letters, digits and hyphens, and must not exceed 64 characters. Can be called before authorization.
          * @param strings Strings of the new language pack.
          */
         public SetCustomLanguagePack(LanguagePackInfo info, LanguagePackString[] strings) {
@@ -44677,7 +44835,7 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param languagePackId Identifier of a previously added custom local language pack in the current localization target.
-         * @param newString New language pack string.
+         * @param newString      New language pack string.
          */
         public SetCustomLanguagePackString(String languagePackId, LanguagePackString newString) {
             this.languagePackId = languagePackId;
@@ -44774,8 +44932,8 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param generationId The identifier of the generation process.
-         * @param expectedSize Expected size of the generated file, in bytes; 0 if unknown.
+         * @param generationId    The identifier of the generation process.
+         * @param expectedSize    Expected size of the generated file, in bytes; 0 if unknown.
          * @param localPrefixSize The number of bytes already generated.
          */
         public SetFileGenerationProgress(long generationId, int expectedSize, int localPrefixSize) {
@@ -44842,12 +45000,12 @@ public class TdApi {
          *
          * <p> Returns {@link Message Message} </p>
          *
-         * @param chatId The chat to which the message with the game belongs.
-         * @param messageId Identifier of the message.
+         * @param chatId      The chat to which the message with the game belongs.
+         * @param messageId   Identifier of the message.
          * @param editMessage True, if the message should be edited.
-         * @param userId User identifier.
-         * @param score The new score.
-         * @param force Pass true to update the score even if it decreases. If the score is 0, the user will be deleted from the high score table.
+         * @param userId      User identifier.
+         * @param score       The new score.
+         * @param force       Pass true to update the score even if it decreases. If the score is 0, the user will be deleted from the high score table.
          */
         public SetGameScore(long chatId, long messageId, boolean editMessage, int userId, int score, boolean force) {
             this.chatId = chatId;
@@ -44913,10 +45071,10 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param inlineMessageId Inline message identifier.
-         * @param editMessage True, if the message should be edited.
-         * @param userId User identifier.
-         * @param score The new score.
-         * @param force Pass true to update the score even if it decreases. If the score is 0, the user will be deleted from the high score table.
+         * @param editMessage     True, if the message should be edited.
+         * @param userId          User identifier.
+         * @param score           The new score.
+         * @param force           Pass true to update the score even if it decreases. If the score is 0, the user will be deleted from the high score table.
          */
         public SetInlineGameScore(String inlineMessageId, boolean editMessage, int userId, int score, boolean force) {
             this.inlineMessageId = inlineMessageId;
@@ -45012,7 +45170,7 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param tag Logging tag to change verbosity level.
+         * @param tag               Logging tag to change verbosity level.
          * @param newVerbosityLevel New verbosity level; 1-1024.
          */
         public SetLogTagVerbosityLevel(String tag, int newVerbosityLevel) {
@@ -45107,7 +45265,7 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param firstName The new value of the first name for the user; 1-64 characters.
-         * @param lastName The new value of the optional last name for the user; 0-64 characters.
+         * @param lastName  The new value of the optional last name for the user; 0-64 characters.
          */
         public SetName(String firstName, String lastName) {
             this.firstName = firstName;
@@ -45200,7 +45358,7 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param name The name of the option.
+         * @param name  The name of the option.
          * @param value The new value of the option.
          */
         public SetOption(String name, OptionValue value) {
@@ -45250,7 +45408,7 @@ public class TdApi {
          *
          * <p> Returns {@link PassportElement PassportElement} </p>
          *
-         * @param element Input Telegram Passport element.
+         * @param element  Input Telegram Passport element.
          * @param password Password of the current user.
          */
         public SetPassportElement(InputPassportElement element, String password) {
@@ -45362,9 +45520,9 @@ public class TdApi {
          *
          * <p> Returns {@link PasswordState PasswordState} </p>
          *
-         * @param oldPassword Previous password of the user.
-         * @param newPassword New password of the user; may be empty to remove the password.
-         * @param newHint New password hint; may be empty.
+         * @param oldPassword             Previous password of the user.
+         * @param newPassword             New password of the user; may be empty to remove the password.
+         * @param newHint                 New password hint; may be empty.
          * @param setRecoveryEmailAddress Pass true if the recovery email address should be changed.
          * @param newRecoveryEmailAddress New recovery email address; may be empty.
          */
@@ -45466,7 +45624,7 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param chatId Identifier of the chat to which the poll belongs.
+         * @param chatId    Identifier of the chat to which the poll belongs.
          * @param messageId Identifier of the message containing the poll.
          * @param optionIds 0-based identifiers of options, chosen by the user. Currently user can't choose more than 1 option.
          */
@@ -45562,7 +45720,7 @@ public class TdApi {
          *
          * <p> Returns {@link PasswordState PasswordState} </p>
          *
-         * @param password Password of the current user.
+         * @param password                Password of the current user.
          * @param newRecoveryEmailAddress New recovery email address.
          */
         public SetRecoveryEmailAddress(String password, String newRecoveryEmailAddress) {
@@ -45612,7 +45770,7 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param scope Types of chats for which to change the notification settings.
+         * @param scope                Types of chats for which to change the notification settings.
          * @param notificationSettings The new notification settings for the given scope.
          */
         public SetScopeNotificationSettings(NotificationSettingsScope scope, ScopeNotificationSettings notificationSettings) {
@@ -45662,7 +45820,7 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param sticker Sticker.
+         * @param sticker  Sticker.
          * @param position New position of the sticker in the set, zero-based.
          */
         public SetStickerPositionInSet(InputFile sticker, int position) {
@@ -45713,7 +45871,7 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param supergroupId Identifier of the supergroup or channel.
-         * @param description New supergroup or channel description; 0-255 characters.
+         * @param description  New supergroup or channel description; 0-255 characters.
          */
         public SetSupergroupDescription(int supergroupId, String description) {
             this.supergroupId = supergroupId;
@@ -45813,7 +45971,7 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param supergroupId Identifier of the supergroup or channel.
-         * @param username New value of the username. Use an empty string to remove the username.
+         * @param username     New value of the username. Use an empty string to remove the username.
          */
         public SetSupergroupUsername(int supergroupId, String username) {
             this.supergroupId = supergroupId;
@@ -45907,7 +46065,7 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param setting The privacy setting.
-         * @param rules The new privacy rules.
+         * @param rules   The new privacy rules.
          */
         public SetUserPrivacySettingRules(UserPrivacySetting setting, UserPrivacySettingRules rules) {
             this.setting = setting;
@@ -46004,8 +46162,8 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param chatId Identifier of the chat to which the poll belongs.
-         * @param messageId Identifier of the message containing the poll.
+         * @param chatId      Identifier of the chat to which the poll belongs.
+         * @param messageId   Identifier of the message containing the poll.
          * @param replyMarkup The new message reply markup; for bots only.
          */
         public StopPoll(long chatId, long messageId, ReplyMarkup replyMarkup) {
@@ -46626,7 +46784,7 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param basicGroupId Identifier of the basic group.
+         * @param basicGroupId            Identifier of the basic group.
          * @param everyoneIsAdministrator New value of everyoneIsAdministrator.
          */
         public ToggleBasicGroupAdministrators(int basicGroupId, boolean everyoneIsAdministrator) {
@@ -46676,7 +46834,7 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param chatId Chat identifier.
+         * @param chatId                     Chat identifier.
          * @param defaultDisableNotification New value of defaultDisableNotification.
          */
         public ToggleChatDefaultDisableNotification(long chatId, boolean defaultDisableNotification) {
@@ -46726,7 +46884,7 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param chatId Chat identifier.
+         * @param chatId           Chat identifier.
          * @param isMarkedAsUnread New value of isMarkedAsUnread.
          */
         public ToggleChatIsMarkedAsUnread(long chatId, boolean isMarkedAsUnread) {
@@ -46776,7 +46934,7 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param chatId Chat identifier.
+         * @param chatId   Chat identifier.
          * @param isPinned New value of isPinned.
          */
         public ToggleChatIsPinned(long chatId, boolean isPinned) {
@@ -46826,7 +46984,7 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param supergroupId Identifier of the supergroup.
+         * @param supergroupId    Identifier of the supergroup.
          * @param anyoneCanInvite New value of anyoneCanInvite.
          */
         public ToggleSupergroupInvites(int supergroupId, boolean anyoneCanInvite) {
@@ -46876,7 +47034,7 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param supergroupId The identifier of the supergroup.
+         * @param supergroupId          The identifier of the supergroup.
          * @param isAllHistoryAvailable The new value of isAllHistoryAvailable.
          */
         public ToggleSupergroupIsAllHistoryAvailable(int supergroupId, boolean isAllHistoryAvailable) {
@@ -47112,7 +47270,7 @@ public class TdApi {
          *
          * <p> Returns {@link File File} </p>
          *
-         * @param file File to upload.
+         * @param file     File to upload.
          * @param fileType File type.
          * @param priority Priority of the upload (1-32). The higher the priority, the earlier the file will be uploaded. If the priorities of two files are equal, then the first one for which uploadFile was called will be uploaded first.
          */
@@ -47164,7 +47322,7 @@ public class TdApi {
          *
          * <p> Returns {@link File File} </p>
          *
-         * @param userId Sticker file owner.
+         * @param userId     Sticker file owner.
          * @param pngSticker PNG image with the sticker; must be up to 512 kB in size and fit in 512x512 square.
          */
         public UploadStickerFile(int userId, InputFile pngSticker) {
@@ -47222,7 +47380,7 @@ public class TdApi {
          *
          * <p> Returns {@link ValidatedOrderInfo ValidatedOrderInfo} </p>
          *
-         * @param chatId Chat identifier of the Invoice message.
+         * @param chatId    Chat identifier of the Invoice message.
          * @param messageId Message identifier.
          * @param orderInfo The order information, provided by the user.
          * @param allowSave True, if the order information can be saved.
@@ -47280,9 +47438,9 @@ public class TdApi {
          *
          * <p> Returns {@link Ok Ok} </p>
          *
-         * @param chatId Chat identifier.
+         * @param chatId     Chat identifier.
          * @param messageIds The identifiers of the messages being viewed.
-         * @param forceRead True, if messages in closed chats should be marked as read.
+         * @param forceRead  True, if messages in closed chats should be marked as read.
          */
         public ViewMessages(long chatId, long[] messageIds, boolean forceRead) {
             this.chatId = chatId;
@@ -47381,8 +47539,8 @@ public class TdApi {
          * <p> Returns {@link Ok Ok} </p>
          *
          * @param generationId The identifier of the generation process.
-         * @param offset The offset from which to write the data to the file.
-         * @param data The data to write.
+         * @param offset       The offset from which to write the data to the file.
+         * @param data         The data to write.
          */
         public WriteGeneratedFilePart(long generationId, int offset, byte[] data) {
             this.generationId = generationId;

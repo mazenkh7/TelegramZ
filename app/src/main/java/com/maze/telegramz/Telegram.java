@@ -22,6 +22,8 @@ import androidx.core.app.NotificationManagerCompat;
 import static com.maze.telegramz.ChatsAdapter.makeDateString;
 import static com.maze.telegramz.ChatsAdapter.makeLastMsgStr;
 import static com.maze.telegramz.ChatsFragment.chatsArrayList;
+import static com.maze.telegramz.ConvoActivity.chatId;
+import static com.maze.telegramz.ConvoActivity.msgListAdptr;
 import static com.maze.telegramz.HomeActivity.ic;
 
 public class Telegram {
@@ -110,7 +112,6 @@ public class Telegram {
                 break;
 
         }
-        Log.e("authshit",Telegram.authorizationState.toString());
     }
 
     public static TdApi.User getMe() {
@@ -143,6 +144,8 @@ public class Telegram {
                     break;
                 case TdApi.UpdateNewMessage.CONSTRUCTOR:
                     TdApi.UpdateNewMessage newMessage = (TdApi.UpdateNewMessage) object;
+                    if(chatId == newMessage.message.chatId && newMessage.message.senderUserId != getMe().id)
+                        msgListAdptr.addToStart(newMessage.message,true);
                     break;
                 case TdApi.UpdateNotificationGroup.CONSTRUCTOR:
                     TdApi.UpdateNotificationGroup notificationGroup = (TdApi.UpdateNotificationGroup) object;
@@ -188,11 +191,11 @@ public class Telegram {
                     TdApi.Chat chat = updateNewChat.chat;
                     synchronized (chat) {
                         chats.put(chat.id, chat);
-
                         long order = chat.order;
                         chat.order = 0;
                         setChatOrder(chat, order);
                     }
+                    ic.refreshChatsRecycler();
                     break;
                 }
                 case TdApi.UpdateChatTitle.CONSTRUCTOR: {
@@ -202,6 +205,7 @@ public class Telegram {
                         chat.title = updateChat.title;
                     }
                     getRecyclerChatsItem(chat.id).setTitle(chat.title);
+                    ic.refreshChatsRecycler();
                     break;
                 }
                 case TdApi.UpdateChatPhoto.CONSTRUCTOR: {
@@ -210,7 +214,7 @@ public class Telegram {
                     synchronized (chat) {
                         chat.photo = updateChat.photo;
                     }
-                    client.send(new TdApi.DownloadFile(chat.photo.small.id, 1, 0, 0, true), new displayPicDownloadHandler());
+                    client.send(new TdApi.DownloadFile(chat.photo.small.id, 1, 0, 0, false), new displayPicDownloadHandler());
                     break;
                 }
                 case TdApi.UpdateChatLastMessage.CONSTRUCTOR: {
