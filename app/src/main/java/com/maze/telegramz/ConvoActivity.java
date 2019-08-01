@@ -73,14 +73,13 @@ public class ConvoActivity extends AppCompatActivity {
 
     private void loadImages(TdApi.Message m){
         TdApi.MessagePhoto mph = (TdApi.MessagePhoto)m.content;
-        client.send(new TdApi.DownloadFile(mph.photo.sizes[mph.photo.sizes.length-1].photo.id, 1, 0, 0, false), object -> {
+        client.send(new TdApi.DownloadFile(mph.photo.sizes[mph.photo.sizes.length-1].photo.id, 1, 0, 0, true), object -> {
             if (object.getConstructor() == TdApi.File.CONSTRUCTOR) {
                 TdApi.File f = (TdApi.File) object;
-                m.setImageUrl(f.local.path);
                 if (f.local.isDownloadingCompleted) {
+                    m.setImageUrl(f.local.path);
                     runOnUiThread(()->msgListAdptr.update(m));
                 }else{
-                    runOnUiThread(()->msgListAdptr.update(m));
                 }
             }
         });

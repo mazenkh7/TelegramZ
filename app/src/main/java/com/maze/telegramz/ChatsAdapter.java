@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.drinkless.td.libcore.telegram.TdApi;
 
 import java.io.File;
@@ -122,11 +124,10 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatListView
                 f = new File(chat.photo.small.local.path);
                 ch.setDisplayPicID(chat.photo.small.id);
                 if (!f.exists())
-                    client.send(new TdApi.DownloadFile(chat.photo.small.id, 1, 0, 0, false), new Telegram.displayPicDownloadHandler());
+                    client.send(new TdApi.DownloadFile(chat.photo.small.id, 1, 0, 0, true), new Telegram.displayPicDownloadHandler());
                 else
                     ch.setDisplayPic(f);
             }
-
             if (getMe() != null && chat.id == getMe().id) {
                 ch.setTitle("Saved Messages");
                 BitmapFactory.Options bmOptions = new BitmapFactory.Options();

@@ -95,12 +95,7 @@ public class HomeActivity extends AppCompatActivity implements OnFragmentInterac
 
     public class HomeActivityIC {
         public void refreshChatsRecycler() {
-            HomeActivity.this.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    chatsAdapter.notifyDataSetChanged();
-                }
-            });
+            HomeActivity.this.runOnUiThread(() -> chatsAdapter.notifyDataSetChanged());
         }
         public Context getContext(){
             return HomeActivity.this.getApplicationContext();

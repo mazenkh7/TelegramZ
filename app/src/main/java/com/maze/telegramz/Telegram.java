@@ -55,7 +55,7 @@ public class Telegram {
         switch (Telegram.authorizationState.getConstructor()) {
             case TdApi.AuthorizationStateWaitTdlibParameters.CONSTRUCTOR:
                 TdApi.TdlibParameters parameters = new TdApi.TdlibParameters();
-                parameters.databaseDirectory = Environment.getDataDirectory().getPath() + "/data/com.maze.telegramz/tdlib/";
+                parameters.databaseDirectory = Environment.getDataDirectory().getPath() + "/data/com.maze.telegramz/files/";
                 parameters.useMessageDatabase = true;
                 parameters.useSecretChats = true;
                 parameters.apiId = 619181;
@@ -144,8 +144,8 @@ public class Telegram {
                     break;
                 case TdApi.UpdateNewMessage.CONSTRUCTOR:
                     TdApi.UpdateNewMessage newMessage = (TdApi.UpdateNewMessage) object;
-                    if(chatId == newMessage.message.chatId && newMessage.message.senderUserId != getMe().id)
-                        msgListAdptr.addToStart(newMessage.message,true);
+                    if (chatId == newMessage.message.chatId && newMessage.message.senderUserId != getMe().id)
+                        msgListAdptr.addToStart(newMessage.message, true);
                     break;
                 case TdApi.UpdateNotificationGroup.CONSTRUCTOR:
                     TdApi.UpdateNotificationGroup notificationGroup = (TdApi.UpdateNotificationGroup) object;
@@ -195,7 +195,7 @@ public class Telegram {
                         chat.order = 0;
                         setChatOrder(chat, order);
                     }
-                    ic.refreshChatsRecycler();
+                    updateChatOrder(chat);
                     break;
                 }
                 case TdApi.UpdateChatTitle.CONSTRUCTOR: {
@@ -214,7 +214,7 @@ public class Telegram {
                     synchronized (chat) {
                         chat.photo = updateChat.photo;
                     }
-                    client.send(new TdApi.DownloadFile(chat.photo.small.id, 1, 0, 0, false), new displayPicDownloadHandler());
+                    client.send(new TdApi.DownloadFile(chat.photo.small.id, 1, 0, 0, true), new displayPicDownloadHandler());
                     break;
                 }
                 case TdApi.UpdateChatLastMessage.CONSTRUCTOR: {
@@ -349,14 +349,16 @@ public class Telegram {
                     break;
                 case TdApi.UpdateFile.CONSTRUCTOR:
                     TdApi.UpdateFile updateFile = (TdApi.UpdateFile) object;
-                    if (updateFile.file.local.isDownloadingCompleted) {
-                        for (ChatsItem i : chatsArrayList) {
-                            if (i.getDisplayPicID() == updateFile.file.id) {
-                                i.setDisplayPic(new File(updateFile.file.local.path));
-                            }
-                        }
-                        ic.refreshChatsRecycler();
-                    }
+//                    updateFile.file.id
+                             //                    if (updateFile.file.local.isDownloadingCompleted) {
+//                        for (ChatsItem i : chatsArrayList) {
+//                            if (i.getDisplayPicID() == updateFile.file.id) {
+//                                i.setDisplayPic(new File(updateFile.file.local.path));
+//                            }
+//                        }
+//                        ic.refreshChatsRecycler();
+//                    }
+                    break;
 
                 case TdApi.UpdateSupergroupFullInfo.CONSTRUCTOR:
                     TdApi.UpdateSupergroupFullInfo updateSupergroupFullInfo = (TdApi.UpdateSupergroupFullInfo) object;
@@ -435,6 +437,19 @@ public class Telegram {
 
     public static void updateChatOrder(TdApi.Chat chat) {
         ChatsItem i = getRecyclerChatsItem(chat.id);
+        if (i == null) {
+            ChatsItem ch = ChatsItem.build(chat);
+            chatsArrayList.add(ch);
+            File f;
+            if (chat.photo != null) {
+                f = new File(chat.photo.small.local.path);
+                ch.setDisplayPicID(chat.photo.small.id);
+                if (!f.exists())
+                    client.send(new TdApi.DownloadFile(chat.photo.small.id, 1, 0, 0, true), new Telegram.displayPicDownloadHandler());
+                else
+                    ch.setDisplayPic(f);
+            }
+        }
         i.setOrder(chat.order);
         Collections.sort(chatsArrayList);
         ic.refreshChatsRecycler();
@@ -482,7 +497,7 @@ public class Telegram {
                 TdApi.File f = (TdApi.File) object;
                 if (f.local.isDownloadingCompleted) {
                     for (ChatsItem i : chatsArrayList) {
-                        if (i.getDisplayPicID() == f.id) {
+                        if (i.getDisplayPicID() == f.id && i.getId()!=getMe().id) {
                             i.setDisplayPic(new File(f.local.path));
                             ic.refreshChatsRecycler();
                         }

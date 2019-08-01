@@ -10,8 +10,12 @@ import android.graphics.Color;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 
+import org.drinkless.td.libcore.telegram.TdApi;
+
 import java.io.File;
 
+import static com.maze.telegramz.ChatsAdapter.makeDateString;
+import static com.maze.telegramz.ChatsAdapter.makeLastMsgStr;
 import static com.maze.telegramz.HomeActivity.ic;
 
 public class ChatsItem implements Comparable<ChatsItem> {
@@ -144,5 +148,12 @@ public class ChatsItem implements Comparable<ChatsItem> {
 
     public TextDrawable getTextDrawable() {
         return textDrawable;
+    }
+
+    public static ChatsItem build(TdApi.Chat chat) {
+        long timeStamp = chat.lastMessage.date;
+        String dateString = makeDateString(timeStamp);
+        String lastMsg = makeLastMsgStr(chat);
+        return new ChatsItem(chat.id, null, chat.title, lastMsg, dateString, chat.order);
     }
 }
