@@ -70,7 +70,7 @@ public class ChatsItem implements Comparable<ChatsItem> {
         this.id = id;
         this.order = order;
         setDisplayPic(f);
-        SharedPreferences sp = ic.getContext().getSharedPreferences("TZTD", Context.MODE_PRIVATE);
+        SharedPreferences sp = IntroActivity.context.getSharedPreferences("TZTD", Context.MODE_PRIVATE);
         int color;
         if (sp.getInt(""+id, -1)==-1) {
             ColorGenerator cg = ColorGenerator.MATERIAL;

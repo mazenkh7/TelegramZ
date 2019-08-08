@@ -23,7 +23,7 @@ public class IncomingImageHolder extends MessageHolders.IncomingImageMessageView
         super.onBind(message);
         time.setText(new SimpleDateFormat("h:mm a", Locale.getDefault()).format(message.getCreatedAt()));
         ProgressBar pb = itemView.findViewById(R.id.imageProgressBar);
-        if(message.getImageUrl() != null)
+        if(message.getImageUrl() != null && !message.getImageUrl().equals("-"))
             pb.setVisibility(View.GONE);
     }
 }

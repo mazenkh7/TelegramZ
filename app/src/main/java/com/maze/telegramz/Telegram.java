@@ -1,5 +1,7 @@
 package com.maze.telegramz;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Environment;
 import android.util.Log;
 
@@ -27,10 +29,11 @@ import static com.maze.telegramz.ConvoActivity.msgListAdptr;
 import static com.maze.telegramz.HomeActivity.ic;
 
 public class Telegram {
-    private static final ConcurrentMap<Integer, TdApi.User> users = new ConcurrentHashMap<Integer, TdApi.User>();
-    private static final ConcurrentMap<Integer, TdApi.BasicGroup> basicGroups = new ConcurrentHashMap<Integer, TdApi.BasicGroup>();
-    private static final ConcurrentMap<Integer, TdApi.Supergroup> supergroups = new ConcurrentHashMap<Integer, TdApi.Supergroup>();
-    private static final ConcurrentMap<Integer, TdApi.SecretChat> secretChats = new ConcurrentHashMap<Integer, TdApi.SecretChat>();
+    private static final ConcurrentMap<Integer, TdApi.User> users = new ConcurrentHashMap<>();
+    private static final ConcurrentMap<Integer, TdApi.BasicGroup> basicGroups = new ConcurrentHashMap<>();
+    private static final ConcurrentMap<Integer, TdApi.Supergroup> supergroups = new ConcurrentHashMap<>();
+    private static final ConcurrentMap<Integer, TdApi.SecretChat> secretChats = new ConcurrentHashMap<>();
+    private static final ConcurrentMap<Integer, TdApi.Message> fileMessageMap = new ConcurrentHashMap<>();
     private static TdApi.User me;
 
     static final ConcurrentMap<Long, TdApi.Chat> chats = new ConcurrentHashMap<Long, TdApi.Chat>();
@@ -74,22 +77,21 @@ public class Telegram {
             case TdApi.AuthorizationStateWaitPhoneNumber.CONSTRUCTOR:
                 client.send(new TdApi.SetAuthenticationPhoneNumber(phoneNum, false, false), new Telegram.AuthorizationRequestHandler());
                 break;
-
             case TdApi.AuthorizationStateWaitCode.CONSTRUCTOR:
                 client.send(new TdApi.CheckAuthenticationCode(verfCode, "", ""), new Telegram.AuthorizationRequestHandler());
                 break;
-
             case TdApi.AuthorizationStateReady.CONSTRUCTOR:
-                client.send(new TdApi.GetMe(), new Client.ResultHandler() {
-                    @Override
-                    public void onResult(TdApi.Object object) {
-                        if (object.getConstructor() == TdApi.User.CONSTRUCTOR) {
-                            setMe((TdApi.User) object);
-                        }
+                client.send(new TdApi.GetMe(), object -> {
+                    if (object.getConstructor() == TdApi.User.CONSTRUCTOR) {
+                        setMe((TdApi.User) object);
                     }
                 }, null);
                 client.send(new TdApi.SetOption("notification_group_count_max", new TdApi.OptionValueInteger(5)), null, null);
                 client.send(new TdApi.SetOption("notification_group_size_max", new TdApi.OptionValueInteger(5)), null, null);
+                SharedPreferences sp = IntroActivity.context.getSharedPreferences("TZSP", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putBoolean("Loggedin", true);
+                editor.apply();
 //                authorizationLock.lock();
 //                try {
 //                    gotAuthorization.signal();
@@ -350,7 +352,7 @@ public class Telegram {
                 case TdApi.UpdateFile.CONSTRUCTOR:
                     TdApi.UpdateFile updateFile = (TdApi.UpdateFile) object;
 //                    updateFile.file.id
-                             //                    if (updateFile.file.local.isDownloadingCompleted) {
+                    //                    if (updateFile.file.local.isDownloadingCompleted) {
 //                        for (ChatsItem i : chatsArrayList) {
 //                            if (i.getDisplayPicID() == updateFile.file.id) {
 //                                i.setDisplayPic(new File(updateFile.file.local.path));
@@ -497,7 +499,7 @@ public class Telegram {
                 TdApi.File f = (TdApi.File) object;
                 if (f.local.isDownloadingCompleted) {
                     for (ChatsItem i : chatsArrayList) {
-                        if (i.getDisplayPicID() == f.id && i.getId()!=getMe().id) {
+                        if (i.getDisplayPicID() == f.id && i.getId() != getMe().id) {
                             i.setDisplayPic(new File(f.local.path));
                             ic.refreshChatsRecycler();
                         }

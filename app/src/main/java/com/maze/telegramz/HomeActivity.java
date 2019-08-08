@@ -74,10 +74,6 @@ public class HomeActivity extends AppCompatActivity implements OnFragmentInterac
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.homeFragmentFrame, new ChatsFragment(), "Chats Fragment");
         fragmentTransaction.commit();
-        SharedPreferences sp = getSharedPreferences("TZSP", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putBoolean("Loggedin", true);
-        editor.apply();
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         ic = new HomeActivityIC();

@@ -1,46 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="1dp"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="200dp"
+    android:layout_height="200dp"
     android:layout_marginLeft="16dp"
+    android:layout_marginTop="1dp"
     android:layout_marginRight="16dp"
-    android:layout_marginTop="1dp">
+    android:layout_marginBottom="1dp">
 
     <com.stfalcon.chatkit.utils.ShapeImageView
         android:id="@id/messageUserAvatar"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_above="@id/messageTime"
-        android:layout_marginEnd="8dp"/>
+        android:layout_marginEnd="8dp" />
 
     <com.stfalcon.chatkit.utils.RoundedImageView
         android:id="@id/image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
         android:layout_marginEnd="@dimen/message_incoming_bubble_margin_right"
-        android:layout_toEndOf="@id/messageUserAvatar"/>
+        android:layout_toEndOf="@id/messageUserAvatar"
+        android:adjustViewBounds="true" />
 
     <View
         android:id="@id/imageOverlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/image"
-        android:layout_alignEnd="@id/image"
-        android:layout_alignStart="@id/image"
-        android:layout_alignTop="@id/image"/>
-
-    <ProgressBar
-        android:id="@+id/imageProgressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/image"
-        android:layout_alignEnd="@id/image"
         android:layout_alignStart="@id/image"
         android:layout_alignTop="@id/image"
-        android:max="100"/>
+        android:layout_alignEnd="@id/image"
+        android:layout_alignBottom="@id/image" />
 
     <TextView
         android:id="@id/messageTime"
@@ -50,5 +40,15 @@
         android:layout_marginBottom="1dp"
         android:layout_toEndOf="@+id/imageOverlay"
         android:textAlignment="textStart" />
+
+    <ProgressBar
+        android:id="@+id/imageProgressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp" />
 
 </RelativeLayout>

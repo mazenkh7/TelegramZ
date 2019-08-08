@@ -13731,6 +13731,15 @@ public class TdApi {
             return "" + id;
         }
 
+        public int getDownloadProgress() {
+            return downloadProgress;
+        }
+
+        public void setDownloadProgress(int downloadProgress) {
+            this.downloadProgress = downloadProgress;
+        }
+
+        private int downloadProgress;
 
 
         @Override
